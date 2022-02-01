@@ -1,0 +1,65 @@
+{
+  "home": {
+    "title": "Bienvenu"
+  },
+  "aboutDialog": {
+    "title": "À propos de Hockey Tools",
+    "text1": "Ce projet a vu naissance pour le plaisir ainsi que pour prouver que j'avais raison. Il pourrait ou ne pourrait pas évoluer davantage.",
+    "text2": "Pour tout commentaire, question ou suggestion, veuillez me contacter à l'adresse suivante:"
+  },
+  "draftTool": {
+    "drafts": "Repêchages",
+    "team": "Équipe",
+    "teamRounds": "Roundes de l'équipe"
+  },
+  "draftToolParameters": {
+    "years": "Sélection des repêchages",
+    "startYear": "Année de début",
+    "endYear": "Année de fin",
+    "parameters": "Paramètres",
+    "selectionRatio": "Ratio sélection du choix",
+    "recencyRatio": "Ratio récence du choix"
+  },
+  "draftToolTable": {
+    "title": "Outil de repêchage",
+    "team": "Équipe",
+    "score": "Pointage"
+  },
+  "teamDraftsTable": {
+    "draftYear": "Année",
+    "pick": "Choix",
+    "score": "Pointage",
+    "rounds": "Rondes"
+  },
+  "teamDraftTable": {
+    "title": "Repêchage {{year}} de {{team}}",
+    "round": "Ronde",
+    "pick": "Choix",
+    "player": "Joueur",
+    "position": "POS",
+    "games": "PJ",
+    "goals": "B",
+    "assists": "A",
+    "points": "Pts",
+    "penalty": "MIN",
+    "wins": "V",
+    "losses": "D",
+    "goalsAgainstAverage": "MBA",
+    "savePercentage": "%EEF",
+    "score": "Pointage"
+  },
+  "scoreDialog": {
+    "title": "Détail du pointage de repêchage",
+    "result": "Résultat",
+    "baseScore": "Pointage de base",
+    "selectionRatio": "Ratio sélection du choix",
+    "recencyRatio": "Ratio récence du choix",
+    "baseScoreText": "Nombre de matchs de saison régulière joués dans la LNH.",
+    "selectionRatioText": "Position du choix de repêchage * {{selectionRatio}} / {{constant}}",
+    "recencyRatioText1": "(Année courante - (Année du repêchage - {{constant}}))",
+    "recencyRatioText2": "{{variable}} si {{variable}} > 0 sinon",
+    "recencyRatioText3": "{{recencyRatio}} * {{variable}} * {{constant}}",
+    "finalResult": "Résultat final",
+    "finalResultText": "Pointage de base + Ratio sélection du choix + Ratio récence du choix"
+  }
+}

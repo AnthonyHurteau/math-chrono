@@ -1,0 +1,65 @@
+{
+  "home": {
+    "title": "Welcome"
+  },
+  "aboutDialog": {
+    "title": "About Hockey Tools",
+    "text1": "This project was created for fun and to prove a point. It may or may not envolve into something bigger",
+    "text2": "For any comment, question or requests, please contact me at the following address:"
+  },
+  "draftTool": {
+    "drafts": "Drafts",
+    "team": "Team",
+    "teamRounds": "Team Rounds"
+  },
+  "draftToolParameters": {
+    "years": "Drafts Selection",
+    "startYear": "Start Year",
+    "endYear": "End Year",
+    "parameters": "Parameters",
+    "selectionRatio": "Pick Selection Ratio",
+    "recencyRatio": "Pick Recency Ratio"
+  },
+  "draftToolTable": {
+    "title": "Draft Tool",
+    "team": "Team",
+    "score": "Score"
+  },
+  "teamDraftsTable": {
+    "draftYear": "Year",
+    "pick": "Pick",
+    "score": "Score",
+    "rounds": "Rounds"
+  },
+  "teamDraftTable": {
+    "title": "{{team}} {{year}} Draft",
+    "round": "Round",
+    "pick": "Pick",
+    "player": "Player",
+    "position": "POS",
+    "games": "GP",
+    "goals": "G",
+    "assists": "A",
+    "points": "Pts",
+    "penalty": "PIM",
+    "wins": "W",
+    "losses": "L",
+    "goalsAgainstAverage": "GAA",
+    "savePercentage": "SV%",
+    "score": "Score"
+  },
+  "scoreDialog": {
+    "title": "Draft Score Breakdown",
+    "result": "Result",
+    "baseScore": "Base Score",
+    "selectionRatio": "Pick Selection Ratio",
+    "recencyRatio": "Pick Recency Ratio",
+    "baseScoreText": "Number of NHL regular season games played.",
+    "selectionRatioText": "Pick draft position * {{selectionRatio}} / {{constant}}",
+    "recencyRatioText1": "(Current year - (Draft year - {{constant}} ))",
+    "recencyRatioText2": "{{variable}} if {{variable}} > 0 else",
+    "recencyRatioText3": "{{recencyRatio}} * {{variable}} * {{constant}}",
+    "finalResult": "Final Result",
+    "finalResultText": "Base Score + Pick Selection Ratio + Pick Recency Ratio"
+  }
+}
