@@ -14,6 +14,7 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Calculate from "@mui/icons-material/Calculate";
+import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import { useTranslation } from "react-i18next";
 
 import AboutDialogComponent from "./AboutDialogComponent";
@@ -33,7 +34,7 @@ export default function Navbar(props) {
     setAnchorEl(null);
   };
 
-  const [language, setLanguage] = React.useState(i18n.languages);
+  const [language, setLanguage] = React.useState(i18n.language);
 
   const languageToggle = () => {
     setLanguage((l) => (l === "fr" ? "en" : "fr"));
@@ -52,7 +53,11 @@ export default function Navbar(props) {
         color="secondary"
         onClick={languageToggle}
       >
-        {language === "fr" ? "en" : "fr"}
+        <Typography
+          sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}
+        >
+          {language === "fr" ? "en" : "fr"}
+        </Typography>
       </Button>
     );
   }
@@ -110,7 +115,12 @@ export default function Navbar(props) {
             variant="outlined"
             color="secondary">
             <Calculate />
-            <Typography variant="h6">&nbsp;Math Chrono</Typography>
+            <Typography
+              sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}
+            >
+              &nbsp;Math Chrono&nbsp;
+            </Typography>
+            <AccessAlarmIcon />
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           {props.isMobile ? (

@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import getTheme from "./theme";
 import { CssBaseline } from "@mui/material";
 import Navbar from "./components/Navbar";
+import ParamsComponent from "./components/ParamsComponent";
+import CustomLinearProgress from "./components/SuspenseFallbackComponent";
+import {
+  getStorageParams,
+  setStorageParams,
+} from "./components/services/SettingsService";
 import {
   getStorageMode,
   setStorageMode,
@@ -11,6 +18,7 @@ import {
 
 function App() {
   const [themeMode, setThemeMode] = useState(getStorageMode());
+  const [params, setParams] = useState(getStorageParams());
   const appliedTheme = createTheme(getTheme(themeMode));
 
   const handleThemeModeChange = () => {
@@ -36,15 +44,34 @@ function App() {
     setStorageMode(themeMode);
   }, [themeMode]);
 
+  useEffect(() => {
+    setStorageParams(params);
+  }, [params]);
+
   return (
-    <ThemeProvider theme={appliedTheme}>
-      <CssBaseline />
-      <Navbar
-        isMobile={isMobile}
-        themeMode={themeMode}
-        handleThemeModeChange={handleThemeModeChange}
-      />
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={appliedTheme}>
+        <Suspense fallback={<CustomLinearProgress />}>
+          <CssBaseline />
+          <Navbar
+            isMobile={isMobile}
+            themeMode={themeMode}
+            handleThemeModeChange={handleThemeModeChange}
+          />
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ParamsComponent
+                  params={params}
+                  setParams={setParams} />
+              }
+            />
+          </Routes>
+        </Suspense>
+      </ThemeProvider>
+    </Router>
   );
 }
 

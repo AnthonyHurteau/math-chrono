@@ -1,0 +1,10 @@
+.container {
+  height: calc(100vh - 56px);
+  top: 56px;
+  position: relative;
+  text-align: center;
+}
+
+.chalk-title {
+  font-size: 56px;
+}

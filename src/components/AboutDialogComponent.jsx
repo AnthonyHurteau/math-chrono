@@ -36,13 +36,15 @@ export default function AboutDialogComponent(props) {
         <DialogContent>
           <Typography
             color="secondary"
-            variant="h4">
+            sx={{ fontFamily: "Fredericka the Great", fontSize: "48px" }}
+          >
             {t("aboutDialog.title")}
           </Typography>
           <br />
           <Typography
             color="secondary"
-            variant="h6">
+            sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}
+          >
             Version {AppSettings.version}
           </Typography>
           <br />
@@ -54,7 +56,7 @@ export default function AboutDialogComponent(props) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              nhl.tools.app@gmail.com
+              hurteau.anthony123@gmail.com
             </a>
           </p>
         </DialogContent>
@@ -63,7 +65,11 @@ export default function AboutDialogComponent(props) {
             variant="outlined"
             color="secondary"
             onClick={handleClose}>
-            Ok
+            <Typography
+              sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}
+            >
+              Ok
+            </Typography>
           </Button>
         </DialogActions>
       </Dialog>

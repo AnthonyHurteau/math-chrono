@@ -92,9 +92,34 @@ const getTheme = (mode) => ({
       }),
   },
   components: {
+    MuiInputBase: {
+      styleOverrides: {
+        root: { fontFamily: "Fredericka the Great" },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: { fontFamily: "Fredericka the Great" },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: { fontFamily: "Fredericka the Great" },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Fredericka the Great",
+          fontSize: "20px",
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
+          fontFamily: "Fredericka the Great",
+          fontSize: "20px",
           mode,
           ...(mode === "dark"
             ? {
