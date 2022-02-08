@@ -1,11 +1,17 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
 import getTheme from "./theme";
 import { CssBaseline } from "@mui/material";
 import Navbar from "./components/Navbar";
 import ParamsComponent from "./components/ParamsComponent";
+import MathComponent from "./components/MathComponent";
 import CustomLinearProgress from "./components/SuspenseFallbackComponent";
 import {
   getStorageParams,
@@ -20,6 +26,14 @@ function App() {
   const [themeMode, setThemeMode] = useState(getStorageMode());
   const [params, setParams] = useState(getStorageParams());
   const appliedTheme = createTheme(getTheme(themeMode));
+
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitionStage, setTransistionStage] = useState("fadeIn");
+
+  useEffect(() => {
+    if (location !== displayLocation) setTransistionStage("fadeOut");
+  }, [location]);
 
   const handleThemeModeChange = () => {
     setThemeMode((t) => (t === "light" ? "dark" : "light"));
@@ -49,29 +63,47 @@ function App() {
   }, [params]);
 
   return (
-    <Router>
-      <ThemeProvider theme={appliedTheme}>
-        <Suspense fallback={<CustomLinearProgress />}>
-          <CssBaseline />
-          <Navbar
-            isMobile={isMobile}
-            themeMode={themeMode}
-            handleThemeModeChange={handleThemeModeChange}
-          />
+  // <Router>
 
-          <Routes>
+    <ThemeProvider theme={appliedTheme}>
+      <Suspense fallback={<CustomLinearProgress />}>
+        <CssBaseline />
+        <Navbar
+          isMobile={isMobile}
+          themeMode={themeMode}
+          handleThemeModeChange={handleThemeModeChange}
+        />
+        <div
+          className={`${transitionStage}`}
+          onAnimationEnd={() => {
+            if (transitionStage === "fadeOut") {
+              setTransistionStage("fadeIn");
+              setDisplayLocation(location);
+            }
+          }}
+        >
+          <Routes location={displayLocation}>
             <Route
               path="/"
               element={
                 <ParamsComponent
+                  isMobile={isMobile}
                   params={params}
-                  setParams={setParams} />
+                  setParams={setParams}
+                />
               }
             />
+            <Route
+              path="math"
+              element={<MathComponent
+                isMobile={isMobile}
+                params={params} />}
+            />
           </Routes>
-        </Suspense>
-      </ThemeProvider>
-    </Router>
+        </div>
+      </Suspense>
+    </ThemeProvider>
+    // </Router>
   );
 }
 

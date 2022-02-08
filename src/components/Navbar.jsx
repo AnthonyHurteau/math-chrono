@@ -16,6 +16,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Calculate from "@mui/icons-material/Calculate";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import AboutDialogComponent from "./AboutDialogComponent";
 
@@ -113,7 +114,10 @@ export default function Navbar(props) {
         <Toolbar>
           <Button
             variant="outlined"
-            color="secondary">
+            color="secondary"
+            component={Link}
+            to={"/"}
+          >
             <Calculate />
             <Typography
               sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}

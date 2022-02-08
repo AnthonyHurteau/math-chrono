@@ -9,6 +9,7 @@ import Switch from "@mui/material/Switch";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Fade from "@mui/material/Fade";
+import { Link } from "react-router-dom";
 
 // !!!!!!! ALWAYS ADD NEW PROPERTIES HERE WHEN ADDING NEW PARAMS !!!!!!
 export const initParams = {
@@ -411,9 +412,10 @@ export default function ParamsComponent(props) {
             <Grid
               item
               xs={12}
-              sm={6}>
+              sm={6}
+              sx={{ height: props.isMobile ? "40px" : "60px" }}
+            >
               <FormControlLabel
-                sx={{ height: "60px" }}
                 control={
                   <Switch
                     color="secondary"
@@ -433,7 +435,12 @@ export default function ParamsComponent(props) {
             <Grid
               item
               xs={12}
-              sm={6}>
+              sm={6}
+              sx={{
+                height: props.isMobile ? "40px" : "60px",
+                paddingTop: "6px",
+              }}
+            >
               <Fade
                 in={yesNegativeNumbers}
                 timeout={negativeNumbersYesNoTransitionTime}
@@ -448,21 +455,25 @@ export default function ParamsComponent(props) {
               >
                 <div>{t("params.negativeNumbersNo")}</div>
               </Fade>
-              {/* {props.params.negativeNumbers ? "Oui" : "Non"} */}
             </Grid>
             <Grid
               item
               xs={12}
               sx={{ paddingTop: 5 }}>
               <Button
-                variant="outlined"
+                variant="contained"
                 color="secondary"
                 onClick={() => {
                   validateAll();
                 }}
+                component={Link}
+                to={"math"}
               >
                 <Typography
-                  sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}
+                  sx={{
+                    fontFamily: "Fredericka the Great",
+                    fontSize: "22px",
+                  }}
                 >
                   {t("params.submit")}
                 </Typography>
