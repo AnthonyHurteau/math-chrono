@@ -17,10 +17,19 @@ import Calculate from "@mui/icons-material/Calculate";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
 import AboutDialogComponent from "./AboutDialogComponent";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: { zIndex: theme.zIndex.drawer + 1 },
+  text: { fontFamily: "Fredericka the Great", fontSize: "22px" },
+  menuItems: { width: "75px", textAlign: "center" },
+
+  sliderRow: (props) => ({ height: props.isMobile ? "40px" : "60px" }),
+}));
 
 export default function Navbar(props) {
+  const classes = useStyles();
   const { i18n } = useTranslation();
   const [openAboutDialog, setOpenAboutDialog] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,9 +63,7 @@ export default function Navbar(props) {
         color="secondary"
         onClick={languageToggle}
       >
-        <Typography
-          sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}
-        >
+        <Typography className={classes.text}>
           {language === "fr" ? "en" : "fr"}
         </Typography>
       </Button>
@@ -99,7 +106,7 @@ export default function Navbar(props) {
     return menuItems.map((m, i) => (
       <Box
         key={`menuItemBox${i}`}
-        sx={{ width: "75px", textAlign: "center" }}>
+        className={classes.menuItems}>
         {m}
       </Box>
     ));
@@ -109,8 +116,7 @@ export default function Navbar(props) {
     <React.Fragment>
       <AppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
+        className={classes.root}>
         <Toolbar>
           <Button
             variant="outlined"
@@ -119,9 +125,7 @@ export default function Navbar(props) {
             to={"/"}
           >
             <Calculate />
-            <Typography
-              sx={{ fontFamily: "Fredericka the Great", fontSize: "22px" }}
-            >
+            <Typography className={classes.text}>
               &nbsp;Math Chrono&nbsp;
             </Typography>
             <AccessAlarmIcon />

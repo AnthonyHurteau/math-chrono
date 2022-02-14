@@ -1,3 +1,5 @@
+import { evaluate } from "mathjs";
+
 export function getOperations(params) {
   const operators = getOperators(params);
 
@@ -7,20 +9,57 @@ export function getOperations(params) {
 function generateOperations(params, operators) {
   let operations = [];
   for (let i = 0; i < params.amount; i++) {
-    operations.push({ operation: generateOperation(params, operators) });
+    const operation = generateOperation(params, operators);
+    operations.push({
+      id: i + 1,
+      operation,
+      operationText: getWrittenOperation(operation),
+    });
   }
   return operations;
 }
 
 function generateOperation(params, operators) {
   let operation = "";
+
   for (let i = 0; i < params.operands; i++) {
-    operation = operation + getOperand(params);
+    let newOperand = getOperand(params);
+
+    if (params.negativeNumbers) {
+      if (
+        newOperand.charAt(0) === "-" &&
+        operation.charAt(operation.length - 1) === "+"
+      ) {
+        operation = operation.slice(0, -1);
+      }
+    }
+
+    operation = operation + newOperand;
+
     if (i < params.operands - 1) {
       operation = operation + getRandomOperator(operators);
     }
   }
+
+  operation = validateOperation(params, operators, operation);
+
   return operation;
+}
+
+function validateOperation(params, operators, operation) {
+  let validatedOperation = operation;
+
+  if (isNaN(evaluate(operation)) || evaluate(operation) === Infinity) {
+    validatedOperation = generateOperation(params, operators);
+  }
+  if (evaluate(operation) % 1 !== 0) {
+    validatedOperation = generateOperation(params, operators);
+  }
+  if (!params.negativeNumbers && evaluate(operation) < 0) {
+    validatedOperation = generateOperation(params, operators);
+  }
+
+  return validatedOperation;
 }
 
 function getOperand(params) {
@@ -63,4 +102,15 @@ function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function getWrittenOperation(operation) {
+  operation = operation.replaceAll("+", " + ");
+  operation = operation.replaceAll("-", " - ");
+  operation = operation.replaceAll("*", " x ");
+  operation = operation.replaceAll("/", " ÷ ");
+
+  operation = operation + " = ";
+
+  return operation;
 }

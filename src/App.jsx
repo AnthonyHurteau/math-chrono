@@ -63,8 +63,6 @@ function App() {
   }, [params]);
 
   return (
-  // <Router>
-
     <ThemeProvider theme={appliedTheme}>
       <Suspense fallback={<CustomLinearProgress />}>
         <CssBaseline />

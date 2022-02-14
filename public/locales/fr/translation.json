@@ -20,5 +20,10 @@
     "negativeNumbersYes": "Oui",
     "negativeNumbersNo": "Non",
     "submit": "Démarrer l'exercice!"
+  },
+  "math": {
+    "title": "Math Chrono!",
+    "start": "Débuter!",
+    "done": "Terminer!"
   }
 }

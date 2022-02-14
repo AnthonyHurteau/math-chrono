@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, useTheme, Typography, Button } from "@mui/material";
+import { Container, Grid, Typography, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -27,16 +28,32 @@ export const initParams = {
 
 const validationMinMax = {
   operandsMin: 2,
-  operandsMax: 10,
+  operandsMax: 5,
   amountMin: 1,
-  amountMax: 500,
+  amountMax: 100,
   maximumMin: 1,
-  maximumMax: 999999999,
+  maximumMax: 999,
 };
+
+const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    border: "1px solid",
+    borderRadius: theme.shape.borderRadius,
+    borderColor: theme.palette.secondary.main,
+    padding: "2%",
+    marginTop: "5%",
+    marginBottom: "2%",
+    height: "85vh",
+    overflow: "auto",
+  },
+  sectionPadding: { paddingBottom: 25 },
+  rowPadding: { paddingBottom: 10 },
+  sliderRow: (props) => ({ height: props.isMobile ? "40px" : "60px" }),
+}));
 
 export default function ParamsComponent(props) {
   const [t] = useTranslation();
-  const theme = useTheme();
+  const classes = useStyles(props);
   const [noNegativeNumbers, setNoNegativeNumbers] = useState(
     !props.params.negativeNumbers
   );
@@ -121,8 +138,6 @@ export default function ParamsComponent(props) {
 
   return (
     <Container className="container">
-      <br />
-      <span className="chalk-title">{t("params.title")}</span>
       <Grid
         container
         justifyContent="center"
@@ -138,23 +153,17 @@ export default function ParamsComponent(props) {
           sm={8}>
           <Grid
             container
+            className={classes.gridContainer}
             justifyContent="center"
             alignItems="center"
-            sx={{
-              border: "1px solid",
-              borderRadius: theme.shape.borderRadius,
-              borderColor: theme.palette.secondary.main,
-              padding: 5,
-              marginTop: 5,
-              marginBottom: 5,
-            }}
           >
+            <span className="chalk-title">{t("params.title")}</span>
             {/* Description */}
             <Grid
               item
               xs={12}
               sm={10}
-              sx={{ paddingBottom: 5 }}>
+              className={classes.sectionPadding}>
               {t("params.description")}
             </Grid>
             {/* ---- TIMER ---- */}
@@ -163,16 +172,16 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={10}
-              sx={{ paddingBottom: 2 }}>
+              className={classes.rowPadding}>
               {t("params.timeDescription")}
             </Grid>
             {/* Timer toggle */}
             <Grid
               item
               sm={6}
-              sx={{ paddingBottom: 5 }}>
+              className={classes.sectionPadding}>
               <FormControlLabel
-                sx={{ height: "60px" }}
+                className={classes.sliderRow}
                 control={
                   <Switch
                     color="secondary"
@@ -190,7 +199,7 @@ export default function ParamsComponent(props) {
             <Grid
               item
               sm={6}
-              sx={{ paddingBottom: 5 }}>
+              className={classes.sectionPadding}>
               <Fade
                 in={props.params.isTime}
                 timeout={1000}>
@@ -198,9 +207,9 @@ export default function ParamsComponent(props) {
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TimePicker
                       ampm={false}
-                      views={["minutes", "seconds"]}
-                      inputFormat="mm:ss"
-                      mask="__:__"
+                      views={["hours", "minutes", "seconds"]}
+                      inputFormat="HH:mm:ss"
+                      mask="__:__:__"
                       label={t("params.timepickerLabel")}
                       value={props.params.time}
                       onChange={(newTime) => {
@@ -218,7 +227,7 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={10}
-              sx={{ paddingBottom: 2 }}>
+              className={classes.rowPadding}>
               {t("params.operandsDescription")}
             </Grid>
             {/* Number of operation */}
@@ -226,9 +235,9 @@ export default function ParamsComponent(props) {
               <TextField
                 label={t("params.numberLabel")}
                 type="number"
-                variant="standard"
+                variant="outlined"
                 color="secondary"
-                sx={{ paddingBottom: 5 }}
+                className={classes.sectionPadding}
                 value={props.params.operands}
                 onChange={(event) => {
                   updateParams("operands", event.target.value);
@@ -251,7 +260,7 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={10}
-              sx={{ paddingBottom: 2 }}>
+              className={classes.rowPadding}>
               {t("params.operators")}
             </Grid>
             {/* Addition */}
@@ -270,7 +279,8 @@ export default function ParamsComponent(props) {
                 }
                 label="+"
                 labelPlacement="start"
-                sx={{ paddingBottom: 5, marginLeft: 0 }}
+                className={classes.sectionPadding}
+                sx={{ marginLeft: 0 }}
               />
             </Grid>
             {/* Subsctraction */}
@@ -289,7 +299,7 @@ export default function ParamsComponent(props) {
                 }
                 label="-"
                 labelPlacement="start"
-                sx={{ paddingBottom: 5 }}
+                className={classes.sectionPadding}
               />
             </Grid>
             {/* Multiplication */}
@@ -311,7 +321,7 @@ export default function ParamsComponent(props) {
                 }
                 label="x"
                 labelPlacement="start"
-                sx={{ paddingBottom: 5 }}
+                className={classes.sectionPadding}
               />
             </Grid>
             {/* Division */}
@@ -330,7 +340,7 @@ export default function ParamsComponent(props) {
                 }
                 label="÷"
                 labelPlacement="start"
-                sx={{ paddingBottom: 5 }}
+                className={classes.sectionPadding}
               />
             </Grid>
             {/* ---- Operation amount ---- */}
@@ -339,7 +349,7 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={10}
-              sx={{ paddingBottom: 2 }}>
+              className={classes.rowPadding}>
               {t("params.operationAmount")}
             </Grid>
             {/* Amount */}
@@ -347,9 +357,9 @@ export default function ParamsComponent(props) {
               <TextField
                 label={t("params.numberLabel")}
                 type="number"
-                variant="standard"
+                variant="outlined"
                 color="secondary"
-                sx={{ paddingBottom: 5 }}
+                className={classes.sectionPadding}
                 value={props.params.amount}
                 onChange={(event) => {
                   updateParams("amount", event.target.value);
@@ -372,7 +382,7 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={10}
-              sx={{ paddingBottom: 2 }}>
+              className={classes.rowPadding}>
               {t("params.maximumDescription")}
             </Grid>
             {/* maximum number */}
@@ -380,9 +390,9 @@ export default function ParamsComponent(props) {
               <TextField
                 label={t("params.numberLabel")}
                 type="number"
-                variant="standard"
+                variant="outlined"
                 color="secondary"
-                sx={{ paddingBottom: 5 }}
+                className={classes.sectionPadding}
                 value={props.params.maximum}
                 onChange={(event) => {
                   updateParams("maximum", event.target.value);
@@ -405,7 +415,7 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={10}
-              sx={{ paddingBottom: 2 }}>
+              className={classes.rowPadding}>
               {t("params.negativeNumbersDescription")}
             </Grid>
             {/* Negative numbers  */}
@@ -413,8 +423,7 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={6}
-              sx={{ height: props.isMobile ? "40px" : "60px" }}
-            >
+              className={classes.sliderRow}>
               <FormControlLabel
                 control={
                   <Switch
@@ -436,8 +445,8 @@ export default function ParamsComponent(props) {
               item
               xs={12}
               sm={6}
+              className={classes.sliderRow}
               sx={{
-                height: props.isMobile ? "40px" : "60px",
                 paddingTop: "6px",
               }}
             >
@@ -481,6 +490,7 @@ export default function ParamsComponent(props) {
             </Grid>
           </Grid>
         </Grid>
+        {/* Right Margin */}
         <Grid
           item
           xs={0}
