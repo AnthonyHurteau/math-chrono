@@ -60,7 +60,7 @@ export default function Navbar(props) {
       <Button
         key={"languageToggle"}
         variant="outlined"
-        color="secondary"
+        color="primary"
         onClick={languageToggle}
       >
         <Typography className={classes.text}>
@@ -74,7 +74,7 @@ export default function Navbar(props) {
     return (
       <IconButton
         key={"themeModeToggle"}
-        color="secondary"
+        color="primary"
         onClick={() => props.handleThemeModeChange()}
       >
         {props.themeMode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -86,7 +86,7 @@ export default function Navbar(props) {
     return (
       <IconButton
         key={"aboutToggle"}
-        color="secondary"
+        color="primary"
         onClick={() => {
           setOpenAboutDialog(true);
         }}
@@ -116,14 +116,14 @@ export default function Navbar(props) {
     <React.Fragment>
       <AppBar
         position="fixed"
-        className={classes.root}>
+        className={classes.root}
+        color="secondary">
         <Toolbar>
           <Button
             variant="outlined"
-            color="secondary"
+            color="primary"
             component={Link}
-            to={"/"}
-          >
+            to={"/"}>
             <Calculate />
             <Typography className={classes.text}>
               &nbsp;Math Chrono&nbsp;
@@ -134,7 +134,7 @@ export default function Navbar(props) {
           {props.isMobile ? (
             <Box>
               <IconButton onClick={handleClick}>
-                <MoreVertIcon color="secondary" />
+                <MoreVertIcon color="primary" />
               </IconButton>
               <Menu
                 anchorEl={anchorEl}

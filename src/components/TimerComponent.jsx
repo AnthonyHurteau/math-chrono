@@ -8,32 +8,33 @@ import React, {
 import { makeStyles } from "@mui/styles";
 
 const timerSize = "200px";
+const timerSizeMobile = "50px";
 const strokeWidth = "7px";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: (props) => ({
     position: "relative",
-    height: timerSize,
-    width: timerSize,
-  },
+    height: props.isMobile ? timerSizeMobile : timerSize,
+    width: props.isMobile ? timerSizeMobile : timerSize,
+  }),
   rootCircle: {
     fill: "none",
     stroke: "none",
   },
   rootPathElapsed: {
     strokeWidth,
-    stroke: theme.palette.secondary.main,
+    stroke: theme.palette.primary.main,
   },
-  rootLabel: {
+  rootLabel: (props) => ({
     position: "absolute",
-    height: timerSize,
-    width: timerSize,
+    height: props.isMobile ? timerSizeMobile : timerSize,
+    width: props.isMobile ? timerSizeMobile : timerSize,
     top: 0,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     fontSize: "48px",
-  },
+  }),
   rootPathRemaining: {
     strokeWidth,
     strokeLinecap: "round",
@@ -43,10 +44,10 @@ const useStyles = makeStyles((theme) => ({
     stroke: "currentcolor",
   },
   green: {
-    color: "rgb(65, 184, 131)",
+    color: theme.palette.success.main,
   },
   orange: { color: "orange" },
-  red: { color: "red" },
+  red: { color: theme.palette.error.main },
   rootSvg: {
     transform: "scaleX(-1)",
   },
@@ -125,17 +126,22 @@ export default function TimerComponent(props) {
     setCircleDasharray();
     setRemainingPathColor(props.timeLeft);
 
-    if (props.timeLeft === 0 && timerRunning.current) {
+    if ((props.timeLeft === 0 && timerRunning.current) || props.end) {
       clearInterval(timerInterval.current);
       timerRunning.current = false;
     }
-  }, [props.timeLeft, setCircleDasharray, setRemainingPathColor]);
+  }, [props.timeLeft, props.end, setCircleDasharray, setRemainingPathColor]);
 
   useEffect(() => {
-    if (props.start && !timerRunning.current && props.timeLeft > 0) {
+    if (
+      props.start &&
+      !timerRunning.current &&
+      props.timeLeft > 0 &&
+      !props.end
+    ) {
       startTimer();
     }
-  }, [props.start, props.timeLeft, startTimer]);
+  }, [props.start, props.timeLeft, props.end, startTimer]);
 
   function formatTime(time) {
     // The largest round integer less than or equal to the result of time divided being by 60.
@@ -155,30 +161,33 @@ export default function TimerComponent(props) {
 
   return (
     <div className={classes.root}>
-      <svg
-        className={classes.rootSvg}
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g className={classes.rootCircle}>
-          <circle
-            className={classes.rootPathElapsed}
-            cx="50"
-            cy="50"
-            r="45" />
-          <path
-            id="base-timer-path-remaining"
-            strokeDasharray={strokeDashArray}
-            className={`${classes.rootPathRemaining} ${classes[remainingPathColor]}`}
-            d="
+      {!props.isMobile ? (
+        <svg
+          className={classes.rootSvg}
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g className={classes.rootCircle}>
+            <circle
+              className={classes.rootPathElapsed}
+              cx="50"
+              cy="50"
+              r="45"
+            />
+            <path
+              id="base-timer-path-remaining"
+              strokeDasharray={strokeDashArray}
+              className={`${classes.rootPathRemaining} ${classes[remainingPathColor]}`}
+              d="
             M 50, 50
             m -45, 0
             a 45,45 0 1,0 90,0
             a 45,45 0 1,0 -90,0
           "
-          ></path>
-        </g>
-      </svg>
+            ></path>
+          </g>
+        </svg>
+      ) : null}
       <span
         id="base-timer-label"
         className={classes.rootLabel}>

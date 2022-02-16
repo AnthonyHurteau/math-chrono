@@ -26,20 +26,26 @@ export const initParams = {
   negativeNumbers: false,
 };
 
-const validationMinMax = {
+const operandsMax = 5;
+const maximumMax = 9999;
+
+const divisionOperandsMax = 3;
+const divisionMaximumMax = 99;
+
+let validationMinMax = {
   operandsMin: 2,
-  operandsMax: 5,
+  operandsMax,
   amountMin: 1,
   amountMax: 100,
   maximumMin: 1,
-  maximumMax: 999,
+  maximumMax,
 };
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
     border: "1px solid",
     borderRadius: theme.shape.borderRadius,
-    borderColor: theme.palette.secondary.main,
+    borderColor: theme.palette.primary.main,
     padding: "2%",
     marginTop: "5%",
     marginBottom: "2%",
@@ -68,7 +74,7 @@ export default function ParamsComponent(props) {
     props.setParams(params);
   };
 
-  function validateAll() {
+  const validateAll = () => {
     let params = { ...props.params };
 
     const operands = validateNumber(
@@ -94,7 +100,7 @@ export default function ParamsComponent(props) {
     params.maximum = maximum;
 
     props.setParams(params);
-  }
+  };
 
   function validateNumber(value, min, max) {
     if (value < min) {
@@ -136,6 +142,16 @@ export default function ParamsComponent(props) {
     }
   }, [props.params.negativeNumbers]);
 
+  useEffect(() => {
+    if (props.params.division) {
+      validationMinMax.maximumMax = divisionMaximumMax;
+      validationMinMax.operandsMax = divisionOperandsMax;
+    } else if (!props.params.division) {
+      validationMinMax.maximumMax = maximumMax;
+      validationMinMax.operandsMax = operandsMax;
+    }
+  }, [props.params.division]);
+
   return (
     <Container className="container">
       <Grid
@@ -151,344 +167,352 @@ export default function ParamsComponent(props) {
         <Grid
           item
           sm={8}>
-          <Grid
-            container
-            className={classes.gridContainer}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <span className="chalk-title">{t("params.title")}</span>
-            {/* Description */}
+          <form>
             <Grid
-              item
-              xs={12}
-              sm={10}
-              className={classes.sectionPadding}>
-              {t("params.description")}
-            </Grid>
-            {/* ---- TIMER ---- */}
-            {/* Timer Description */}
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              className={classes.rowPadding}>
-              {t("params.timeDescription")}
-            </Grid>
-            {/* Timer toggle */}
-            <Grid
-              item
-              sm={6}
-              className={classes.sectionPadding}>
-              <FormControlLabel
-                className={classes.sliderRow}
-                control={
-                  <Switch
-                    color="secondary"
-                    checked={!!props.params.isTime}
-                    onClick={() => {
-                      updateParams("isTime", !props.params.isTime);
-                    }}
-                  />
-                }
-                label={t("params.timepickerToggle")}
-                labelPlacement="start"
-              />
-            </Grid>
-            {/* Timer with if  */}
-            <Grid
-              item
-              sm={6}
-              className={classes.sectionPadding}>
-              <Fade
-                in={props.params.isTime}
-                timeout={1000}>
-                <div>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <TimePicker
-                      ampm={false}
-                      views={["hours", "minutes", "seconds"]}
-                      inputFormat="HH:mm:ss"
-                      mask="__:__:__"
-                      label={t("params.timepickerLabel")}
-                      value={props.params.time}
-                      onChange={(newTime) => {
-                        updateParams("time", newTime);
-                      }}
-                      renderInput={(params) => <TextField {...params} />}
-                    />
-                  </LocalizationProvider>
-                </div>
-              </Fade>
-            </Grid>
-            {/* ---- Number of operands ---- */}
-            {/* Number of opeprands description */}
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              className={classes.rowPadding}>
-              {t("params.operandsDescription")}
-            </Grid>
-            {/* Number of operation */}
-            <Grid item>
-              <TextField
-                label={t("params.numberLabel")}
-                type="number"
-                variant="outlined"
-                color="secondary"
-                className={classes.sectionPadding}
-                value={props.params.operands}
-                onChange={(event) => {
-                  updateParams("operands", event.target.value);
-                }}
-                onBlur={(event) => {
-                  updateParams(
-                    "operands",
-                    validateNumber(
-                      event.target.value,
-                      validationMinMax.operandsMin,
-                      validationMinMax.operandsMax
-                    )
-                  );
-                }}
-              />
-            </Grid>
-            {/* ---- Operators ---- */}
-            {/* Operators description */}
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              className={classes.rowPadding}>
-              {t("params.operators")}
-            </Grid>
-            {/* Addition */}
-            <Grid
-              item
-              sm={3}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={props.params.addition}
-                    color="secondary"
-                    onClick={() => {
-                      updateParams("addition", !props.params.addition);
-                    }}
-                  />
-                }
-                label="+"
-                labelPlacement="start"
-                className={classes.sectionPadding}
-                sx={{ marginLeft: 0 }}
-              />
-            </Grid>
-            {/* Subsctraction */}
-            <Grid
-              item
-              sm={3}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={!!props.params.substraction}
-                    color="secondary"
-                    onClick={() => {
-                      updateParams("substraction", !props.params.substraction);
-                    }}
-                  />
-                }
-                label="-"
-                labelPlacement="start"
-                className={classes.sectionPadding}
-              />
-            </Grid>
-            {/* Multiplication */}
-            <Grid
-              item
-              sm={3}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={!!props.params.multiplication}
-                    color="secondary"
-                    onClick={() => {
-                      updateParams(
-                        "multiplication",
-                        !props.params.multiplication
-                      );
-                    }}
-                  />
-                }
-                label="x"
-                labelPlacement="start"
-                className={classes.sectionPadding}
-              />
-            </Grid>
-            {/* Division */}
-            <Grid
-              item
-              sm={3}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={!!props.params.division}
-                    color="secondary"
-                    onClick={() => {
-                      updateParams("division", !props.params.division);
-                    }}
-                  />
-                }
-                label="÷"
-                labelPlacement="start"
-                className={classes.sectionPadding}
-              />
-            </Grid>
-            {/* ---- Operation amount ---- */}
-            {/* Amount description */}
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              className={classes.rowPadding}>
-              {t("params.operationAmount")}
-            </Grid>
-            {/* Amount */}
-            <Grid item>
-              <TextField
-                label={t("params.numberLabel")}
-                type="number"
-                variant="outlined"
-                color="secondary"
-                className={classes.sectionPadding}
-                value={props.params.amount}
-                onChange={(event) => {
-                  updateParams("amount", event.target.value);
-                }}
-                onBlur={(event) => {
-                  updateParams(
-                    "amount",
-                    validateNumber(
-                      event.target.value,
-                      validationMinMax.amountMin,
-                      validationMinMax.amountMax
-                    )
-                  );
-                }}
-              />
-            </Grid>
-            {/* ---- Maximum number ---- */}
-            {/* maximum number description */}
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              className={classes.rowPadding}>
-              {t("params.maximumDescription")}
-            </Grid>
-            {/* maximum number */}
-            <Grid item>
-              <TextField
-                label={t("params.numberLabel")}
-                type="number"
-                variant="outlined"
-                color="secondary"
-                className={classes.sectionPadding}
-                value={props.params.maximum}
-                onChange={(event) => {
-                  updateParams("maximum", event.target.value);
-                }}
-                onBlur={(event) => {
-                  updateParams(
-                    "maximum",
-                    validateNumber(
-                      event.target.value,
-                      validationMinMax.maximumMin,
-                      validationMinMax.maximumMax
-                    )
-                  );
-                }}
-              />
-            </Grid>
-            {/* ---- Negative numbers ---- */}
-            {/* Negative numbers  description */}
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              className={classes.rowPadding}>
-              {t("params.negativeNumbersDescription")}
-            </Grid>
-            {/* Negative numbers  */}
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              className={classes.sliderRow}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    color="secondary"
-                    checked={!!props.params.negativeNumbers}
-                    onClick={() => {
-                      updateParams(
-                        "negativeNumbers",
-                        !props.params.negativeNumbers
-                      );
-                    }}
-                  />
-                }
-                label={t("params.negativeNumbers")}
-                labelPlacement="start"
-              />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              className={classes.sliderRow}
-              sx={{
-                paddingTop: "6px",
-              }}
+              container
+              className={classes.gridContainer}
+              justifyContent="center"
+              alignItems="center"
             >
-              <Fade
-                in={yesNegativeNumbers}
-                timeout={negativeNumbersYesNoTransitionTime}
-                unmountOnExit
-              >
-                <div>{t("params.negativeNumbersYes")}</div>
-              </Fade>
-              <Fade
-                in={noNegativeNumbers}
-                timeout={negativeNumbersYesNoTransitionTime}
-                unmountOnExit
-              >
-                <div>{t("params.negativeNumbersNo")}</div>
-              </Fade>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={{ paddingTop: 5 }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => {
-                  validateAll();
-                }}
-                component={Link}
-                to={"math"}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "Fredericka the Great",
-                    fontSize: "22px",
+              <span className="chalk-title">{t("params.title")}</span>
+              {/* Description */}
+              <Grid
+                item
+                xs={12}
+                sm={10}
+                className={classes.sectionPadding}>
+                {t("params.description")}
+              </Grid>
+              {/* ---- TIMER ---- */}
+              {/* Timer Description */}
+              <Grid
+                item
+                xs={12}
+                sm={10}
+                className={classes.rowPadding}>
+                {t("params.timeDescription")}
+              </Grid>
+              {/* Timer toggle */}
+              <Grid
+                item
+                sm={6}
+                className={classes.sectionPadding}>
+                <FormControlLabel
+                  className={classes.sliderRow}
+                  control={
+                    <Switch
+                      color="primary"
+                      checked={!!props.params.isTime}
+                      onClick={() => {
+                        updateParams("isTime", !props.params.isTime);
+                      }}
+                    />
+                  }
+                  label={t("params.timepickerToggle")}
+                  labelPlacement="start"
+                />
+              </Grid>
+              {/* Timer with if  */}
+              <Grid
+                item
+                sm={6}
+                className={classes.sectionPadding}>
+                <Fade
+                  in={props.params.isTime}
+                  timeout={1000}>
+                  <div>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <TimePicker
+                        ampm={false}
+                        views={["hours", "minutes", "seconds"]}
+                        inputFormat="HH:mm:ss"
+                        mask="__:__:__"
+                        label={t("params.timepickerLabel")}
+                        value={props.params.time}
+                        onChange={(newTime) => {
+                          updateParams("time", newTime);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                </Fade>
+              </Grid>
+              {/* ---- Number of operands ---- */}
+              {/* Number of opeprands description */}
+              <Grid
+                item
+                xs={12}
+                sm={10}
+                className={classes.rowPadding}>
+                {t("params.operandsDescription")}
+              </Grid>
+              {/* Number of operation */}
+              <Grid
+                item
+                className={classes.sectionPadding}>
+                <TextField
+                  label={t("params.numberLabel")}
+                  type="number"
+                  variant="outlined"
+                  color="primary"
+                  value={props.params.operands}
+                  onChange={(event) => {
+                    updateParams("operands", event.target.value);
                   }}
+                  onBlur={(event) => {
+                    updateParams(
+                      "operands",
+                      validateNumber(
+                        event.target.value,
+                        validationMinMax.operandsMin,
+                        validationMinMax.operandsMax
+                      )
+                    );
+                  }}
+                />
+              </Grid>
+              {/* ---- Operators ---- */}
+              {/* Operators description */}
+              <Grid
+                item
+                xs={12}
+                sm={10}
+                className={classes.rowPadding}>
+                {t("params.operators")}
+              </Grid>
+              {/* Addition */}
+              <Grid
+                item
+                sm={3}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={props.params.addition}
+                      color="primary"
+                      onClick={() => {
+                        updateParams("addition", !props.params.addition);
+                      }}
+                    />
+                  }
+                  label="+"
+                  labelPlacement="start"
+                  className={classes.sectionPadding}
+                  sx={{ marginLeft: 0 }}
+                />
+              </Grid>
+              {/* Subsctraction */}
+              <Grid
+                item
+                sm={3}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={!!props.params.substraction}
+                      color="primary"
+                      onClick={() => {
+                        updateParams(
+                          "substraction",
+                          !props.params.substraction
+                        );
+                      }}
+                    />
+                  }
+                  label="-"
+                  labelPlacement="start"
+                  className={classes.sectionPadding}
+                />
+              </Grid>
+              {/* Multiplication */}
+              <Grid
+                item
+                sm={3}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={!!props.params.multiplication}
+                      color="primary"
+                      onClick={() => {
+                        updateParams(
+                          "multiplication",
+                          !props.params.multiplication
+                        );
+                      }}
+                    />
+                  }
+                  label="x"
+                  labelPlacement="start"
+                  className={classes.sectionPadding}
+                />
+              </Grid>
+              {/* Division */}
+              <Grid
+                item
+                sm={3}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={!!props.params.division}
+                      color="primary"
+                      onClick={() => {
+                        updateParams("division", !props.params.division);
+                      }}
+                    />
+                  }
+                  label="÷"
+                  labelPlacement="start"
+                  className={classes.sectionPadding}
+                />
+              </Grid>
+              {/* ---- Operation amount ---- */}
+              {/* Amount description */}
+              <Grid
+                item
+                xs={12}
+                sm={10}
+                className={classes.rowPadding}>
+                {t("params.operationAmount")}
+              </Grid>
+              {/* Amount */}
+              <Grid
+                item
+                className={classes.sectionPadding}>
+                <TextField
+                  label={t("params.numberLabel")}
+                  type="number"
+                  variant="outlined"
+                  color="primary"
+                  value={props.params.amount}
+                  onChange={(event) => {
+                    updateParams("amount", event.target.value);
+                  }}
+                  onBlur={(event) => {
+                    updateParams(
+                      "amount",
+                      validateNumber(
+                        event.target.value,
+                        validationMinMax.amountMin,
+                        validationMinMax.amountMax
+                      )
+                    );
+                  }}
+                />
+              </Grid>
+              {/* ---- Maximum number ---- */}
+              {/* maximum number description */}
+              <Grid
+                item
+                xs={12}
+                sm={10}
+                className={classes.rowPadding}>
+                {t("params.maximumDescription")}
+              </Grid>
+              {/* maximum number */}
+              <Grid
+                item
+                className={classes.sectionPadding}>
+                <TextField
+                  label={t("params.numberLabel")}
+                  type="number"
+                  variant="outlined"
+                  color="primary"
+                  value={props.params.maximum}
+                  onChange={(event) => {
+                    updateParams("maximum", event.target.value);
+                  }}
+                  onBlur={(event) => {
+                    updateParams(
+                      "maximum",
+                      validateNumber(
+                        event.target.value,
+                        validationMinMax.maximumMin,
+                        validationMinMax.maximumMax
+                      )
+                    );
+                  }}
+                />
+              </Grid>
+              {/* ---- Negative numbers ---- */}
+              {/* Negative numbers  description */}
+              <Grid
+                item
+                xs={12}
+                sm={10}
+                className={classes.rowPadding}>
+                {t("params.negativeNumbersDescription")}
+              </Grid>
+              {/* Negative numbers  */}
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                className={classes.sliderRow}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      color="primary"
+                      checked={!!props.params.negativeNumbers}
+                      onClick={() => {
+                        updateParams(
+                          "negativeNumbers",
+                          !props.params.negativeNumbers
+                        );
+                      }}
+                    />
+                  }
+                  label={t("params.negativeNumbers")}
+                  labelPlacement="start"
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                className={classes.sliderRow}
+                sx={{
+                  paddingTop: "6px",
+                }}
+              >
+                <Fade
+                  in={yesNegativeNumbers}
+                  timeout={negativeNumbersYesNoTransitionTime}
+                  unmountOnExit
                 >
-                  {t("params.submit")}
-                </Typography>
-              </Button>
+                  <div>{t("params.negativeNumbersYes")}</div>
+                </Fade>
+                <Fade
+                  in={noNegativeNumbers}
+                  timeout={negativeNumbersYesNoTransitionTime}
+                  unmountOnExit
+                >
+                  <div>{t("params.negativeNumbersNo")}</div>
+                </Fade>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{ paddingTop: 5 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    validateAll();
+                  }}
+                  component={Link}
+                  to={"math"}
+                >
+                  <Typography
+                    sx={{
+                      fontFamily: "Fredericka the Great",
+                      fontSize: "22px",
+                    }}
+                  >
+                    {t("params.submit")}
+                  </Typography>
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          </form>
         </Grid>
         {/* Right Margin */}
         <Grid

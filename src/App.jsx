@@ -1,11 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import getTheme from "./theme";
 import { CssBaseline } from "@mui/material";
@@ -33,7 +28,7 @@ function App() {
 
   useEffect(() => {
     if (location !== displayLocation) setTransistionStage("fadeOut");
-  }, [location]);
+  }, [location, displayLocation]);
 
   const handleThemeModeChange = () => {
     setThemeMode((t) => (t === "light" ? "dark" : "light"));
@@ -52,7 +47,7 @@ function App() {
   }, []);
 
   let isMobile = width <= 600;
-  let isXLarge = width >= 1536;
+  // let isXLarge = width >= 1536;
 
   useEffect(() => {
     setStorageMode(themeMode);

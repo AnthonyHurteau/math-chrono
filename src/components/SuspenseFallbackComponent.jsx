@@ -15,7 +15,7 @@ export default function CustomLinearProgress() {
         sx={{
           width: "50%",
         }}
-        color="secondary"
+        color="primary"
       />
     </Box>
   );

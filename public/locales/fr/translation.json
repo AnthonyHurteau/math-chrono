@@ -24,6 +24,24 @@
   "math": {
     "title": "Math Chrono!",
     "start": "Débuter!",
-    "done": "Terminer!"
+    "done": "Terminer!",
+    "back": "Retour",
+    "restart": "Recommencer?"
+  },
+  "completed": {
+    "title": "C'est terminé!",
+    "result": "Voici ton résultat:",
+    "resultText1": "Tu as réussi",
+    "resultText2singular": "opération",
+    "resultText2plural": "opérations",
+    "resultText3": "sur",
+    "resultText4": "en",
+    "hour": "heure",
+    "hours": "heures",
+    "minute": "minute",
+    "minutes": "minutes",
+    "second": "seconde",
+    "seconds": "secondes",
+    "done": "Bravo!"
   }
 }

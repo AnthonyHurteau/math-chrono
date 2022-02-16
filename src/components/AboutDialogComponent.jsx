@@ -35,14 +35,12 @@ export default function AboutDialogComponent(props) {
       >
         <DialogContent>
           <Typography
-            color="secondary"
+            color="primary"
             sx={{ fontSize: "36px" }}>
             {t("aboutDialog.title")}
           </Typography>
           <br />
-          <Typography color="secondary">
-            Version {AppSettings.version}
-          </Typography>
+          <Typography color="primary">Version {AppSettings.version}</Typography>
           <br />
           <p>{t("aboutDialog.text1")}</p>
           <p>{t("aboutDialog.text2")}</p>
@@ -59,7 +57,7 @@ export default function AboutDialogComponent(props) {
         <DialogActions>
           <Button
             variant="outlined"
-            color="secondary"
+            color="primary"
             onClick={handleClose}>
             <Typography>Ok</Typography>
           </Button>

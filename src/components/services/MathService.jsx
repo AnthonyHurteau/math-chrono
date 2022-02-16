@@ -6,6 +6,18 @@ export function getOperations(params) {
   return generateOperations(params, operators);
 }
 
+export function getCorrectAnswers(operations) {
+  for (let operation of operations) {
+    if (evaluate(operation.operation) === Number(operation.answer)) {
+      operation.isRightAnswer = true;
+    } else {
+      operation.isRightAnswer = false;
+    }
+  }
+
+  return operations;
+}
+
 function generateOperations(params, operators) {
   let operations = [];
   for (let i = 0; i < params.amount; i++) {
@@ -110,7 +122,7 @@ function getWrittenOperation(operation) {
   operation = operation.replaceAll("*", " x ");
   operation = operation.replaceAll("/", " ÷ ");
 
-  operation = operation + " = ";
+  // operation = operation + " = ";
 
   return operation;
 }

@@ -5,14 +5,9 @@ const params = "params";
 
 export function getStorageMode() {
   if (!get(mode)) {
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      set(mode, "dark");
-    } else {
-      set(mode, "light");
-    }
+    set(mode, "dark");
+  } else {
+    set(mode, "light");
   }
 
   return get(mode);
