@@ -77,6 +77,16 @@ function App() {
         >
           <Routes location={displayLocation}>
             <Route
+              path="*"
+              element={
+                <ParamsComponent
+                  isMobile={isMobile}
+                  params={params}
+                  setParams={setParams}
+                />
+              }
+            />
+            <Route
               path="/"
               element={
                 <ParamsComponent

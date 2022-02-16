@@ -8,7 +8,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router basename="math-chrono">
       <App />
     </Router>
   </React.StrictMode>,
