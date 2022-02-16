@@ -6,8 +6,6 @@ const params = "params";
 export function getStorageMode() {
   if (!get(mode)) {
     set(mode, "dark");
-  } else {
-    set(mode, "light");
   }
 
   return get(mode);
