@@ -1,0 +1,47 @@
+{
+  "aboutDialog": {
+    "title": "About Math Chrono",
+    "text1": "This is a little tool to help you with mental arithmetics!",
+    "text2": "For any comment, question or requests, please contact me at the following address:"
+  },
+  "params": {
+    "title": "Parameters",
+    "description": "Chose from the following options in order to adjust the difficulty of the math chrono session.",
+    "timeDescription": "Do you want to time yourself?",
+    "timepickerToggle": "Timer",
+    "timepickerLabel": "Minutes and Seconds",
+    "operandsDescription": "How many operands (numbers) do you want in your operations?",
+    "operators": "Which operations do you want to execute?",
+    "operationAmount": "How many operations do you want to execute?",
+    "numberLabel": "Number",
+    "maximumDescription": "What will be the maximum value of an operand (number) in your operations?",
+    "negativeNumbersDescription": "Do you want the operands (numbers) or the results of the operations to be negative numbers?",
+    "negativeNumbers": "Negative Numbers",
+    "negativeNumbersYes": "Yes",
+    "negativeNumbersNo": "No",
+    "submit": "Start the exercise!"
+  },
+  "math": {
+    "title": "Math Chrono!",
+    "start": "Start!",
+    "done": "Done!",
+    "back": "Back",
+    "restart": "Restart?"
+  },
+  "completed": {
+    "title": "It's over!",
+    "result": "Here is your result:",
+    "resultText1": "You solved",
+    "resultText2singular": "operation",
+    "resultText2plural": "operations",
+    "resultText3": "out of",
+    "resultText4": "in",
+    "hour": "hour",
+    "hours": "hours",
+    "minute": "minute",
+    "minutes": "minutes",
+    "second": "second",
+    "seconds": "seconds",
+    "done": "Well done!"
+  }
+}
