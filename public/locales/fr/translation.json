@@ -43,5 +43,9 @@
     "second": "seconde",
     "seconds": "secondes",
     "done": "Bravo!"
+  },
+  "update": {
+    "message": "Une nouvelle version de Math-Chrono est disponible!",
+    "reload": "Redémarrer"
   }
 }

@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import ParamsComponent from "./components/ParamsComponent";
 import MathComponent from "./components/MathComponent";
 import CustomLinearProgress from "./components/SuspenseFallbackComponent";
+import UpdatePwaComponent from "./components/UpdatePwaComponent";
 import {
   getStorageParams,
   setStorageParams,
@@ -61,6 +62,7 @@ function App() {
     <ThemeProvider theme={appliedTheme}>
       <Suspense fallback={<CustomLinearProgress />}>
         <CssBaseline />
+        <UpdatePwaComponent />
         <Navbar
           isMobile={isMobile}
           themeMode={themeMode}

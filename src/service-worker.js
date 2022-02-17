@@ -62,6 +62,25 @@ registerRoute(
   })
 );
 
+registerRoute(
+  ({ url }) =>
+    url.origin === self.location.origin &&
+    url.pathname.endsWith("translation.json"),
+  new StaleWhileRevalidate()
+);
+
+registerRoute(
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith(".svg"),
+  new StaleWhileRevalidate()
+);
+
+registerRoute(
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith(".woff2"),
+  new StaleWhileRevalidate()
+);
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener("message", (event) => {
