@@ -130,15 +130,9 @@ export default function ParamsComponent(props) {
   useEffect(() => {
     if (props.params.negativeNumbers) {
       setNoNegativeNumbers(false);
-      setTimeout(() => {
-        setyesNegativeNumbers(true);
-      }, negativeNumbersYesNoTransitionTime);
     }
     if (!props.params.negativeNumbers) {
       setyesNegativeNumbers(false);
-      setTimeout(() => {
-        setNoNegativeNumbers(true);
-      }, negativeNumbersYesNoTransitionTime);
     }
   }, [props.params.negativeNumbers]);
 
@@ -476,6 +470,11 @@ export default function ParamsComponent(props) {
                 <Fade
                   in={yesNegativeNumbers}
                   timeout={negativeNumbersYesNoTransitionTime}
+                  onExited={() =>
+                    props.params.negativeNumbers
+                      ? setyesNegativeNumbers(true)
+                      : setNoNegativeNumbers(true)
+                  }
                   unmountOnExit
                 >
                   <div>{t("params.negativeNumbersYes")}</div>
@@ -483,6 +482,11 @@ export default function ParamsComponent(props) {
                 <Fade
                   in={noNegativeNumbers}
                   timeout={negativeNumbersYesNoTransitionTime}
+                  onExited={() =>
+                    props.params.negativeNumbers
+                      ? setyesNegativeNumbers(true)
+                      : setNoNegativeNumbers(true)
+                  }
                   unmountOnExit
                 >
                   <div>{t("params.negativeNumbersNo")}</div>
