@@ -1,0 +1,51 @@
+{
+  "aboutDialog": {
+    "title": "Über Math Chrono",
+    "text1": "Dies ist ein kleines Tool, um dir beim Kopfrechnen zu helfen!",
+    "text2": "Für jegliche Kommentare, Fragen oder Anfragen, kontaktiere mich bitte über die folgende Adresse:"
+  },
+  "params": {
+    "title": "Parameter",
+    "description": "Passe die folgenden Optionen an, um die Schwierigkeit deiner Math-Chrono-Session einzustellen.",
+    "timeDescription": "Möchtest du einen Timer einstellen?",
+    "timepickerToggle": "Timer",
+    "timepickerLabel": "Minuten und Sekunden",
+    "operandsDescription": "Wie viele Operanden (Zahlen) möchtest du in deinen Rechnungen?",
+    "operators": "Welche Rechenarten möchtest du ausführen?",
+    "operationAmount": "Wie viele Rechnungen möchtest du ausführen?",
+    "numberLabel": "Zahl",
+    "maximumDescription": "Was soll die höchste Zahl in deinen Rechnungen sein?",
+    "negativeNumbersDescription": "Möchtest du, dass die Operanden (Zahlen) oder die Ergebnisse der Rechnungen negative Zahlen sind?",
+    "negativeNumbers": "Negative Zahlen",
+    "negativeNumbersYes": "Ja",
+    "negativeNumbersNo": "Nein",
+    "submit": "Übung starten!"
+  },
+  "math": {
+    "title": "Math Chrono!",
+    "start": "Start!",
+    "done": "Fertig!",
+    "back": "Zurück",
+    "restart": "Neu starten?"
+  },
+  "completed": {
+    "title": "Es ist vorbei!",
+    "result": "Hier ist dein Ergebnis",
+    "resultText1": "Du hast gelöst:",
+    "resultText2singular": "Rechnung",
+    "resultText2plural": "Rechnungen",
+    "resultText3": "von",
+    "resultText4": "in",
+    "hour": "Stunde",
+    "hours": "Stunden",
+    "minute": "Minute",
+    "minutes": "Minuten",
+    "second": "Sekunde",
+    "seconds": "Sekunden",
+    "done": "Gut gemacht!"
+  },
+  "update": {
+    "message": "Eine neue Version von Math-Chrono ist verfügbar!",
+    "reload": "Neu laden"
+  }
+}
