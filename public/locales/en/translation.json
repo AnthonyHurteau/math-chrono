@@ -6,7 +6,7 @@
   },
   "params": {
     "title": "Parameters",
-    "description": "Chose from the following options in order to adjust the difficulty of the math chrono session.",
+    "description": "Choose from the following options in order to adjust the difficulty of the math chrono session.",
     "timeDescription": "Do you want to time yourself?",
     "timepickerToggle": "Timer",
     "timepickerLabel": "Minutes and Seconds",
