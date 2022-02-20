@@ -17,8 +17,10 @@
     "maximumDescription": "Was soll die höchste Zahl in deinen Rechnungen sein?",
     "negativeNumbersDescription": "Möchtest du, dass die Operanden (Zahlen) oder die Ergebnisse der Rechnungen negative Zahlen sind?",
     "negativeNumbers": "Negative Zahlen",
-    "negativeNumbersYes": "Ja",
-    "negativeNumbersNo": "Nein",
+    "negativeButtonMobileDescription": "!!!!!!!!!!!Some phones do not allow you to write negative numbers, if this is the case, you can activate a button in the interface in order to make a number negative.",
+    "negativeButtonMobile": "!!!!!!!!!Negative Number Button",
+    "yes": "Ja",
+    "no": "Nein",
     "submit": "Übung starten!"
   },
   "math": {
@@ -42,7 +44,11 @@
     "minutes": "Minuten",
     "second": "Sekunde",
     "seconds": "Sekunden",
-    "done": "Gut gemacht!"
+    "done1": "!!!!!!!!Nice try!",
+    "done2": "!!!!!!!!You're getting better!",
+    "done3": "!!!!!!!!Very good!",
+    "done4": "!!!!!!!!Excellent!",
+    "done5": "!!!!!!!!Wow, perfect score!"
   },
   "update": {
     "message": "Eine neue Version von Math-Chrono ist verfügbar!",

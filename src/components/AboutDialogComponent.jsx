@@ -46,7 +46,7 @@ export default function AboutDialogComponent(props) {
           <p>{t("aboutDialog.text2")}</p>
           <p>
             <a
-              href="mailto:nhl.tools.app@gmail.com"
+              href="mailto:hurteau.anthony123@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
             >

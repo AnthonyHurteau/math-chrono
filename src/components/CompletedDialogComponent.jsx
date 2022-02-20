@@ -72,6 +72,24 @@ export default function CompletedDialogComponent(props) {
     return hours + minutes + seconds;
   };
 
+  const completedText = () => {
+    const rightAnswers = props.operations.filter((o) => o.isRightAnswer).length;
+    const totalMultiplier = 100 / props.operations.length;
+    const rightAnswersPourcentage = rightAnswers * totalMultiplier;
+
+    if (rightAnswersPourcentage === 100) {
+      return t("completed.done5");
+    } else if (rightAnswersPourcentage >= 80) {
+      return t("completed.done4");
+    } else if (rightAnswersPourcentage >= 60) {
+      return t("completed.done3");
+    } else if (rightAnswersPourcentage >= 40) {
+      return t("completed.done2");
+    } else if (rightAnswersPourcentage < 40) {
+      return t("completed.done1");
+    }
+  };
+
   return (
     <div>
       <Dialog
@@ -108,7 +126,7 @@ export default function CompletedDialogComponent(props) {
           <Typography
             color="primary"
             sx={{ fontSize: "36px" }}>
-            {t("completed.done")}
+            {completedText()}
           </Typography>
         </DialogContent>
         <DialogActions>

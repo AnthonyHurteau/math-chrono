@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Typography, Button } from "@mui/material";
+import { Container, Grid, Typography, Button, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import TextField from "@mui/material/TextField";
@@ -7,10 +7,13 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TimePicker from "@mui/lab/TimePicker";
 import Switch from "@mui/material/Switch";
-import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Fade from "@mui/material/Fade";
 import { Link } from "react-router-dom";
+import NumberParamComponent from "./NumberParamComponent";
+import OperatorParamComponent from "./OperatorParamComponent";
+import YesNoParamComponent from "./YesNoParamComponent";
+import Collapse from "@mui/material/Collapse";
 
 // !!!!!!! ALWAYS ADD NEW PROPERTIES HERE WHEN ADDING NEW PARAMS !!!!!!
 export const initParams = {
@@ -24,6 +27,7 @@ export const initParams = {
   amount: 20,
   maximum: 20,
   negativeNumbers: false,
+  negativeButtonMobile: false,
 };
 
 const operandsMax = 5;
@@ -63,10 +67,15 @@ export default function ParamsComponent(props) {
   const [noNegativeNumbers, setNoNegativeNumbers] = useState(
     !props.params.negativeNumbers
   );
-  const [yesNegativeNumbers, setyesNegativeNumbers] = useState(
+  const [yesNegativeNumbers, setYesNegativeNumbers] = useState(
     props.params.negativeNumbers
   );
-  const negativeNumbersYesNoTransitionTime = 500;
+  const [noNegativeButton, setNoNegativeButton] = useState(
+    !props.params.negativeButtonMobile
+  );
+  const [yesNegativeButton, setYesNegativeButton] = useState(
+    props.params.negativeButtonMobile
+  );
 
   const updateParams = (key, value) => {
     let params = { ...props.params };
@@ -132,9 +141,18 @@ export default function ParamsComponent(props) {
       setNoNegativeNumbers(false);
     }
     if (!props.params.negativeNumbers) {
-      setyesNegativeNumbers(false);
+      setYesNegativeNumbers(false);
     }
   }, [props.params.negativeNumbers]);
+
+  useEffect(() => {
+    if (props.params.negativeButtonMobile) {
+      setNoNegativeButton(false);
+    }
+    if (!props.params.negativeButtonMobile) {
+      setYesNegativeButton(false);
+    }
+  }, [props.params.negativeButtonMobile]);
 
   useEffect(() => {
     if (props.params.division) {
@@ -233,39 +251,16 @@ export default function ParamsComponent(props) {
                 </Fade>
               </Grid>
               {/* ---- Number of operands ---- */}
-              {/* Number of opeprands description */}
-              <Grid
-                item
-                xs={12}
-                sm={10}
-                className={classes.rowPadding}>
-                {t("params.operandsDescription")}
-              </Grid>
-              {/* Number of operation */}
-              <Grid
-                item
-                className={classes.sectionPadding}>
-                <TextField
-                  label={t("params.numberLabel")}
-                  type="number"
-                  variant="outlined"
-                  color="primary"
-                  value={props.params.operands}
-                  onChange={(event) => {
-                    updateParams("operands", event.target.value);
-                  }}
-                  onBlur={(event) => {
-                    updateParams(
-                      "operands",
-                      validateNumber(
-                        event.target.value,
-                        validationMinMax.operandsMin,
-                        validationMinMax.operandsMax
-                      )
-                    );
-                  }}
-                />
-              </Grid>
+              <NumberParamComponent
+                description={t("params.operandsDescription")}
+                numberKey={"operands"}
+                value={props.params.operands}
+                updateParams={updateParams}
+                validateNumber={validateNumber}
+                min={validationMinMax.operandsMin}
+                max={validationMinMax.operandsMax}
+                classes={classes}
+              />
               {/* ---- Operators ---- */}
               {/* Operators description */}
               <Grid
@@ -276,222 +271,94 @@ export default function ParamsComponent(props) {
                 {t("params.operators")}
               </Grid>
               {/* Addition */}
-              <Grid
-                item
-                sm={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={props.params.addition}
-                      color="primary"
-                      onClick={() => {
-                        updateParams("addition", !props.params.addition);
-                      }}
-                    />
-                  }
-                  label="+"
-                  labelPlacement="start"
-                  className={classes.sectionPadding}
-                  sx={{ marginLeft: 0 }}
-                />
-              </Grid>
+              <OperatorParamComponent
+                value={props.params.addition}
+                label={"+"}
+                operatorKey="addition"
+                updateParams={updateParams}
+                classes={classes}
+              />
               {/* Subsctraction */}
-              <Grid
-                item
-                sm={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={!!props.params.substraction}
-                      color="primary"
-                      onClick={() => {
-                        updateParams(
-                          "substraction",
-                          !props.params.substraction
-                        );
-                      }}
-                    />
-                  }
-                  label="-"
-                  labelPlacement="start"
-                  className={classes.sectionPadding}
-                />
-              </Grid>
+              <OperatorParamComponent
+                value={props.params.substraction}
+                label={"-"}
+                operatorKey="substraction"
+                updateParams={updateParams}
+                classes={classes}
+              />
               {/* Multiplication */}
-              <Grid
-                item
-                sm={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={!!props.params.multiplication}
-                      color="primary"
-                      onClick={() => {
-                        updateParams(
-                          "multiplication",
-                          !props.params.multiplication
-                        );
-                      }}
-                    />
-                  }
-                  label="x"
-                  labelPlacement="start"
-                  className={classes.sectionPadding}
-                />
-              </Grid>
+              <OperatorParamComponent
+                value={props.params.multiplication}
+                label={"x"}
+                operatorKey="multiplication"
+                updateParams={updateParams}
+                classes={classes}
+              />
               {/* Division */}
-              <Grid
-                item
-                sm={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={!!props.params.division}
-                      color="primary"
-                      onClick={() => {
-                        updateParams("division", !props.params.division);
-                      }}
-                    />
-                  }
-                  label="÷"
-                  labelPlacement="start"
-                  className={classes.sectionPadding}
-                />
-              </Grid>
+              <OperatorParamComponent
+                value={props.params.division}
+                label={"÷"}
+                operatorKey="division"
+                updateParams={updateParams}
+                classes={classes}
+              />
               {/* ---- Operation amount ---- */}
-              {/* Amount description */}
-              <Grid
-                item
-                xs={12}
-                sm={10}
-                className={classes.rowPadding}>
-                {t("params.operationAmount")}
-              </Grid>
-              {/* Amount */}
-              <Grid
-                item
-                className={classes.sectionPadding}>
-                <TextField
-                  label={t("params.numberLabel")}
-                  type="number"
-                  variant="outlined"
-                  color="primary"
-                  value={props.params.amount}
-                  onChange={(event) => {
-                    updateParams("amount", event.target.value);
-                  }}
-                  onBlur={(event) => {
-                    updateParams(
-                      "amount",
-                      validateNumber(
-                        event.target.value,
-                        validationMinMax.amountMin,
-                        validationMinMax.amountMax
-                      )
-                    );
-                  }}
-                />
-              </Grid>
+              <NumberParamComponent
+                description={t("params.operationAmount")}
+                numberKey={"amount"}
+                value={props.params.amount}
+                updateParams={updateParams}
+                validateNumber={validateNumber}
+                min={validationMinMax.amountMin}
+                max={validationMinMax.amountMax}
+                classes={classes}
+              />
               {/* ---- Maximum number ---- */}
               {/* maximum number description */}
-              <Grid
-                item
-                xs={12}
-                sm={10}
-                className={classes.rowPadding}>
-                {t("params.maximumDescription")}
-              </Grid>
-              {/* maximum number */}
-              <Grid
-                item
-                className={classes.sectionPadding}>
-                <TextField
-                  label={t("params.numberLabel")}
-                  type="number"
-                  variant="outlined"
-                  color="primary"
-                  value={props.params.maximum}
-                  onChange={(event) => {
-                    updateParams("maximum", event.target.value);
-                  }}
-                  onBlur={(event) => {
-                    updateParams(
-                      "maximum",
-                      validateNumber(
-                        event.target.value,
-                        validationMinMax.maximumMin,
-                        validationMinMax.maximumMax
-                      )
-                    );
-                  }}
-                />
-              </Grid>
+              <NumberParamComponent
+                description={t("params.maximumDescription")}
+                numberKey={"maximum"}
+                value={props.params.maximum}
+                updateParams={updateParams}
+                validateNumber={validateNumber}
+                min={validationMinMax.maximumMin}
+                max={validationMinMax.maximumMax}
+                classes={classes}
+              />
               {/* ---- Negative numbers ---- */}
-              {/* Negative numbers  description */}
-              <Grid
-                item
-                xs={12}
-                sm={10}
-                className={classes.rowPadding}>
-                {t("params.negativeNumbersDescription")}
-              </Grid>
-              {/* Negative numbers  */}
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                className={classes.sliderRow}>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      color="primary"
-                      checked={!!props.params.negativeNumbers}
-                      onClick={() => {
-                        updateParams(
-                          "negativeNumbers",
-                          !props.params.negativeNumbers
-                        );
-                      }}
-                    />
-                  }
-                  label={t("params.negativeNumbers")}
-                  labelPlacement="start"
-                />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                className={classes.sliderRow}
-                sx={{
-                  paddingTop: "6px",
-                }}
+              <YesNoParamComponent
+                description={t("params.negativeNumbersDescription")}
+                value={props.params.negativeNumbers}
+                yesNoKey={"negativeNumbers"}
+                updateParams={updateParams}
+                label={t("params.negativeNumbers")}
+                toggleTrue={yesNegativeNumbers}
+                setToggleTrue={setYesNegativeNumbers}
+                toggleFalse={noNegativeNumbers}
+                setToggleFalse={setNoNegativeNumbers}
+                classes={classes}
+              />
+              {/* ---- Mobile Negative Number Button---- */}
+              <Collapse
+                in={props.isMobile && props.params.negativeNumbers}
+                timeout={1000}
               >
-                <Fade
-                  in={yesNegativeNumbers}
-                  timeout={negativeNumbersYesNoTransitionTime}
-                  onExited={() =>
-                    props.params.negativeNumbers
-                      ? setyesNegativeNumbers(true)
-                      : setNoNegativeNumbers(true)
-                  }
-                  unmountOnExit
-                >
-                  <div>{t("params.negativeNumbersYes")}</div>
-                </Fade>
-                <Fade
-                  in={noNegativeNumbers}
-                  timeout={negativeNumbersYesNoTransitionTime}
-                  onExited={() =>
-                    props.params.negativeNumbers
-                      ? setyesNegativeNumbers(true)
-                      : setNoNegativeNumbers(true)
-                  }
-                  unmountOnExit
-                >
-                  <div>{t("params.negativeNumbersNo")}</div>
-                </Fade>
-              </Grid>
+                {" "}
+                <Box sx={{ paddingTop: "25px" }}>
+                  <YesNoParamComponent
+                    description={t("params.negativeButtonMobileDescription")}
+                    value={props.params.negativeButtonMobile}
+                    yesNoKey={"negativeButtonMobile"}
+                    updateParams={updateParams}
+                    label={t("params.negativeButtonMobile")}
+                    toggleTrue={yesNegativeButton}
+                    setToggleTrue={setYesNegativeButton}
+                    toggleFalse={noNegativeButton}
+                    setToggleFalse={setNoNegativeButton}
+                    classes={classes}
+                  />
+                </Box>
+              </Collapse>
               <Grid
                 item
                 xs={12}

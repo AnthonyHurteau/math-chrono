@@ -26,6 +26,7 @@ function generateOperations(params, operators) {
       id: i + 1,
       operation,
       operationText: getWrittenOperation(operation),
+      answer: "",
     });
   }
   return operations;
@@ -36,15 +37,6 @@ function generateOperation(params, operators) {
 
   for (let i = 0; i < params.operands; i++) {
     let newOperand = getOperand(params);
-
-    if (params.negativeNumbers) {
-      if (
-        newOperand.charAt(0) === "-" &&
-        operation.charAt(operation.length - 1) === "+"
-      ) {
-        operation = operation.slice(0, -1);
-      }
-    }
 
     operation = operation + newOperand;
 
@@ -79,7 +71,7 @@ function getOperand(params) {
   if (params.negativeNumbers) {
     operand = getRandomInt(1, params.maximum).toString();
     if (getRandomInt(0, 2) === 1) {
-      operand = "-" + operand;
+      operand = "(-" + operand + ")";
     }
   } else if (!params.negativeNumbers) {
     operand = getRandomInt(1, params.maximum).toString();
@@ -119,10 +111,9 @@ function getRandomInt(min, max) {
 function getWrittenOperation(operation) {
   operation = operation.replaceAll("+", " + ");
   operation = operation.replaceAll("-", " - ");
+  operation = operation.replaceAll("( - ", "(-");
   operation = operation.replaceAll("*", " x ");
   operation = operation.replaceAll("/", " ÷ ");
-
-  // operation = operation + " = ";
 
   return operation;
 }

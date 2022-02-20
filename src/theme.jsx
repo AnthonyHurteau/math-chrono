@@ -17,6 +17,8 @@ const primary = {
   contrastText: "rgba(0, 0, 0, 1)",
 };
 
+const font = "Fredericka the Great";
+
 const getTheme = (mode) => ({
   shape: {
     borderRadius: 5,
@@ -80,25 +82,31 @@ const getTheme = (mode) => ({
       }),
   },
   components: {
+    // MuiButtonBase-root-MuiFab-root
+    MuiFab: {
+      styleOverrides: {
+        root: { fontFamily: font },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
-        root: { fontFamily: "Fredericka the Great" },
+        root: { fontFamily: font },
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: { fontFamily: "Fredericka the Great" },
+        root: { fontFamily: font },
       },
     },
     MuiInputLabel: {
       styleOverrides: {
-        root: { fontFamily: "Fredericka the Great" },
+        root: { fontFamily: font },
       },
     },
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: "Fredericka the Great",
+          fontFamily: font,
           fontSize: "20px",
         },
       },
@@ -106,7 +114,7 @@ const getTheme = (mode) => ({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          fontFamily: "Fredericka the Great",
+          fontFamily: font,
           fontSize: "20px",
           a: {
             color: primary.main,
