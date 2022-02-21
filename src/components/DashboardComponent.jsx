@@ -38,7 +38,7 @@ export default function DashboardComponent(props) {
           order={{ xs: 2, sm: 1 }}
           className={classes.stickyPadding}
         >
-          {!props.isMobile ? (
+          {!props.isMobile || !props.params.isTime ? (
             <span className={classes.progressIndicator}>
               {props.operations.filter((o) => o.answer).length}/
               {props.operations.length}

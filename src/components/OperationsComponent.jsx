@@ -1,13 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Grid, TextField, Box } from "@mui/material";
 import { alpha } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import Fab from "@mui/material/Fab";
+import Fade from "@mui/material/Fade";
+import { useTheme } from "@emotion/react";
 
 const useStyles = makeStyles((theme) => ({
   operation: { paddingBottom: "15px", display: "flex", alignItems: "baseline" },
   answerBox: {
+    position: "relative",
     display: "flex",
     alignItems: "center",
     borderRadius: theme.shape.borderRadius,
@@ -24,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
     width: "90px",
     flex: "0 0 auto",
   },
+  answerFabContainer: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+  },
   negativeFab: {
     position: "absolute",
     right: "10px",
@@ -33,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OperationsComponent(props) {
   const classes = useStyles();
+  const theme = useTheme();
   const [t] = useTranslation();
   const [focusIndex, setFocusIndex] = useState(0);
   const operationRefs = useRef([]);
@@ -47,7 +56,7 @@ export default function OperationsComponent(props) {
   function negativeNumber() {
     const ref = operationRefs.current[focusIndex];
     const currentValue = ref.value;
-    ref.value = currentValue ? currentValue * -1 : -1;
+    ref.value = currentValue ? Number(currentValue * -1) : Number(-1);
     ref.focus();
   }
 
@@ -67,7 +76,7 @@ export default function OperationsComponent(props) {
             className={classes.operation}>
             <Box
               className={
-                props.end
+                !props.openCompletedDialog && props.end
                   ? o.isRightAnswer
                     ? classes.answerBox + " " + classes.rightAnswer
                     : classes.answerBox + " " + classes.wrongAnswer
@@ -93,31 +102,53 @@ export default function OperationsComponent(props) {
                   onKeyPress={(event) => {
                     handleEnter(event);
                   }}
-                  onFocus={() => {
+                  onFocus={(event) => {
                     setFocusIndex(i);
+                    props.operationAnswer(event.target.value, o.id);
                   }}
                   onChange={(event) => {
                     props.operationAnswer(event.target.value, o.id);
                   }}
                 />
               </Box>
+              <Fade
+                in={!props.openCompletedDialog && props.end && !o.isRightAnswer}
+                timeout={1000}
+              >
+                <Box className={classes.answerFabContainer}>
+                  <Fab
+                    variant="extended"
+                    sx={{ backgroundColor: theme.palette.success.main }}
+                    size="small"
+                    aria-label="answer"
+                  >
+                    {o.rightAnswer}
+                  </Fab>
+                </Box>
+              </Fade>
             </Box>
           </Grid>
         ))}
-        {props.params.negativeNumbers &&
-        props.params.negativeButtonMobile &&
-        props.isMobile ? (
-            <Box className={classes.negativeFab}>
-              <Fab
-                color="secondary"
-                aria-label="negative"
-                sx={{ fontSize: "48px", fontWeight: "bold" }}
-                onClick={() => negativeNumber()}
-              >
+        <Fade
+          in={
+            props.params.negativeNumbers &&
+            props.params.negativeButtonMobile &&
+            props.isMobile &&
+            !(props.timeLeft === 0 || props.end)
+          }
+          timeout={1000}
+        >
+          <Box className={classes.negativeFab}>
+            <Fab
+              color="secondary"
+              aria-label="negative"
+              sx={{ fontSize: "48px", fontWeight: "bold" }}
+              onClick={() => negativeNumber()}
+            >
               -
-              </Fab>
-            </Box>
-          ) : null}
+            </Fab>
+          </Box>
+        </Fade>
       </Grid>
     </form>
   );

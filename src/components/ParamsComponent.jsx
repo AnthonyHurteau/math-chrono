@@ -343,7 +343,6 @@ export default function ParamsComponent(props) {
                 in={props.isMobile && props.params.negativeNumbers}
                 timeout={1000}
               >
-                {" "}
                 <Box sx={{ paddingTop: "25px" }}>
                   <YesNoParamComponent
                     description={t("params.negativeButtonMobileDescription")}

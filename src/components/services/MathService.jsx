@@ -8,11 +8,14 @@ export function getOperations(params) {
 
 export function getCorrectAnswers(operations) {
   for (let operation of operations) {
-    if (evaluate(operation.operation) === Number(operation.answer)) {
+    if (operation.answer === null || operation.answer === "") {
+      operation.isRightAnswer = false;
+    } else if (evaluate(operation.operation) === Number(operation.answer)) {
       operation.isRightAnswer = true;
     } else {
       operation.isRightAnswer = false;
     }
+    operation.rightAnswer = evaluate(operation.operation);
   }
 
   return operations;
@@ -26,7 +29,6 @@ function generateOperations(params, operators) {
       id: i + 1,
       operation,
       operationText: getWrittenOperation(operation),
-      answer: "",
     });
   }
   return operations;

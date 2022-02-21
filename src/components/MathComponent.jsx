@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MathComponent(props) {
   const classes = useStyles();
-  const [operations] = useState(getOperations(props.params));
+  const [operations] = useState(() => getOperations(props.params));
+  const [correctedOperations, setCorrectedOperations] = useState([]);
   const [progress, setProgress] = useState(0);
-
   const [start, setStart] = useState(false);
   const [countdonwnStart, setCountdownStart] = useState(false);
   const [countdownEnded, setCountdownEnded] = useState(false);
@@ -51,6 +51,12 @@ export default function MathComponent(props) {
       setStart(true);
     }
   }, [countdownEnded]);
+
+  useEffect(() => {
+    if (end) {
+      setCorrectedOperations(getCorrectAnswers(operations));
+    }
+  }, [end, operations]);
 
   return (
     <Container className="container">
@@ -101,6 +107,7 @@ export default function MathComponent(props) {
                 end={end}
                 params={props.params}
                 isMobile={props.isMobile}
+                openCompletedDialog={openCompletedDialog}
               />
             </Collapse>
           </Grid>
@@ -114,7 +121,7 @@ export default function MathComponent(props) {
       <CompletedDialogComponent
         openCompletedDialog={openCompletedDialog}
         setOpenCompletedDialog={setOpenCompletedDialog}
-        operations={getCorrectAnswers(operations)}
+        operations={correctedOperations}
         totalTime={timeLimit - timeLeft}
         isTime={props.params.isTime}
       />
