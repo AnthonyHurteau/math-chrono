@@ -48,8 +48,10 @@ export default function LanguageMenuComponent(props) {
   return (
     <Fragment>
       <IconButton
+        aria-label="language-button"
         color="primary"
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         <LanguageIcon />
       </IconButton>
       <Menu

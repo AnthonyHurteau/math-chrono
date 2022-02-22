@@ -33,6 +33,7 @@ export default function MenuComponent(props) {
   function themeModeToggleItem() {
     return (
       <IconButton
+        aria-label="dark-light-button"
         key={"themeModeToggle"}
         color="primary"
         onClick={() => props.handleThemeModeChange()}
@@ -45,6 +46,7 @@ export default function MenuComponent(props) {
   function aboutToggleItem() {
     return (
       <IconButton
+        aria-label="info-button"
         key={"aboutToggle"}
         color="primary"
         onClick={() => {
@@ -79,7 +81,9 @@ export default function MenuComponent(props) {
     <Fragment>
       {props.isMobile ? (
         <Box>
-          <IconButton onClick={handleClick}>
+          <IconButton
+            aria-label="menu-button"
+            onClick={handleClick}>
             <MoreVertIcon color="primary" />
           </IconButton>
           <Menu
