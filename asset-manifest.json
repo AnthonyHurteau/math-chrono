@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/math-chrono/static/css/main.2780fdde.css",
-    "main.js": "/math-chrono/static/js/main.0ab84977.js",
+    "main.js": "/math-chrono/static/js/main.bbe6d268.js",
     "service-worker.js": "/math-chrono/service-worker.js",
     "index.html": "/math-chrono/index.html",
     "static/media/getFetch.cjs": "/math-chrono/static/media/getFetch.c780682470504fffbd04.cjs",
     "main.2780fdde.css.map": "/math-chrono/static/css/main.2780fdde.css.map",
-    "main.0ab84977.js.map": "/math-chrono/static/js/main.0ab84977.js.map"
+    "main.bbe6d268.js.map": "/math-chrono/static/js/main.bbe6d268.js.map"
   },
   "entrypoints": [
     "static/css/main.2780fdde.css",
-    "static/js/main.0ab84977.js"
+    "static/js/main.bbe6d268.js"
   ]
 }
