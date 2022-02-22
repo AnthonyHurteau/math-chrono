@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-const languages = ["en", "fr"];
+const languages = ["en", "fr", "de"];
 
 i18n
   // load translation using http -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)
@@ -22,7 +22,7 @@ i18n
     backend: {
       loadPath: process.env.PUBLIC_URL + "/locales/{{lng}}/{{ns}}.json",
     },
-    fallbackLng: "en",
+    fallbackLng: "fr",
     load: "languageOnly",
     supportedLngs: languages,
     // debug: true,

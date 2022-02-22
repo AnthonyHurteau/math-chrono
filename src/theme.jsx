@@ -17,9 +17,12 @@ const primary = {
   contrastText: "rgba(0, 0, 0, 1)",
 };
 
-const font = "Fredericka the Great";
+const font = "\"Fredericka the Great\", \"Helvetica\", \"Arial\", cursive";
 
 const getTheme = (mode) => ({
+  typography: {
+    fontFamily: font,
+  },
   shape: {
     borderRadius: 5,
   },
@@ -82,31 +85,9 @@ const getTheme = (mode) => ({
       }),
   },
   components: {
-    // MuiButtonBase-root-MuiFab-root
-    MuiFab: {
-      styleOverrides: {
-        root: { fontFamily: font },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: { fontFamily: font },
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: { fontFamily: font },
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: { fontFamily: font },
-      },
-    },
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: font,
           fontSize: "20px",
         },
       },

@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionPadding: { paddingBottom: 25 },
   rowPadding: { paddingBottom: 10 },
+  rowTimerMobile: { paddingTop: 5, paddingBottom: 20 },
   sliderRow: (props) => ({ height: props.isMobile ? "40px" : "60px" }),
 }));
 
@@ -207,8 +208,10 @@ export default function ParamsComponent(props) {
               {/* Timer toggle */}
               <Grid
                 item
+                xs={12}
                 sm={6}
-                className={classes.sectionPadding}>
+                className={props.isMobile ? null : classes.sectionPadding}
+              >
                 <FormControlLabel
                   className={classes.sliderRow}
                   control={
@@ -225,31 +228,38 @@ export default function ParamsComponent(props) {
                 />
               </Grid>
               {/* Timer with if  */}
-              <Grid
-                item
-                sm={6}
-                className={classes.sectionPadding}>
-                <Fade
-                  in={props.params.isTime}
-                  timeout={1000}>
-                  <div>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <TimePicker
-                        ampm={false}
-                        views={["hours", "minutes", "seconds"]}
-                        inputFormat="HH:mm:ss"
-                        mask="__:__:__"
-                        label={t("params.timepickerLabel")}
-                        value={props.params.time}
-                        onChange={(newTime) => {
-                          updateParams("time", newTime);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                </Fade>
-              </Grid>
+              <Collapse
+                in={props.params.isTime}
+                timeout={1000}
+                orientation={props.isMobile ? "vertical" : "horizontal"}
+                sx={{ width: props.isMobile ? "100%" : "50%" }}
+              >
+                <Grid
+                  item
+                  className={classes.rowTimerMobile}>
+                  <Fade
+                    in={props.params.isTime}
+                    timeout={1000}>
+                    <div>
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <TimePicker
+                          ampm={false}
+                          views={["hours", "minutes", "seconds"]}
+                          inputFormat="HH:mm:ss"
+                          mask="__:__:__"
+                          label={t("params.timepickerLabel")}
+                          value={props.params.time}
+                          onChange={(newTime) => {
+                            updateParams("time", newTime);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+                    </div>
+                  </Fade>
+                </Grid>
+              </Collapse>
+
               {/* ---- Number of operands ---- */}
               <NumberParamComponent
                 description={t("params.operandsDescription")}
@@ -373,7 +383,6 @@ export default function ParamsComponent(props) {
                 >
                   <Typography
                     sx={{
-                      fontFamily: "Fredericka the Great",
                       fontSize: "22px",
                     }}
                   >
