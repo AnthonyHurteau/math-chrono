@@ -17,8 +17,10 @@
     "maximumDescription": "Quelle sera la valeur maximum d'un opérande (nombre) d'une opération?",
     "negativeNumbersDescription": "Veux-tu que les opérandes (nombres) ou les résultats des opérations soient des nombres négatifs?",
     "negativeNumbers": "Nombres négatifs",
-    "negativeNumbersYes": "Oui",
-    "negativeNumbersNo": "Non",
+    "negativeButtonMobileDescription": "Certains téléphones ne permettent pas de composer des nombres négatifs, si c'est le cas, tu peux activer un bouton dans l'interface afin de rendre un nombre négatif.",
+    "negativeButtonMobile": "Bouton nombre négatif",
+    "yes": "Oui",
+    "no": "Non",
     "submit": "Démarrer l'exercice!"
   },
   "math": {
@@ -42,7 +44,11 @@
     "minutes": "minutes",
     "second": "seconde",
     "seconds": "secondes",
-    "done": "Bravo!"
+    "done1": "Bien essayé!",
+    "done2": "Tu t'améliores!",
+    "done3": "C'est très bien!",
+    "done4": "C'est excellent!",
+    "done5": "Wow, résultat parfait!"
   },
   "update": {
     "message": "Une nouvelle version de Math-Chrono est disponible!",
