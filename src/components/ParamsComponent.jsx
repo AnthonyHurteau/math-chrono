@@ -353,20 +353,25 @@ export default function ParamsComponent(props) {
                 in={props.isMobile && props.params.negativeNumbers}
                 timeout={1000}
               >
-                <Box sx={{ paddingTop: "25px" }}>
-                  <YesNoParamComponent
-                    description={t("params.negativeButtonMobileDescription")}
-                    value={props.params.negativeButtonMobile}
-                    yesNoKey={"negativeButtonMobile"}
-                    updateParams={updateParams}
-                    label={t("params.negativeButtonMobile")}
-                    toggleTrue={yesNegativeButton}
-                    setToggleTrue={setYesNegativeButton}
-                    toggleFalse={noNegativeButton}
-                    setToggleFalse={setNoNegativeButton}
-                    classes={classes}
-                  />
-                </Box>
+                <Fade
+                  in={props.isMobile && props.params.negativeNumbers}
+                  timeout={1000}
+                >
+                  <Box sx={{ paddingTop: "25px" }}>
+                    <YesNoParamComponent
+                      description={t("params.negativeButtonMobileDescription")}
+                      value={props.params.negativeButtonMobile}
+                      yesNoKey={"negativeButtonMobile"}
+                      updateParams={updateParams}
+                      label={t("params.negativeButtonMobile")}
+                      toggleTrue={yesNegativeButton}
+                      setToggleTrue={setYesNegativeButton}
+                      toggleFalse={noNegativeButton}
+                      setToggleFalse={setNoNegativeButton}
+                      classes={classes}
+                    />
+                  </Box>
+                </Fade>
               </Collapse>
               <Grid
                 item

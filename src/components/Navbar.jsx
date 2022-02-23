@@ -38,6 +38,7 @@ export default function Navbar(props) {
           <MenuComponent
             isMobile={props.isMobile}
             setOpenAboutDialog={setOpenAboutDialog}
+            themeMode={props.themeMode}
             handleThemeModeChange={props.handleThemeModeChange}
           />
         </Toolbar>
