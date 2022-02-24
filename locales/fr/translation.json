@@ -1,4 +1,9 @@
 {
+  "home": {
+    "start": "Allons-y!",
+    "text1": "Pratique-toi à calculer",
+    "text2": "rapidement!"
+  },
   "aboutDialog": {
     "title": "À propos de Math Chrono",
     "text1": "Ceci est un petit outil pour vous aider avec le calcul mental!",
