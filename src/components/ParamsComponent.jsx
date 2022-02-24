@@ -384,7 +384,7 @@ export default function ParamsComponent(props) {
                     validateAll();
                   }}
                   component={Link}
-                  to={"math"}
+                  to={"/math"}
                 >
                   <Typography
                     sx={{

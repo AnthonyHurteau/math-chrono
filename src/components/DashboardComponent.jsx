@@ -84,7 +84,7 @@ export default function DashboardComponent(props) {
               <Button
                 variant="contained"
                 component={Link}
-                to={"/"}
+                to={"/params"}
                 color="primary"
               >
                 <Typography>{t("math.back")}</Typography>

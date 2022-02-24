@@ -6,6 +6,7 @@ import getTheme from "./theme";
 import { CssBaseline } from "@mui/material";
 import Navbar from "./components/Navbar";
 import ParamsComponent from "./components/ParamsComponent";
+import HomeComponent from "./components/HomeComponent";
 import MathComponent from "./components/MathComponent";
 import CustomLinearProgress from "./components/SuspenseFallbackComponent";
 import UpdatePwaComponent from "./components/UpdatePwaComponent";
@@ -25,10 +26,10 @@ function App() {
 
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
-  const [transitionStage, setTransistionStage] = useState("fadeIn");
+  const [transitionStage, setTransistionStage] = useState("slideIn");
 
   useEffect(() => {
-    if (location !== displayLocation) setTransistionStage("fadeOut");
+    if (location !== displayLocation) setTransistionStage("slideOut");
   }, [location, displayLocation]);
 
   const handleThemeModeChange = () => {
@@ -71,8 +72,8 @@ function App() {
         <div
           className={`${transitionStage}`}
           onAnimationEnd={() => {
-            if (transitionStage === "fadeOut") {
-              setTransistionStage("fadeIn");
+            if (transitionStage === "slideOut") {
+              setTransistionStage("slideIn");
               setDisplayLocation(location);
             }
           }}
@@ -80,16 +81,18 @@ function App() {
           <Routes location={displayLocation}>
             <Route
               path="*"
-              element={
-                <ParamsComponent
-                  isMobile={isMobile}
-                  params={params}
-                  setParams={setParams}
-                />
-              }
+              element={<HomeComponent
+                isMobile={isMobile}
+                key={randomKey(6)} />}
             />
             <Route
               path="/"
+              element={<HomeComponent
+                isMobile={isMobile}
+                key={randomKey(6)} />}
+            />
+            <Route
+              path="params"
               element={
                 <ParamsComponent
                   isMobile={isMobile}
@@ -108,8 +111,18 @@ function App() {
         </div>
       </Suspense>
     </ThemeProvider>
-    // </Router>
   );
 }
 
 export default App;
+
+function randomKey(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}

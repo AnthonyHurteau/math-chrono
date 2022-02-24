@@ -9,15 +9,15 @@
   font-size: 56px;
 }
 
-.fadeIn {
-  animation: 0.5s fadeIn forwards;
+.slideIn {
+  animation: 0.5s slideIn forwards;
 }
 
-.fadeOut {
-  animation: 0.5s fadeOut forwards;
+.slideOut {
+  animation: 0.5s slideOut forwards;
 }
 
-@keyframes fadeIn {
+@keyframes slideIn {
   from {
     opacity: 0;
     transform: translate(-100%, 0);
@@ -28,7 +28,7 @@
   }
 }
 
-@keyframes fadeOut {
+@keyframes slideOut {
   from {
     opacity: 1;
     transform: translate(0px, 0px);
