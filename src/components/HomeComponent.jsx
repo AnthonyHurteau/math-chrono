@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     position: "relative",
-    top: "50px",
+    top: "10px",
+    zIndex: 1,
     animationName: "$shake, $tilt",
     animationTimingFunction: "ease, ease-in",
     animationDuration: "0.5s, 0.5s",
@@ -69,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
       transform: "rotate(0deg)",
     },
     to: {
-      transform: "rotate(15deg)",
+      transform: "rotate(10deg)",
     },
   },
   "@keyframes brake": {
@@ -144,9 +145,7 @@ export default function HomeComponent(props) {
   }, []);
 
   return (
-    <Container
-      className="container"
-      sx={{ overflow: "hidden" }}>
+    <Container className="container">
       <Grid container>
         {/* Left margin */}
         <Grid
@@ -172,7 +171,7 @@ export default function HomeComponent(props) {
           <Box
             sx={{
               position: "relative",
-              top: props.isMobile ? "100px" : "170px",
+              top: props.isMobile ? "40px" : "75px",
             }}
           >
             <Zoom
@@ -180,8 +179,8 @@ export default function HomeComponent(props) {
               timeout={500}>
               <Box className={classes.logoShake}>
                 <img
-                  height={props.isMobile ? "250px" : "300px"}
-                  width={props.isMobile ? "250px" : "300px"}
+                  height={"200px"}
+                  width={"200px"}
                   src={process.env.PUBLIC_URL + "/logo512.png"}
                   alt="Logo"
                 />

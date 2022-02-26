@@ -19,7 +19,7 @@
     "operators": "Which operations do you want to execute?",
     "operationAmount": "How many operations do you want to execute?",
     "numberLabel": "Number",
-    "maximumDescription": "What will be the maximum value of an operand (number) in your operations?",
+    "maximumDescription": "What do you want as the maximum value of an operand (number) in your operations?",
     "negativeNumbersDescription": "Do you want the operands (numbers) or the results of the operations to be negative numbers?",
     "negativeNumbers": "Negative Numbers",
     "negativeButtonMobileDescription": "Some phones do not allow you to write negative numbers, if this is the case, you can activate a button in the interface in order to make a number negative.",
