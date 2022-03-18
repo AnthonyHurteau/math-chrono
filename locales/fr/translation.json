@@ -58,5 +58,64 @@
   "update": {
     "message": "Une nouvelle version de Math-Chrono est disponible!",
     "reload": "Redémarrer"
+  },
+  "howTo": {
+    "title": "Comment est-ce que ça fonctionne?",
+    "tableOfContent": "Table des matières",
+    "general": {
+      "title": "C'est pourquoi cette application?",
+      "text1": "Cette application est un outil qui permet de se pratiquer à effectuer des calculs mentaux, avec ou sans chronomètre. Différentes options sont configurables afin de régler le niveau de difficulté de chaque exercice pour que l'expérience soit adaptée à chaque utilisateur. Ainsi, le défi peut augmenter de par incrément pour créer un sentiment de progression soutenu.",
+      "text2": "Une fois les paramètres inscrits et que l'exercice est lancé, les opérations sont générées de façon aléatoire par l'application. Lorsque le compte à rebourds est terminé, inscris les résultats des opérations le plus rapidement possible!"
+    },
+    "params": {
+      "title": "Description des paramètres",
+      "genericMinimum": "Il peut y avoir un minimum de ",
+      "genericMaximum": " et un maximum de ",
+      "timerTitle": "Chronomètre",
+      "timerText": "Permet d'activer ou de désactiver le chronomètre. Si il est activé, on peut y inscrire un compte à rebours en heures, en minutes et en secondes. Par exemple, 00:05:30 pour 5 minutes et 30 secondes.",
+      "numberOperandsTitle": "Nombre de termes",
+      "numberOperandsText1": "Combiens de termes (nombres) y'aura-t-il dans les opérations. Par exemple, voici une opération avec 3 termes: 1 + 2 + 3.",
+      "numberOperandsText2": " termes par opération",
+      "numberOperandsText3": "Si l'opérateur des divisions est sélectionné, le maximum de termes par opération est de ",
+      "operatorsTitle": "Opérateurs",
+      "operatorsText1": "Quels opérateurs (addition, soustraction, multiplication, division) seront utilisés dans les opérations.",
+      "operatorsText2": "L'ordre des opérateurs est aléatoire. Au moins un opérateur doit être sélectionné.",
+      "operatorsText3": "Les résultats des opérations contentant des divisions ne peuvent être que des nombres entiers.",
+      "numberOperationsTitle": "Nombre d'opération",
+      "numberOperationsText1": "Combien y'aura-t-il d'opérations au total dans l'exercice.",
+      "numberOperationsText2": " opérations par exercice",
+      "maximumValueTitle": "Valeur maximum des termes",
+      "maximumValueText1": "La valeur maximum (ou minimum dans le cas d'un nombre négatif) des termes des opérations. Par example, si la vauleur maximum indiquée est 15, voici un exemple d'une opération: 5 - 2 + 15 - 13.",
+      "maximumValueText2": "La valeur maximum doit être entre 1 et ",
+      "maximumValueText3": "Si l'opérateur des divisions est sélectionné, la valeur maximum des termes ne peut être supérieure à ",
+      "negativeNumbersTitle": "Nombres négatifs",
+      "negativeNumberstext1": "Est-ce que les termes (nombres) ou les résultats des opérations peuvent être des nombres négatifs.",
+      "negativeNumberstext2": "Lorsque l'application est utilisée à l'aide d'un appareil mobile (appareils de marque Samsung en particulier), il se peut que le clavier n'inclut pas de touche négative. Une option est offerte afin d'afficher un bouton qui permet de transofrmer les nombres inscrit en nombres négatifs."
+    },
+    "math": {
+      "title": "Déroulement de l'exercice",
+      "text1": "Lorsque les paramètres ont été sélectionnés, clique sur ",
+      "text2": " pour commencer l'exercice! Avec ou sans chronomètre, réponds à toutes les équations le mieux que tu peux et clique sur ",
+      "text3": " afin de compléter l'exercice et d'arrêtter le chronomètre si il y a lieu.",
+      "text4": "Une fois l'exercice terminée, tes résultats s'afficheront et il sera possible de voir toutes les bonnes réponses des opérations non réussies."
+    },
+    "pwa": {
+      "title": "Installer l'application",
+      "text1": "Cette application est conçue en tant qu'\"Application Web Progressive\" (AWP). Cette technologie permet de faire en sorte qu'on puisse \"installer\" l'application sur un ordinateur ou un appareil mobile, pour pouvoir y accéder en cliquant sur son icône, tel qu'une application native.",
+      "text2": "De plus, une fois qu'on a installé ou accédé à l'application, elle devient disponnible hors ligne, donc sans \"Wifi\" ou données mobiles.",
+      "text3": "Pour plus d'information, voici l'article Wikipedia au sujet des Applications Web Progressives: ",
+      "text4": "Wikipedia: Application Web Progressive",
+      "installImage1": "L'icône de Math Chrono",
+      "installComputerTitle": "Installation sur Windows, macOS ou Linux",
+      "installComputerText1": "Pour installer l'application sur un ordinateur avec un sysètem d'opération Windows, macOS ou Linux, il ne faut qu'accéder à l'adresse et cliquer sur le bouton d'installation dans la barre d'adresse du navigateur web.",
+      "installComputerText2": "Une fois que l'installation est complétée, l'application s'ouvre dans une fenêtre autonome. De plus, un icône s'ajoute automatiquement sur le bureau (Windows) ou dans le répertoire des applications (macOS) qui peut être ensuite utilisé afin de lancer l'application directement.",
+      "installComputerText3": "Seuls les navigateurs de type \"Chromium\" (Google Chrome, Microsoft Edge, Opera etc.) et Safari (macOS) supportent l'intallation d'une Application Web Progressive.",
+      "installComputerImage1": "Bouton d'installation dans la barre d'adresse du navigateur",
+      "installMobileTitle": "Installation sur les appareils mobiles",
+      "installMobileText1": "Pour installer l'application sur un appareil mobile, il ne faut qu'accéder à l'adresse et cliquer sur la notification d'installtion qui va apparaître au bas de de l'écran de l'appareil mobile.",
+      "installMobileText2": "Une fois que l'installation est complétée, un icône s'ajoute automatiquement sur l'écran d'accueil (Android et iOS), qui peut être ensuite utilisé afin de lancer l'application directement.",
+      "installMobileText3": "Seuls les navigateurs de type \"Chromium\" (Google Chrome, Microsoft Edge, Opera etc.) sur Android et Safari sur iOS supportent l'intallation d'une Application Web Progressive.",
+      "installMobileImage1": "Notification d'installation affichée dans le bas de l'écran"
+    }
   }
 }
