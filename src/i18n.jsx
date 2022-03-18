@@ -21,6 +21,9 @@ i18n
   .init({
     backend: {
       loadPath: process.env.PUBLIC_URL + "/locales/{{lng}}/{{ns}}.json",
+      requestOptions: {
+        cache: "no-store",
+      },
     },
     fallbackLng: "fr",
     load: "languageOnly",
