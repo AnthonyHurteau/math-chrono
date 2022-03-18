@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "25px",
   },
   imageCaption: { fontSize: "16px", fontStyle: "italic" },
-  iconImgContainer: { textAlign: "center" },
+  iconImgContainer: { textAlign: "center", display: "block" },
 }));
 
 export default function HowTo(props) {
@@ -44,17 +44,17 @@ export default function HowTo(props) {
   };
 
   const iconBox = (
-    <Box className={classes.iconImgContainer}>
+    <span className={classes.iconImgContainer}>
       <img
         width={"100px"}
         src={`${process.env.PUBLIC_URL}/logo192.png`}
         alt="App icon"
-      />{" "}
+      />
       <br />
       <span className={classes.imageCaption}>
         {t("howTo.pwa.installImage1")}
       </span>
-    </Box>
+    </span>
   );
 
   const howToKey = "howTo";
@@ -232,7 +232,9 @@ export default function HowTo(props) {
               <br />
               <img
                 width={"100%"}
-                src={`${process.env.PUBLIC_URL}/mobile-install-${props.themeMode}-${i18n.language}.png`}
+                src={`${process.env.PUBLIC_URL}/mobile-install-${
+                  props.themeMode
+                }-${i18n.language.substring(0, 2)}.png`}
                 alt="Mobile nstallation notification"
               />
               <span className={classes.imageCaption}>
