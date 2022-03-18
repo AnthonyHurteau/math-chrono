@@ -27,7 +27,8 @@ export default function Navbar(props) {
             variant="outlined"
             color="primary"
             component={Link}
-            to={"/"}>
+            to={"/params"}
+          >
             <Calculate />
             <Typography className={classes.text}>
               &nbsp;Math Chrono&nbsp;

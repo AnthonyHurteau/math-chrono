@@ -5,9 +5,11 @@ import { Box, IconButton } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { makeStyles } from "@mui/styles";
 import LanguageMenuComponent from "./LanguageMenuComponent";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   menuItems: {
@@ -43,6 +45,20 @@ export default function MenuComponent(props) {
     );
   }
 
+  function howToButton() {
+    return (
+      <IconButton
+        aria-label="help-button"
+        key={"helpButton"}
+        color="primary"
+        component={Link}
+        to={"/howto"}
+      >
+        <HelpOutlineIcon />
+      </IconButton>
+    );
+  }
+
   function aboutToggleItem() {
     return (
       <IconButton
@@ -65,6 +81,7 @@ export default function MenuComponent(props) {
         handleTopMenuClose={handleClose}
       />,
       themeModeToggleItem(),
+      howToButton(),
       aboutToggleItem(),
     ];
 

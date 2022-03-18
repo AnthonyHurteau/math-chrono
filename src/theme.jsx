@@ -97,15 +97,16 @@ const getTheme = (mode) => ({
         body: {
           fontFamily: font,
           fontSize: "20px",
-          a: {
-            color: primary.main,
-          },
-          "a:hover": {
-            color: primary.light,
-          },
           mode,
           ...(mode === "dark"
             ? {
+              a: {
+                color: primary.main,
+                textDecoration: "none",
+              },
+              "a:hover": {
+                color: primary.light,
+              },
               scrollbarColor: `${secondary.dark} ${background.dark.default}`,
               "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
                 backgroundColor: background.dark.default,
@@ -133,6 +134,13 @@ const getTheme = (mode) => ({
               },
             }
             : {
+              a: {
+                color: secondary.main,
+                textDecoration: "none",
+              },
+              "a:hover": {
+                color: secondary.light,
+              },
               scrollbarColor: `#dadce0 ${background.light.default}`,
               "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
                 backgroundColor: background.light.default,

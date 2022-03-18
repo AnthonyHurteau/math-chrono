@@ -30,13 +30,13 @@ export const initParams = {
   negativeButtonMobile: false,
 };
 
-const operandsMax = 5;
-const maximumMax = 9999;
+export const operandsMax = 5;
+export const maximumMax = 9999;
 
-const divisionOperandsMax = 3;
-const divisionMaximumMax = 99;
+export const divisionOperandsMax = 3;
+export const divisionMaximumMax = 99;
 
-let validationMinMax = {
+export let validationMinMax = {
   operandsMin: 2,
   operandsMax,
   amountMin: 1,

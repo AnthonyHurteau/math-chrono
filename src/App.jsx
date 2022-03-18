@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
@@ -19,6 +19,8 @@ import {
   setStorageMode,
 } from "./components/services/SettingsService";
 
+const HowTo = lazy(() => import("./components/HowTo"));
+
 function App() {
   const [themeMode, setThemeMode] = useState(getStorageMode());
   const [params, setParams] = useState(getStorageParams());
@@ -29,7 +31,9 @@ function App() {
   const [transitionStage, setTransistionStage] = useState("slideIn");
 
   useEffect(() => {
-    if (location !== displayLocation) setTransistionStage("slideOut");
+    if (location !== displayLocation && location.hash === "") {
+      setTransistionStage("slideOut");
+    }
   }, [location, displayLocation]);
 
   const handleThemeModeChange = () => {
@@ -49,7 +53,7 @@ function App() {
   }, []);
 
   let isMobile = width <= 600;
-  // let isXLarge = width >= 1536;
+  let isXLarge = width >= 1536;
 
   useEffect(() => {
     setStorageMode(themeMode);
@@ -106,6 +110,18 @@ function App() {
               element={<MathComponent
                 isMobile={isMobile}
                 params={params} />}
+            />
+            <Route
+              path="howto"
+              element={
+                <Suspense fallback={<CustomLinearProgress />}>
+                  <HowTo
+                    isMobile={isMobile}
+                    isXLarge={isXLarge}
+                    themeMode={themeMode}
+                  />
+                </Suspense>
+              }
             />
           </Routes>
         </div>
