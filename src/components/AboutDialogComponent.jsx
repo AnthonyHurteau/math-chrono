@@ -35,12 +35,15 @@ export default function AboutDialogComponent(props) {
       >
         <DialogContent>
           <Typography
-            color="secondary"
-            sx={{ fontSize: "36px" }}>
+            color={props.themeMode === "dark" ? "primary" : "secondary"}
+            sx={{ fontSize: "36px" }}
+          >
             {t("aboutDialog.title")}
           </Typography>
           <br />
-          <Typography color="secondary">
+          <Typography
+            color={props.themeMode === "dark" ? "primary" : "secondary"}
+          >
             Version {AppSettings.version}
           </Typography>
           <br />

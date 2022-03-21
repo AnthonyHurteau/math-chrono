@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Container, Grid, Box } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import getTheme from "../theme";
@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
   }),
   chalkboardContainer: {
     background: theme.palette.chalkboard.background,
-    // backgroundSize: theme.palette.chalkboard.size,
     backgroundAttachment: "local",
     color: "white",
     border: "solid",

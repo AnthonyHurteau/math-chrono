@@ -1,10 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { getOperations, getCorrectAnswers } from "./services/MathService";
 import { hoursToSeconds, minutesToSeconds } from "date-fns";
-import { Container, Grid, Box } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import getTheme from "../theme";
 import DashboardComponent from "./DashboardComponent";
 import BaseComponent, { dashboard } from "./BaseComponent";
 import MathComponent from "./MathComponent";

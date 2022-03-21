@@ -7,7 +7,6 @@ import { CssBaseline } from "@mui/material";
 import Navbar from "./components/Navbar";
 import ParamsComponent from "./components/ParamsComponent";
 import HomeComponent from "./components/HomeComponent";
-import MathComponent from "./components/MathComponent";
 import CustomLinearProgress from "./components/SuspenseFallbackComponent";
 import UpdatePwaComponent from "./components/UpdatePwaComponent";
 import {
