@@ -4,6 +4,12 @@
     "text1": "Pratique-toi à calculer",
     "text2": "rapidement!"
   },
+  "navbar": {
+    "locale": "Langue",
+    "appearance": "Apparence",
+    "help": "Aide",
+    "about": "À propos"
+  },
   "aboutDialog": {
     "title": "À propos de Math Chrono",
     "text1": "Ceci est un petit outil pour vous aider avec le calcul mental!",
