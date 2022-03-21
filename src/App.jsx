@@ -5,7 +5,6 @@ import "./App.css";
 import getTheme from "./theme";
 import { CssBaseline } from "@mui/material";
 import Navbar from "./components/Navbar";
-import ParamsComponent from "./components/ParamsComponent";
 import HomeComponent from "./components/HomeComponent";
 import CustomLinearProgress from "./components/SuspenseFallbackComponent";
 import UpdatePwaComponent from "./components/UpdatePwaComponent";
@@ -17,9 +16,12 @@ import {
   getStorageMode,
   setStorageMode,
 } from "./components/services/SettingsService";
-import BaseComponent from "./components/BaseComponent";
-import MathWrapperComponent from "./components/MathWrapperComponent";
 
+const BaseComponent = lazy(() => import("./components/BaseComponent"));
+const ParamsComponent = lazy(() => import("./components/ParamsComponent"));
+const MathWrapperComponent = lazy(() =>
+  import("./components/MathWrapperComponent")
+);
 const HowTo = lazy(() => import("./components/HowTo"));
 
 function App() {
@@ -41,7 +43,14 @@ function App() {
     setThemeMode((t) => (t === "light" ? "dark" : "light"));
   };
 
+  const mobile = 600;
+  const large = 1200;
+  const xlarge = 1536;
+
   const [width, setWidth] = useState(window.innerWidth);
+  const [isMobile, setIsMobile] = useState(width <= mobile);
+  const [isLarge, setIsLarge] = useState(width >= large);
+  const [isXLarge, setIsXLarge] = useState(width >= xlarge);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -53,9 +62,11 @@ function App() {
     };
   }, []);
 
-  let isMobile = width <= 600;
-  let isLarge = width >= 1200;
-  let isXLarge = width >= 1536;
+  useEffect(() => {
+    setIsMobile(width <= mobile);
+    setIsLarge(width >= large);
+    setIsXLarge(width >= xlarge);
+  }, [width]);
 
   useEffect(() => {
     setStorageMode(themeMode);
@@ -71,6 +82,7 @@ function App() {
         <CssBaseline />
         <UpdatePwaComponent />
         <Navbar
+          isMobile={isMobile}
           isLarge={isLarge}
           themeMode={themeMode}
           handleThemeModeChange={handleThemeModeChange}
@@ -100,40 +112,44 @@ function App() {
             <Route
               path="params"
               element={
-                <BaseComponent
-                  isForm={true}
-                  component={
-                    <ParamsComponent
-                      isMobile={isMobile}
-                      params={params}
-                      setParams={setParams}
-                    />
-                  }
-                />
+                <Suspense fallback={<CustomLinearProgress />}>
+                  <BaseComponent
+                    isForm={true}
+                    component={
+                      <ParamsComponent
+                        isMobile={isMobile}
+                        params={params}
+                        setParams={setParams}
+                      />
+                    }
+                  />
+                </Suspense>
               }
             />
             <Route
               path="math"
               element={
-                <MathWrapperComponent
-                  isMobile={isMobile}
-                  params={params} />
+                <Suspense fallback={<CustomLinearProgress />}>
+                  <MathWrapperComponent
+                    isMobile={isMobile}
+                    params={params} />
+                </Suspense>
               }
             />
             <Route
               path="howto"
               element={
-                <BaseComponent
-                  component={
-                    <Suspense fallback={<CustomLinearProgress />}>
+                <Suspense fallback={<CustomLinearProgress />}>
+                  <BaseComponent
+                    component={
                       <HowTo
                         isMobile={isMobile}
                         isXLarge={isXLarge}
                         themeMode={themeMode}
                       />
-                    </Suspense>
-                  }
-                />
+                    }
+                  />
+                </Suspense>
               }
             />
           </Routes>

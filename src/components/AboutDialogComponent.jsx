@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import AppSettings from "../AppSettings";
+import { makeStyles } from "@mui/styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide
@@ -17,7 +18,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     {...props} />;
 });
 
+const useStyles = makeStyles((theme) => ({
+  email: (props) => ({
+    fontSize: props.isMobile ? "5vw" : null,
+  }),
+}));
+
 export default function AboutDialogComponent(props) {
+  const classes = useStyles(props);
   const [t] = useTranslation();
 
   const handleClose = () => {
@@ -54,6 +62,7 @@ export default function AboutDialogComponent(props) {
               href="mailto:hurteau.anthony123@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
+              className={classes.email}
             >
               hurteau.anthony123@gmail.com
             </a>
