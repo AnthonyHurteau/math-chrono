@@ -2,11 +2,20 @@ import React, { useState, Fragment, useMemo, useEffect } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import LanguageIcon from "@mui/icons-material/Language";
-import { IconButton } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  menuItem: (props) => ({
+    width: props.isLarge ? "200px" : null,
+  }),
+}));
 
 export default function LanguageMenuComponent(props) {
+  const [t] = useTranslation();
   const { i18n } = useTranslation();
+  const classes = useStyles(props);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState();
   const open = Boolean(anchorEl);
@@ -47,29 +56,34 @@ export default function LanguageMenuComponent(props) {
 
   return (
     <Fragment>
-      <IconButton
+      <Button
+        variant="contained"
+        className={props.button}
         aria-label="language-button"
-        color="primary"
+        color="secondary"
         onClick={handleClick}
       >
-        <LanguageIcon />
-      </IconButton>
+        <LanguageIcon className={props.icon} />
+        <Typography>{t("navbar.locale")}</Typography>
+      </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: props.isMobile ? "top" : "bottom",
-          horizontal: props.isMobile ? "left" : "center",
+          vertical: props.isLarge ? "bottom" : "top",
+          horizontal: props.isLarge ? "center" : "left",
         }}
         transformOrigin={{
-          vertical: props.isMobile ? "top" : "top",
-          horizontal: props.isMobile ? "right" : "center",
+          vertical: props.isLarge ? "top" : "top",
+          horizontal: props.isLarge ? "center" : "right",
         }}
       >
         {languageItems.map((l, i) => (
           <MenuItem
+            className={classes.menuItem}
+            sx={{ justifyContent: "center" }}
             key={"langItem" + i}
             selected={i === selectedIndex}
             onClick={() => {

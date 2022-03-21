@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Button, Typography } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -10,16 +10,22 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { makeStyles } from "@mui/styles";
 import LanguageMenuComponent from "./LanguageMenuComponent";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
-  menuItems: {
-    width: "75px",
+  menuItems: (props) => ({
     textAlign: "center",
+    marginRight: props.isLarge ? "10px" : null,
+  }),
+  button: {
+    width: "200px",
   },
+  icon: { marginRight: "10px" },
 }));
 
 export default function MenuComponent(props) {
-  const classes = useStyles();
+  const [t] = useTranslation();
+  const classes = useStyles(props);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -34,51 +40,66 @@ export default function MenuComponent(props) {
 
   function themeModeToggleItem() {
     return (
-      <IconButton
+      <Button
+        variant="contained"
+        className={classes.button}
         aria-label="dark-light-button"
         key={"themeModeToggle"}
-        color="primary"
+        color="secondary"
         onClick={() => props.handleThemeModeChange()}
       >
-        {props.themeMode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton>
+        {props.themeMode === "dark" ? (
+          <Brightness7Icon className={classes.icon} />
+        ) : (
+          <Brightness4Icon className={classes.icon} />
+        )}
+        <Typography>{t("navbar.appearance")}</Typography>
+      </Button>
     );
   }
 
   function howToButton() {
     return (
-      <IconButton
+      <Button
+        variant="contained"
+        className={classes.button}
         aria-label="help-button"
         key={"helpButton"}
-        color="primary"
+        color="secondary"
         component={Link}
         to={"/howto"}
       >
-        <HelpOutlineIcon />
-      </IconButton>
+        <HelpOutlineIcon className={classes.icon} />
+        <Typography>{t("navbar.help")}</Typography>
+      </Button>
     );
   }
 
   function aboutToggleItem() {
     return (
-      <IconButton
+      <Button
+        variant="contained"
+        className={classes.button}
         aria-label="info-button"
         key={"aboutToggle"}
-        color="primary"
+        color="secondary"
         onClick={() => {
           props.setOpenAboutDialog(true);
         }}
       >
-        <InfoOutlinedIcon />
-      </IconButton>
+        <InfoOutlinedIcon className={classes.icon} />
+        <Typography>{t("navbar.about")}</Typography>
+      </Button>
     );
   }
 
   function menuItems() {
     const menuItems = [
       <LanguageMenuComponent
-        isMobile={props.isMobile}
+        isLarge={props.isLarge}
         handleTopMenuClose={handleClose}
+        button={classes.button}
+        icon={classes.icon}
       />,
       themeModeToggleItem(),
       howToButton(),
@@ -96,7 +117,7 @@ export default function MenuComponent(props) {
 
   return (
     <Fragment>
-      {props.isMobile ? (
+      {!props.isLarge ? (
         <Box>
           <IconButton
             aria-label="menu-button"

@@ -1,8 +1,18 @@
 .container {
-  height: calc(100vh - 56px);
-  top: 56px;
   position: relative;
   text-align: center;
+}
+
+@media screen and (min-width: 601px) {
+  .container {
+    top: 64px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    top: 56px;
+  }
 }
 
 .chalk-title {

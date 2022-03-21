@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: "-3%",
     padding: "2%",
-    background: `url(${process.env.PUBLIC_URL}/chalkboard-green.png)`,
+    // background: `url(${process.env.PUBLIC_URL}/chalkboard-green.png)`,
     zIndex: 2,
     width: "100%",
   },

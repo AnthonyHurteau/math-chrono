@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   bulletPadding: { paddingBottom: 15 },
   bulletTitle: { fontSize: "24px" },
   bullets: { textAlign: "left" },
+  largeList: {
+    paddingRight: "40px",
+  },
   mobileList: {
     paddingInlineStart: 0,
     listStyleType: "none",
@@ -278,7 +281,7 @@ export default function HowTo(props) {
           isMobile={props.isMobile}
           isXLarge={props.isXLarge}
         ></HowToMenu>
-        <ol className={props.isMobile ? classes.mobileList : null}>
+        <ol className={props.isMobile ? classes.mobileList : classes.largeList}>
           {listItems.map((l, i) => (
             <Fragment key={l.key + i}>
               <li

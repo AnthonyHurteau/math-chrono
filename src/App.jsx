@@ -19,6 +19,7 @@ import {
   setStorageMode,
 } from "./components/services/SettingsService";
 import BaseComponent from "./components/BaseComponent";
+import MathWrapperComponent from "./components/MathWrapperComponent";
 
 const HowTo = lazy(() => import("./components/HowTo"));
 
@@ -54,6 +55,7 @@ function App() {
   }, []);
 
   let isMobile = width <= 600;
+  let isLarge = width >= 1200;
   let isXLarge = width >= 1536;
 
   useEffect(() => {
@@ -70,7 +72,7 @@ function App() {
         <CssBaseline />
         <UpdatePwaComponent />
         <Navbar
-          isMobile={isMobile}
+          isLarge={isLarge}
           themeMode={themeMode}
           handleThemeModeChange={handleThemeModeChange}
         />
@@ -114,13 +116,9 @@ function App() {
             <Route
               path="math"
               element={
-                <BaseComponent
-                  component={
-                    <MathComponent
-                      isMobile={isMobile}
-                      params={params} />
-                  }
-                />
+                <MathWrapperComponent
+                  isMobile={isMobile}
+                  params={params} />
               }
             />
             <Route

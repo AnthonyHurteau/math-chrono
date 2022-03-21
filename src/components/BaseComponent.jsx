@@ -4,10 +4,19 @@ import { makeStyles } from "@mui/styles";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import getTheme from "../theme";
 
+export const chalkboard = "chalkboard";
+export const dashboard = "dashboard";
+
 const useStyles = makeStyles((theme) => ({
-  gridContainer: {
+  baseContainer: (props) => ({
+    padding: "2% calc(2% - 10px) 2% 2%",
+    marginTop: "5%",
+    marginBottom: "2%",
+    height: props.vh ?? "85vh",
+  }),
+  chalkboardContainer: {
     background: theme.palette.chalkboard.background,
-    backgroundSize: theme.palette.chalkboard.size,
+    // backgroundSize: theme.palette.chalkboard.size,
     backgroundAttachment: "local",
     color: "white",
     border: "solid",
@@ -15,10 +24,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     borderImage: `url(${process.env.PUBLIC_URL}/wood.png) 200 / 12px`,
     borderImageOutset: "8px",
-    padding: "2% calc(2% - 10px) 2% 2%",
-    marginTop: "5%",
-    marginBottom: "2%",
-    height: "85vh",
     overflow: "auto",
     boxShadow: "0 8px 16px 0 rgba(0,0,0,0.7)",
     transition: "0.5s",
@@ -29,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
       background: theme.palette.chalkboard.background,
     },
   },
+  dashboardContainer: { marginTop: "0 !important" },
 }));
 
 export default function BaseComponent(props) {
@@ -64,9 +70,12 @@ export default function BaseComponent(props) {
                 container
                 justifyContent="center"
                 alignItems="center"
-                className={classes.gridContainer}
+                className={`${classes.baseContainer} ${
+                  props.componentType === dashboard
+                    ? classes.dashboardContainer
+                    : classes.chalkboardContainer
+                }`}
               >
-                {/* <Box className={classes.borderBackgroud}></Box> */}
                 {props.component}
               </Grid>
             </FormWrapper>

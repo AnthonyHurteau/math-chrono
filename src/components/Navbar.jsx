@@ -39,7 +39,7 @@ export default function Navbar(props) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <MenuComponent
-            isMobile={props.isMobile}
+            isLarge={props.isLarge}
             setOpenAboutDialog={setOpenAboutDialog}
             themeMode={props.themeMode}
             handleThemeModeChange={props.handleThemeModeChange}

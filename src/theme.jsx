@@ -1,13 +1,6 @@
 const background = {
-  light: { paper: "#f5f5f5", default: "#f5f5f5" },
+  light: { paper: "#f5f5f5", default: "#eaeaea" },
   dark: { paper: "#1f272a", default: "#1f272a" },
-};
-
-const secondary = {
-  light: "#428e92",
-  main: "#006064",
-  dark: "#00363a",
-  contrastText: "#fff",
 };
 
 const primary = {
@@ -15,6 +8,13 @@ const primary = {
   main: "#26c6da",
   dark: "#0095a8",
   contrastText: "rgba(0, 0, 0, 1)",
+};
+
+const secondary = {
+  light: "#428e92",
+  main: "#006064",
+  dark: "#00363a",
+  contrastText: "#fff",
 };
 
 const font = "\"Fredericka the Great\", \"Helvetica\", \"Arial\", cursive";
@@ -142,11 +142,11 @@ const getTheme = (mode) => ({
             }
             : {
               a: {
-                color: secondary.main,
+                color: primary.main,
                 textDecoration: "none",
               },
               "a:hover": {
-                color: secondary.light,
+                color: primary.light,
               },
               "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
                 width: "10px",
