@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Container, Grid } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import React, { useState, useEffect, Fragment } from "react";
 import { getOperations, getCorrectAnswers } from "./services/MathService";
 import { hoursToSeconds, minutesToSeconds } from "date-fns";
 import Collapse from "@mui/material/Collapse";
@@ -9,21 +7,7 @@ import CompletedDialogComponent from "./CompletedDialogComponent";
 import DashboardComponent from "./DashboardComponent";
 import OperationsComponent from "./OperationsComponent";
 
-const useStyles = makeStyles((theme) => ({
-  gridContainer: {
-    border: "1px solid",
-    borderRadius: theme.shape.borderRadius,
-    borderColor: theme.palette.primary.main,
-    padding: "2%",
-    marginTop: "5%",
-    marginBottom: "2%",
-    height: "85vh",
-    overflow: "auto",
-  },
-}));
-
 export default function MathComponent(props) {
-  const classes = useStyles();
   const [operations] = useState(() => getOperations(props.params));
   const [correctedOperations, setCorrectedOperations] = useState([]);
   const [progress, setProgress] = useState(0);
@@ -59,65 +43,41 @@ export default function MathComponent(props) {
   }, [end, operations]);
 
   return (
-    <Container className="container">
+    <Fragment>
       <CountdownComponent
         countdonwnStart={countdonwnStart}
         setCountdownEnded={setCountdownEnded}
       />
-      <Grid container>
-        {/* Left margin */}
-        <Grid
-          item
-          xs={0}
-          sm={1}></Grid>
-        <Grid
-          item
-          xs={12}
-          sm={10}>
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            className={classes.gridContainer}
-          >
-            <DashboardComponent
-              params={props.params}
-              operations={operations}
-              start={start}
-              countdonwnStart={countdonwnStart}
-              setCountdownStart={setCountdownStart}
-              countdownEnded={countdownEnded}
-              timeLimit={timeLimit}
-              timeLeft={timeLeft}
-              setTimeLeft={setTimeLeft}
-              setOpenCompletedDialog={setOpenCompletedDialog}
-              end={end}
-              setEnd={setEnd}
-              progress={progress}
-              isMobile={props.isMobile}
-            />
-            <Collapse
-              in={start && countdownEnded}
-              timeout={props.isMobile ? 1500 : 700}
-            >
-              <OperationsComponent
-                operations={operations}
-                operationAnswer={operationAnswer}
-                timeLeft={timeLeft}
-                end={end}
-                params={props.params}
-                isMobile={props.isMobile}
-                openCompletedDialog={openCompletedDialog}
-              />
-            </Collapse>
-          </Grid>
-        </Grid>
-        {/* Right margin */}
-        <Grid
-          item
-          xs={0}
-          sm={1}></Grid>
-      </Grid>
+      {/* <DashboardComponent
+        params={props.params}
+        operations={operations}
+        start={start}
+        countdonwnStart={countdonwnStart}
+        setCountdownStart={setCountdownStart}
+        countdownEnded={countdownEnded}
+        timeLimit={timeLimit}
+        timeLeft={timeLeft}
+        setTimeLeft={setTimeLeft}
+        setOpenCompletedDialog={setOpenCompletedDialog}
+        end={end}
+        setEnd={setEnd}
+        progress={progress}
+        isMobile={props.isMobile}
+      /> */}
+      <Collapse
+        in={start && countdownEnded}
+        timeout={props.isMobile ? 1500 : 700}
+      >
+        <OperationsComponent
+          operations={operations}
+          operationAnswer={operationAnswer}
+          timeLeft={timeLeft}
+          end={end}
+          params={props.params}
+          isMobile={props.isMobile}
+          openCompletedDialog={openCompletedDialog}
+        />
+      </Collapse>
       <CompletedDialogComponent
         openCompletedDialog={openCompletedDialog}
         setOpenCompletedDialog={setOpenCompletedDialog}
@@ -125,7 +85,7 @@ export default function MathComponent(props) {
         totalTime={timeLimit - timeLeft}
         isTime={props.params.isTime}
       />
-    </Container>
+    </Fragment>
   );
 }
 

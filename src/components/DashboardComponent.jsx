@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography, Button, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import TimerComponent from "./TimerComponent";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: "-3%",
     padding: "2%",
-    backgroundColor: theme.palette.background.default,
+    background: `url(${process.env.PUBLIC_URL}/chalkboard-green.png)`,
     zIndex: 2,
     width: "100%",
   },
@@ -26,7 +26,7 @@ export default function DashboardComponent(props) {
   const [t] = useTranslation();
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Grid
         container
         justifyContent="space-around"
@@ -116,6 +116,6 @@ export default function DashboardComponent(props) {
           )}
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }

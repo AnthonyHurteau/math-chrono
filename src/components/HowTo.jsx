@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
-import { Grid, Container, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import {
   divisionMaximumMax,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   mobileList: {
     paddingInlineStart: 0,
     listStyleType: "none",
-    paddingBottom: "25px",
+    paddingBottom: "10px",
   },
   imageCaption: { fontSize: "16px", fontStyle: "italic" },
   iconImgContainer: { textAlign: "center", display: "block" },
@@ -269,72 +269,50 @@ export default function HowTo(props) {
   });
 
   return (
-    <Container className="container">
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center">
-        {/* Left margin */}
-        <Grid
-          item
-          xs={0}
-          sm={2}></Grid>
-        {/* Middle content */}
-        <Grid
-          item
-          sm={8}>
-          <br />
-          <span className={classes.title}>{t("howTo.title")}</span>
-          <Box>
-            <HowToMenu
-              menuItems={menuItems}
-              isMobile={props.isMobile}
-              isXLarge={props.isXLarge}
-            ></HowToMenu>
-            <ol className={props.isMobile ? classes.mobileList : null}>
-              {listItems.map((l, i) => (
-                <Fragment key={l.key + i}>
-                  <li
-                    id={l.key + i}
-                    className={`${classes.titles} ${classes.scrollMargin}`}
+    <Fragment>
+      <br />
+      <span className={classes.title}>{t("howTo.title")}</span>
+      <Box>
+        <HowToMenu
+          menuItems={menuItems}
+          isMobile={props.isMobile}
+          isXLarge={props.isXLarge}
+        ></HowToMenu>
+        <ol className={props.isMobile ? classes.mobileList : null}>
+          {listItems.map((l, i) => (
+            <Fragment key={l.key + i}>
+              <li
+                id={l.key + i}
+                className={`${classes.titles} ${classes.scrollMargin}`}
+              >
+                {l.title}
+              </li>
+              {l.content}
+              {l.list.length > 0 ? (
+                <Fragment>
+                  <br />
+                  <ul
+                    className={`${classes.bullets} ${
+                      props.isMobile ? classes.mobileList : null
+                    }`}
                   >
-                    {l.title}
-                  </li>
-                  {l.content}
-                  {l.list.length > 0 ? (
-                    <Fragment>
-                      <br />
-                      <ul
-                        className={`${classes.bullets} ${
-                          props.isMobile ? classes.mobileList : null
-                        }`}
+                    {l.list.map((li, i) => (
+                      <li
+                        key={li.key + i}
+                        id={li.key + i}
+                        className={`${classes.bulletPadding} ${classes.scrollMargin}`}
                       >
-                        {l.list.map((li, i) => (
-                          <li
-                            key={li.key + i}
-                            id={li.key + i}
-                            className={`${classes.bulletPadding} ${classes.scrollMargin}`}
-                          >
-                            <span className={classes.bulletTitle}>
-                              {li.title}
-                            </span>
-                            {li.content}
-                          </li>
-                        ))}
-                      </ul>
-                    </Fragment>
-                  ) : null}
+                        <span className={classes.bulletTitle}>{li.title}</span>
+                        {li.content}
+                      </li>
+                    ))}
+                  </ul>
                 </Fragment>
-              ))}
-            </ol>
-          </Box>
-        </Grid>
-        {/* Right Margin */}
-        <Grid
-          item
-          xs={0}
-          sm={2}></Grid>
-      </Grid>
-    </Container>
+              ) : null}
+            </Fragment>
+          ))}
+        </ol>
+      </Box>
+    </Fragment>
   );
 }

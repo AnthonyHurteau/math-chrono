@@ -18,6 +18,7 @@ import {
   getStorageMode,
   setStorageMode,
 } from "./components/services/SettingsService";
+import BaseComponent from "./components/BaseComponent";
 
 const HowTo = lazy(() => import("./components/HowTo"));
 
@@ -98,29 +99,44 @@ function App() {
             <Route
               path="params"
               element={
-                <ParamsComponent
-                  isMobile={isMobile}
-                  params={params}
-                  setParams={setParams}
+                <BaseComponent
+                  isForm={true}
+                  component={
+                    <ParamsComponent
+                      isMobile={isMobile}
+                      params={params}
+                      setParams={setParams}
+                    />
+                  }
                 />
               }
             />
             <Route
               path="math"
-              element={<MathComponent
-                isMobile={isMobile}
-                params={params} />}
+              element={
+                <BaseComponent
+                  component={
+                    <MathComponent
+                      isMobile={isMobile}
+                      params={params} />
+                  }
+                />
+              }
             />
             <Route
               path="howto"
               element={
-                <Suspense fallback={<CustomLinearProgress />}>
-                  <HowTo
-                    isMobile={isMobile}
-                    isXLarge={isXLarge}
-                    themeMode={themeMode}
-                  />
-                </Suspense>
+                <BaseComponent
+                  component={
+                    <Suspense fallback={<CustomLinearProgress />}>
+                      <HowTo
+                        isMobile={isMobile}
+                        isXLarge={isXLarge}
+                        themeMode={themeMode}
+                      />
+                    </Suspense>
+                  }
+                />
               }
             />
           </Routes>

@@ -17,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   }),
   buttonContainer: (props) => ({
-    position: "sticky",
-    top: props.isMobile ? "calc(100vh - 75px)" : "100px",
-    textAlign: "left",
-    marginLeft: props.isXLarge ? "-45%" : props.isMobile ? null : "-25%",
+    position: "fixed",
+    top: props.isMobile ? null : "100px",
+    left: props.isMobile ? null : "50px",
+    bottom: props.isMobile ? 0 : null,
+    right: props.isMobile ? "30px" : null,
   }),
 }));
 
@@ -96,7 +97,7 @@ export default function HowToMenu(props) {
     <Fragment>
       <Box className={classes.buttonContainer}>
         <Fab
-          color="primary"
+          color="secondary"
           onClick={toggleDrawer(true)}>
           <FormatListNumbered />
         </Fab>

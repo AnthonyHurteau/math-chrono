@@ -76,7 +76,7 @@
       "numberOperandsTitle": "Number of operands",
       "numberOperandsText1": "How many operands (numbers) are there in each operation. For example, here is an operation with 3 operands: 1 + 2 + 3.",
       "numberOperandsText2": " operands per operation",
-      "numberOperandsText3,": "If the division operator is selected, the maximum amount of operands per operation is ",
+      "numberOperandsText3": "If the division operator is selected, the maximum amount of operands per operation is ",
       "operatorsTitle": "Operators",
       "operatorsText1": "Which operators (addition, substraction, multiplication, division) will be used in the operations.",
       "operatorsText2": "The operators' order is randomized. At least one operator must be selected.",

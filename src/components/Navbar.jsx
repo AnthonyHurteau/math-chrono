@@ -21,11 +21,13 @@ export default function Navbar(props) {
       <AppBar
         position="fixed"
         className={classes.root}
-        color="secondary">
+        color="secondary"
+        enableColorOnDark
+      >
         <Toolbar>
           <Button
-            variant="outlined"
-            color="primary"
+            variant="contained"
+            color="secondary"
             component={Link}
             to={"/params"}
           >

@@ -1,6 +1,6 @@
 const background = {
   light: { paper: "#f5f5f5", default: "#f5f5f5" },
-  dark: { paper: "#121212", default: "#121212" },
+  dark: { paper: "#1f272a", default: "#1f272a" },
 };
 
 const secondary = {
@@ -26,6 +26,7 @@ const getTheme = (mode) => ({
   shape: {
     borderRadius: 5,
   },
+
   palette: {
     mode,
     ...(mode === "light"
@@ -55,6 +56,10 @@ const getTheme = (mode) => ({
           hint: "rgba(0, 0, 0, 0.38)",
         },
         rowHover: "#EBF5FB",
+        chalkboard: {
+          background: `url(${process.env.PUBLIC_URL}/chalkboard-green.png)`,
+          size: "cover",
+        },
       }
       : {
         // palette values for dark mode
@@ -82,6 +87,10 @@ const getTheme = (mode) => ({
           hint: "rgba(255, 255, 255, 1)",
         },
         rowHover: "#8bcef7",
+        chalkboard: {
+          background: `url(${process.env.PUBLIC_URL}/chalkboard-black.png)`,
+          size: null,
+        },
       }),
   },
   components: {
@@ -107,15 +116,13 @@ const getTheme = (mode) => ({
               "a:hover": {
                 color: primary.light,
               },
-              scrollbarColor: `${secondary.dark} ${background.dark.default}`,
               "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-                backgroundColor: background.dark.default,
+                width: "10px",
               },
               "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
                 borderRadius: 8,
                 backgroundColor: secondary.dark,
                 minHeight: 24,
-                border: `3px solid ${background.dark.default}`,
               },
               "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
                   {
@@ -141,15 +148,13 @@ const getTheme = (mode) => ({
               "a:hover": {
                 color: secondary.light,
               },
-              scrollbarColor: `#dadce0 ${background.light.default}`,
               "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-                backgroundColor: background.light.default,
+                width: "10px",
               },
               "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
                 borderRadius: 8,
-                backgroundColor: "#dadce0",
+                backgroundColor: secondary.dark,
                 minHeight: 24,
-                border: `3px solid ${background.light.default}`,
               },
               "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
                   {
