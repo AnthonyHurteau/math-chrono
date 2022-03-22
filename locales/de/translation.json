@@ -43,7 +43,7 @@
   },
   "completed": {
     "title": "Es ist vorbei!",
-    "result": "Hier ist dein Ergebnis",
+    "result": "Hier ist dein Ergebnis:",
     "resultText1": "Du hast gelöst:",
     "resultText2singular": "Rechnung",
     "resultText2plural": "Rechnungen",
