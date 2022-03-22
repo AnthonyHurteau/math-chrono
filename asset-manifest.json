@@ -1,17 +1,23 @@
 {
   "files": {
     "main.css": "/math-chrono/static/css/main.efc50f9f.css",
-    "main.js": "/math-chrono/static/js/main.3e5433a6.js",
-    "static/js/141.bde72dab.chunk.js": "/math-chrono/static/js/141.bde72dab.chunk.js",
+    "main.js": "/math-chrono/static/js/main.b9e705fd.js",
+    "static/js/515.baebf639.chunk.js": "/math-chrono/static/js/515.baebf639.chunk.js",
+    "static/js/733.dc04fd5e.chunk.js": "/math-chrono/static/js/733.dc04fd5e.chunk.js",
+    "static/js/141.d94f79bd.chunk.js": "/math-chrono/static/js/141.d94f79bd.chunk.js",
+    "static/js/975.f1354f4e.chunk.js": "/math-chrono/static/js/975.f1354f4e.chunk.js",
     "service-worker.js": "/math-chrono/service-worker.js",
     "index.html": "/math-chrono/index.html",
     "static/media/getFetch.cjs": "/math-chrono/static/media/getFetch.c780682470504fffbd04.cjs",
     "main.efc50f9f.css.map": "/math-chrono/static/css/main.efc50f9f.css.map",
-    "main.3e5433a6.js.map": "/math-chrono/static/js/main.3e5433a6.js.map",
-    "141.bde72dab.chunk.js.map": "/math-chrono/static/js/141.bde72dab.chunk.js.map"
+    "main.b9e705fd.js.map": "/math-chrono/static/js/main.b9e705fd.js.map",
+    "515.baebf639.chunk.js.map": "/math-chrono/static/js/515.baebf639.chunk.js.map",
+    "733.dc04fd5e.chunk.js.map": "/math-chrono/static/js/733.dc04fd5e.chunk.js.map",
+    "141.d94f79bd.chunk.js.map": "/math-chrono/static/js/141.d94f79bd.chunk.js.map",
+    "975.f1354f4e.chunk.js.map": "/math-chrono/static/js/975.f1354f4e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.efc50f9f.css",
-    "static/js/main.3e5433a6.js"
+    "static/js/main.b9e705fd.js"
   ]
 }
