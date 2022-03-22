@@ -121,6 +121,15 @@ export default function HomeComponent(props) {
   const [text1Slide, setText1Slide] = useState(false);
   const [text2Slide, setText2Slide] = useState(false);
   const [buttonFade, setButtonFade] = useState(false);
+  const [isMobile, setIsMobile] = useState(props.isMobile);
+
+  useEffect(() => {
+    if (window.screen.width <= 600) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(props.isMobile);
+    }
+  }, [props.isMobile]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -162,7 +171,7 @@ export default function HomeComponent(props) {
             <Typography
               className={classes.title}
               sx={{
-                fontSize: props.isMobile ? "50px" : "72px",
+                fontSize: isMobile ? "50px" : "72px",
               }}
             >
               Math-Chrono
@@ -171,7 +180,7 @@ export default function HomeComponent(props) {
           <Box
             sx={{
               position: "relative",
-              top: props.isMobile ? "40px" : "75px",
+              top: isMobile ? "40px" : "75px",
             }}
           >
             <Zoom
@@ -192,7 +201,7 @@ export default function HomeComponent(props) {
               direction="left">
               <Typography
                 sx={{
-                  fontSize: props.isMobile ? "32px" : "50px",
+                  fontSize: isMobile ? "32px" : "50px",
                 }}
               >
                 {t("home.text1")}
@@ -202,7 +211,7 @@ export default function HomeComponent(props) {
               <Box className={classes.quickText}>
                 <Typography
                   sx={{
-                    fontSize: props.isMobile ? "32px" : "50px",
+                    fontSize: isMobile ? "32px" : "50px",
                   }}
                 >
                   {t("home.text2")}

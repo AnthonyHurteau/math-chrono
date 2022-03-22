@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import Calculate from "@mui/icons-material/Calculate";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar(props) {
   const classes = useStyles();
   const [openAboutDialog, setOpenAboutDialog] = useState(false);
+  const isXSmall = window.screen.width <= 330;
 
   return (
     <Fragment>
@@ -31,11 +32,11 @@ export default function Navbar(props) {
             component={Link}
             to={"/params"}
           >
-            <Calculate />
+            {isXSmall ? null : <Calculate />}
             <Typography className={classes.text}>
               &nbsp;Math Chrono&nbsp;
             </Typography>
-            <AccessAlarmIcon />
+            {isXSmall ? null : <AccessAlarmIcon />}
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <MenuComponent
