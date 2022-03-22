@@ -34,7 +34,10 @@ function App() {
   const [transitionStage, setTransistionStage] = useState("slideIn");
 
   useEffect(() => {
-    if (location !== displayLocation && location.hash === "") {
+    if (
+      location.pathname !== displayLocation.pathname &&
+      location.hash === ""
+    ) {
       setTransistionStage("slideOut");
     }
   }, [location, displayLocation]);
@@ -106,16 +109,10 @@ function App() {
           <Routes location={displayLocation}>
             <Route
               path="*"
-              element={<HomeComponent
-                isMobile={isMobile}
-                key={randomKey(6)} />}
-            />
+              element={<HomeComponent isMobile={isMobile} />} />
             <Route
               path="/"
-              element={<HomeComponent
-                isMobile={isMobile}
-                key={randomKey(6)} />}
-            />
+              element={<HomeComponent isMobile={isMobile} />} />
             <Route
               path="params"
               element={
@@ -167,14 +164,3 @@ function App() {
 }
 
 export default App;
-
-function randomKey(length) {
-  var result = "";
-  var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
