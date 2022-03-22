@@ -118,6 +118,7 @@ const getTheme = (mode) => ({
               },
               "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
                 width: "10px",
+                height: "10px",
               },
               "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
                 borderRadius: 8,
@@ -150,6 +151,7 @@ const getTheme = (mode) => ({
               },
               "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
                 width: "10px",
+                height: "10px",
               },
               "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
                 borderRadius: 8,

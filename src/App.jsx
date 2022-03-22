@@ -43,14 +43,12 @@ function App() {
     setThemeMode((t) => (t === "light" ? "dark" : "light"));
   };
 
-  const mobile = 600;
-  const large = 1200;
-  const xlarge = 1536;
+  const breakpoints = { mobile: 600, large: 1200, xlarge: 1536 };
 
   const [width, setWidth] = useState(window.innerWidth);
-  const [isMobile, setIsMobile] = useState(width <= mobile);
-  const [isLarge, setIsLarge] = useState(width >= large);
-  const [isXLarge, setIsXLarge] = useState(width >= xlarge);
+  const [isMobile, setIsMobile] = useState(width <= breakpoints.mobile);
+  const [isLarge, setIsLarge] = useState(width >= breakpoints.large);
+  const [isXLarge, setIsXLarge] = useState(width >= breakpoints.xlarge);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -63,10 +61,19 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setIsMobile(width <= mobile);
-    setIsLarge(width >= large);
-    setIsXLarge(width >= xlarge);
-  }, [width]);
+    if (window.screen.width <= breakpoints.mobile) {
+      setIsMobile(width <= breakpoints.mobile);
+    }
+    if (window.screen.width >= breakpoints.large) {
+      setIsMobile(width <= breakpoints.mobile);
+      setIsLarge(width >= breakpoints.large);
+    }
+    if (window.screen.width >= breakpoints.xlarge) {
+      setIsMobile(width <= breakpoints.mobile);
+      setIsLarge(width >= breakpoints.large);
+      setIsXLarge(width >= breakpoints.xlarge);
+    }
+  }, [width, breakpoints.mobile, breakpoints.large, breakpoints.xlarge]);
 
   useEffect(() => {
     setStorageMode(themeMode);

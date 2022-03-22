@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
       background: theme.palette.chalkboard.background,
     },
+    "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
+      background: theme.palette.chalkboard.background,
+    },
   },
   dashboardContainer: { marginTop: "0 !important" },
 }));

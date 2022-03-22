@@ -8,12 +8,6 @@ import Zoom from "@mui/material/Zoom";
 import Slide from "@mui/material/Slide";
 
 const useStyles = makeStyles((theme) => ({
-  gridContainer: {
-    padding: "2%",
-    marginTop: "5%",
-    marginBottom: "2%",
-    height: "85vh",
-  },
   title: {
     position: "relative",
     top: "10px",
@@ -29,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     animation: "$shake 0.5s ease",
     animationDelay: 1400,
     transformOrigin: "50% 50%",
+  },
+  slideText: {
+    animation: "$slideLeft 0.6s ease-in",
+    transformOrigin: "left",
   },
   quickText: {
     animation: "$brake 0.75s linear",
@@ -111,6 +109,14 @@ const useStyles = makeStyles((theme) => ({
       transform: "translateX(0) rotate(-2deg)",
     },
   },
+  "@keyframes slideLeft": {
+    from: {
+      transform: "translateX(110%) scale(0, 0)",
+    },
+    to: {
+      transform: "translateX(0) scale(1, 1)",
+    },
+  },
 }));
 
 export default function HomeComponent(props) {
@@ -121,15 +127,6 @@ export default function HomeComponent(props) {
   const [text1Slide, setText1Slide] = useState(false);
   const [text2Slide, setText2Slide] = useState(false);
   const [buttonFade, setButtonFade] = useState(false);
-  const [isMobile, setIsMobile] = useState(props.isMobile);
-
-  useEffect(() => {
-    if (window.screen.width <= 600) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(props.isMobile);
-    }
-  }, [props.isMobile]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -171,7 +168,7 @@ export default function HomeComponent(props) {
             <Typography
               className={classes.title}
               sx={{
-                fontSize: isMobile ? "50px" : "72px",
+                fontSize: props.isMobile ? "50px" : "72px",
               }}
             >
               Math-Chrono
@@ -180,7 +177,7 @@ export default function HomeComponent(props) {
           <Box
             sx={{
               position: "relative",
-              top: isMobile ? "40px" : "75px",
+              top: props.isMobile ? "40px" : "75px",
             }}
           >
             <Zoom
@@ -195,23 +192,22 @@ export default function HomeComponent(props) {
                 />
               </Box>
             </Zoom>
-            <Slide
-              in={text1Slide}
-              timeout={750}
-              direction="left">
-              <Typography
-                sx={{
-                  fontSize: isMobile ? "32px" : "50px",
-                }}
-              >
-                {t("home.text1")}
-              </Typography>
-            </Slide>
+            {text1Slide ? (
+              <Box className={classes.slideText}>
+                <Typography
+                  sx={{
+                    fontSize: props.isMobile ? "32px" : "50px",
+                  }}
+                >
+                  {t("home.text1")}
+                </Typography>
+              </Box>
+            ) : null}
             {text2Slide ? (
               <Box className={classes.quickText}>
                 <Typography
                   sx={{
-                    fontSize: isMobile ? "32px" : "50px",
+                    fontSize: props.isMobile ? "32px" : "50px",
                   }}
                 >
                   {t("home.text2")}
