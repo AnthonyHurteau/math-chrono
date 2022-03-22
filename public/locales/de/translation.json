@@ -4,6 +4,12 @@
     "text1": "Werde schnell besser im",
     "text2": "Kopfrechnen!"
   },
+  "navbar": {
+    "locale": "Sprache",
+    "appearance": "Design",
+    "help": "Hilfe",
+    "about": "Über"
+  },
   "aboutDialog": {
     "title": "Über Math Chrono",
     "text1": "Dies ist ein kleines Tool, um dir beim Kopfrechnen zu helfen!",
