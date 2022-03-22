@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CompletedDialogComponent(props) {
   const classes = useStyles();
+  const { i18n } = useTranslation();
   const [t] = useTranslation();
 
   const handleClose = () => {
@@ -39,11 +40,18 @@ export default function CompletedDialogComponent(props) {
 
   const rightAnswersText = () => {
     const rightAnswers = props.operations.filter((o) => o.isRightAnswer).length;
+    const isSingular = (() => {
+      if (i18n.language === "fr") {
+        return rightAnswers <= 1;
+      } else {
+        return rightAnswers === 1;
+      }
+    })();
 
     return (
       <Fragment>
-        <span className={classes.rightAnswers}>{rightAnswers}</span>{" "}
-        {rightAnswers <= 1
+        <span className={classes.rightAnswers}>{rightAnswers} </span>
+        {isSingular
           ? t("completed.resultText2singular")
           : t("completed.resultText2plural")}
       </Fragment>

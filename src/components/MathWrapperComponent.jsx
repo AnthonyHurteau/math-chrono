@@ -77,6 +77,7 @@ export default function MathWrapperComponent(props) {
             setCountdownEnded={setCountdownEnded}
             start={start}
             end={end}
+            timeLimit={timeLimit}
             timeLeft={timeLeft}
             openCompletedDialog={openCompletedDialog}
             setOpenCompletedDialog={setOpenCompletedDialog}
