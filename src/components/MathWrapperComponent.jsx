@@ -44,7 +44,7 @@ export default function MathWrapperComponent(props) {
     <Fragment>
       <BaseComponent
         componentType={dashboard}
-        vh={"25vh"}
+        pxHeight={`${props.isMobile ? 140 : 190}px`}
         component={
           <DashboardComponent
             params={props.params}
@@ -61,11 +61,12 @@ export default function MathWrapperComponent(props) {
             setEnd={setEnd}
             progress={progress}
             isMobile={props.isMobile}
+            isMdPlus={props.isMdPlus}
           />
         }
       />
       <BaseComponent
-        vh={"55vh"}
+        pxHeight={`calc(100vh - ${props.isMobile ? 240 : 330}px)`}
         component={
           <MathComponent
             isMobile={props.isMobile}

@@ -18,25 +18,42 @@
   "params": {
     "title": "Parameters",
     "description": "Choose from the following options in order to adjust the difficulty of the math chrono session.",
-    "timeDescription": "Do you want to time yourself?",
-    "timepickerToggle": "Timer",
-    "timepickerLabel": "Minutes and Seconds",
-    "operandsDescription": "How many operands (numbers) do you want in your operations?",
-    "operators": "Which operations do you want to execute?",
+    "tablesToggleDescription": "Do you want to practice your mutliplication/division tables or your mental arithmetics?",
+    "tablesLabel": "Tables",
+    "mathLabel": "Arithmetics",
     "operationAmount": "How many operations do you want to execute?",
     "numberLabel": "Number",
-    "maximumDescription": "What do you want as the maximum value of an operand (number) in your operations?",
-    "negativeNumbersDescription": "Do you want the operands (numbers) or the results of the operations to be negative numbers?",
-    "negativeNumbers": "Negative Numbers",
-    "negativeButtonMobileDescription": "Some phones do not allow you to write negative numbers, if this is the case, you can activate a button in the interface in order to make a number negative.",
-    "negativeButtonMobile": "Negative Number Button",
     "yes": "Yes",
     "no": "No",
-    "submit": "Start the exercise!"
+    "submit": "Start the exercise!",
+    "timer": {
+      "description": "Do you want to time yourself?",
+      "toggle": "Timer",
+      "label": "Minutes and Seconds"
+    },
+    "math": {
+      "operandsDescription": "How many operands (numbers) do you want in your operations?",
+      "operators": "Which operations do you want to execute?",
+      "maximumDescription": "What do you want as the maximum value of an operand (number) in your operations?"
+    },
+    "negativeNumbers": {
+      "description": "Do you want the operands (numbers) or the results of the operations to be negative numbers?",
+      "label": "Negative Numbers",
+      "mobileButtonDescription": "Some phones do not allow you to write negative numbers, if this is the case, you can activate a button in the interface in order to make a number negative.",
+      "mobileButtonLabel": "Negative Number Button"
+    },
+    "tables": {
+      "toggle": "Tables",
+      "tablesMaximum": "Up to which table do you want to practice?",
+      "operators": "Do you want to practice your multiplication or division tables?",
+      "selectionDescription": "Which tables do you wish to practice?"
+    }
   },
   "math": {
     "title": "Math Chrono!",
     "start": "Start!",
+    "text1": "Click on ",
+    "text2": " when you're ready!",
     "done": "Done!",
     "back": "Back",
     "restart": "Restart?"

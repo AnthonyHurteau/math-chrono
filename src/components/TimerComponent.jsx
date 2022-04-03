@@ -7,15 +7,15 @@ import React, {
 } from "react";
 import { makeStyles } from "@mui/styles";
 
-const timerSize = "200px";
+const timerSize = "150px";
 const timerSizeMobile = "50px";
 const strokeWidth = "7px";
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
     position: "relative",
-    height: props.isMobile ? timerSizeMobile : timerSize,
-    width: props.isMobile ? timerSizeMobile : timerSize,
+    height: !props.isMdPlus ? timerSizeMobile : timerSize,
+    width: !props.isMdPlus ? timerSizeMobile : timerSize,
   }),
   rootCircle: {
     fill: "none",
@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
   rootLabel: (props) => ({
     position: "absolute",
-    height: props.isMobile ? timerSizeMobile : timerSize,
-    width: props.isMobile ? timerSizeMobile : timerSize,
+    height: !props.isMdPlus ? timerSizeMobile : timerSize,
+    width: !props.isMdPlus ? timerSizeMobile : timerSize,
     top: 0,
     display: "flex",
     alignItems: "center",
@@ -80,7 +80,6 @@ export default function TimerComponent(props) {
     colorCodes.info.color
   );
   const [strokeDashArray, setStrokeDashArray] = useState(283);
-  //   const [timeLeft, setTimeLeft] = useState(timeLimit);
 
   let timerRunning = useRef(false);
 
@@ -161,7 +160,7 @@ export default function TimerComponent(props) {
 
   return (
     <div className={classes.root}>
-      {!props.isMobile ? (
+      {props.isMdPlus ? (
         <svg
           className={classes.rootSvg}
           viewBox="0 0 100 100"

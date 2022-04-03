@@ -18,25 +18,42 @@
   "params": {
     "title": "Paramètres",
     "description": "Choisis parmi les différentes options ici-bas afin d'ajuster la difficulté de la séance de math chrono.",
-    "timeDescription": "Veux-tu te chronométrer?",
-    "timepickerToggle": "Chronomètre",
-    "timepickerLabel": "Minutes et secondes",
-    "operandsDescription": "Combien de termes (nombres) veux-tu dans tes opérations?",
-    "operators": "Quelles opérations veux-tu effectuer?",
+    "tablesToggleDescription": "Veux-tu pratiquer tes tables de multiplications/divisions ou ton calcul mental?",
+    "tablesLabel": "Tables",
+    "mathLabel": "Calculs",
     "operationAmount": "Combien d'opérations veux-tu effectuer?",
     "numberLabel": "Nombre",
-    "maximumDescription": "Que veux-tu comme valeur maximale d'un terme (nombre) d'une opération",
-    "negativeNumbersDescription": "Veux-tu que les termes (nombres) ou les résultats des opérations soient des nombres négatifs?",
-    "negativeNumbers": "Nombres négatifs",
-    "negativeButtonMobileDescription": "Certains téléphones ne permettent pas de composer des nombres négatifs, si c'est le cas, tu peux activer un bouton dans l'interface afin de rendre un nombre négatif.",
-    "negativeButtonMobile": "Bouton nombre négatif",
     "yes": "Oui",
     "no": "Non",
-    "submit": "Démarrer l'exercice!"
+    "submit": "Démarrer l'exercice!",
+    "timer": {
+      "description": "Veux-tu te chronométrer?",
+      "toggle": "Chronomètre",
+      "label": "Minutes et secondes"
+    },
+    "math": {
+      "operandsDescription": "Combien de termes (nombres) veux-tu dans tes opérations?",
+      "operators": "Quelles opérations veux-tu effectuer?",
+      "maximumDescription": "Que veux-tu comme valeur maximale d'un terme (nombre) d'une opération"
+    },
+    "negativeNumbers": {
+      "description": "Veux-tu que les termes (nombres) ou les résultats des opérations soient des nombres négatifs?",
+      "label": "Nombres négatifs",
+      "mobileButtonDescription": "Certains téléphones ne permettent pas de composer des nombres négatifs, si c'est le cas, tu peux activer un bouton dans l'interface afin de rendre un nombre négatif.",
+      "mobileButtonLabel": "Bouton nombre négatif"
+    },
+    "tables": {
+      "toggle": "Tables",
+      "tablesMaximum": "Jusqu'à quelle table veux-tu pratiquer?",
+      "operators": "Veux-tu pratiquer tes tables de mulitplications ou de divisions?",
+      "selectionDescription": "Quelles tables souhaites tu pratiquer?"
+    }
   },
   "math": {
     "title": "Math Chrono!",
     "start": "Débuter!",
+    "text1": "Clique sur ",
+    "text2": " quand tu es prêt!",
     "done": "Terminer!",
     "back": "Retour",
     "restart": "Recommencer?"

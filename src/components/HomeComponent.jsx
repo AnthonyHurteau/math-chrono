@@ -168,7 +168,8 @@ export default function HomeComponent(props) {
             <Typography
               className={classes.title}
               sx={{
-                fontSize: props.isMobile ? "50px" : "72px",
+                fontSize:
+                  props.isMobile || !props.isHeightLarge ? "50px" : "72px",
               }}
             >
               Math-Chrono
@@ -177,7 +178,11 @@ export default function HomeComponent(props) {
           <Box
             sx={{
               position: "relative",
-              top: props.isMobile ? "40px" : "75px",
+              top: props.isMobile
+                ? "30px"
+                : props.isHeightLarge
+                  ? "75px"
+                  : "85px",
             }}
           >
             <Zoom
@@ -196,7 +201,8 @@ export default function HomeComponent(props) {
               <Box className={classes.slideText}>
                 <Typography
                   sx={{
-                    fontSize: props.isMobile ? "32px" : "50px",
+                    fontSize:
+                      props.isMobile || !props.isHeightLarge ? "32px" : "50px",
                   }}
                 >
                   {t("home.text1")}
@@ -207,7 +213,8 @@ export default function HomeComponent(props) {
               <Box className={classes.quickText}>
                 <Typography
                   sx={{
-                    fontSize: props.isMobile ? "32px" : "50px",
+                    fontSize:
+                      props.isMobile || !props.isHeightLarge ? "32px" : "50px",
                   }}
                 >
                   {t("home.text2")}

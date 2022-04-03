@@ -6,7 +6,7 @@ import {
   divisionMaximumMax,
   divisionOperandsMax,
   maximumMax,
-  operandsMax,
+  operandsMaxInit,
   validationMinMax,
 } from "./ParamsComponent";
 import HowToMenu from "./HowToMenu";
@@ -95,7 +95,7 @@ export default function HowTo(props) {
               {t("howTo.params.genericMinimum")}
               {validationMinMax.operandsMin}
               {t("howTo.params.genericMaximum")}
-              {operandsMax}
+              {operandsMaxInit}
               {t("howTo.params.numberOperandsText2")}
               <br />
               {t("howTo.params.numberOperandsText3")}

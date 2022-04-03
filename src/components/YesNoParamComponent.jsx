@@ -54,7 +54,7 @@ export default function YesNoParamComponent(props) {
           }
           unmountOnExit
         >
-          <div>{t("params.yes")}</div>
+          <div>{props.yesLabel ?? t("params.yes")}</div>
         </Fade>
         <Fade
           in={props.toggleFalse}
@@ -64,7 +64,7 @@ export default function YesNoParamComponent(props) {
           }
           unmountOnExit
         >
-          <div>{t("params.no")}</div>
+          <div>{props.noLabel ?? t("params.no")}</div>
         </Fade>
       </Grid>
     </Fragment>

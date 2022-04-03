@@ -2,18 +2,26 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Grid, Typography, Button, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
-import TextField from "@mui/material/TextField";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import TimePicker from "@mui/lab/TimePicker";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Fade from "@mui/material/Fade";
 import { Link } from "react-router-dom";
 import NumberParamComponent from "./NumberParamComponent";
-import OperatorParamComponent from "./OperatorParamComponent";
 import YesNoParamComponent from "./YesNoParamComponent";
 import Collapse from "@mui/material/Collapse";
+import TablesParamsComponent from "./TablesParamsComponent";
+import TimerParamsComponent from "./TimerParamsComponent";
+import MathParamsComponent from "./MathParamsComponent";
+import NegativeParamsComponent from "./NegativeParamsComponent";
+
+const tablesMaximumMax = 20;
+
+// Add array keys in this array for initialization of already existing storages
+const tablesSelectionArray = [...Array(tablesMaximumMax).keys()].map(
+  (i) =>
+    (i = 5 ? { label: i + 1, value: true } : { label: i + 1, value: false })
+);
+export const paramsArray = [
+  { key: "tablesSelection", array: tablesSelectionArray },
+];
 
 // !!!!!!! ALWAYS ADD NEW PROPERTIES HERE WHEN ADDING NEW PARAMS !!!!!!
 export const initParams = {
@@ -26,11 +34,16 @@ export const initParams = {
   division: true,
   amount: 20,
   maximum: 20,
+  isTables: false,
+  tablesMultiplication: true,
+  tablesDivision: false,
+  tablesMaximum: 12,
+  tablesSelection: tablesSelectionArray,
   negativeNumbers: false,
   negativeButtonMobile: false,
 };
 
-export const operandsMax = 5;
+export const operandsMaxInit = 5;
 export const maximumMax = 9999;
 
 export const divisionOperandsMax = 3;
@@ -38,11 +51,13 @@ export const divisionMaximumMax = 99;
 
 export let validationMinMax = {
   operandsMin: 2,
-  operandsMax,
+  operandsMax: operandsMaxInit,
   amountMin: 1,
   amountMax: 100,
   maximumMin: 1,
   maximumMax,
+  tablesMaximumMin: 10,
+  tablesMaximumMax,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -55,22 +70,23 @@ const useStyles = makeStyles((theme) => ({
 export default function ParamsComponent(props) {
   const [t] = useTranslation();
   const classes = useStyles(props);
-  const [noNegativeNumbers, setNoNegativeNumbers] = useState(
-    !props.params.negativeNumbers
-  );
-  const [yesNegativeNumbers, setYesNegativeNumbers] = useState(
-    props.params.negativeNumbers
-  );
-  const [noNegativeButton, setNoNegativeButton] = useState(
-    !props.params.negativeButtonMobile
-  );
-  const [yesNegativeButton, setYesNegativeButton] = useState(
-    props.params.negativeButtonMobile
-  );
+  const [operandsMax, setOperandsMax] = useState(operandsMaxInit);
+  const [noTables, setNoTables] = useState(!props.params.isTables);
+  const [yesTables, setYesTables] = useState(props.params.isTables);
 
-  const updateParams = (key, value) => {
+  const updateParams = (
+    key1,
+    value,
+    key2 = null,
+    key3 = null,
+    key1Value = null
+  ) => {
     let params = { ...props.params };
-    params[key] = value;
+    if (key2) {
+      params[key2].find((x) => x[key1] === key1Value)[key3] = value;
+    } else {
+      params[key1] = value;
+    }
     props.setParams(params);
   };
 
@@ -128,22 +144,13 @@ export default function ParamsComponent(props) {
   }, [props]);
 
   useEffect(() => {
-    if (props.params.negativeNumbers) {
-      setNoNegativeNumbers(false);
+    if (props.params.isTables) {
+      setNoTables(false);
     }
-    if (!props.params.negativeNumbers) {
-      setYesNegativeNumbers(false);
+    if (!props.params.isTables) {
+      setYesTables(false);
     }
-  }, [props.params.negativeNumbers]);
-
-  useEffect(() => {
-    if (props.params.negativeButtonMobile) {
-      setNoNegativeButton(false);
-    }
-    if (!props.params.negativeButtonMobile) {
-      setYesNegativeButton(false);
-    }
-  }, [props.params.negativeButtonMobile]);
+  }, [props.params.isTables]);
 
   useEffect(() => {
     if (props.params.division) {
@@ -151,9 +158,20 @@ export default function ParamsComponent(props) {
       validationMinMax.operandsMax = divisionOperandsMax;
     } else if (!props.params.division) {
       validationMinMax.maximumMax = maximumMax;
-      validationMinMax.operandsMax = operandsMax;
+      validationMinMax.operandsMax = operandsMaxInit;
     }
-  }, [props.params.division]);
+
+    setOperandsMax(validationMinMax.operandsMax);
+  }, [props.params.division, props.params.operands]);
+
+  useEffect(() => {
+    if (props.params.operands > operandsMax) {
+      let params = { ...props.params };
+      params.operands = operandsMax;
+
+      props.setParams(params);
+    }
+  }, [operandsMax, props]);
 
   return (
     <Fragment>
@@ -166,121 +184,26 @@ export default function ParamsComponent(props) {
         className={classes.sectionPadding}>
         {t("params.description")}
       </Grid>
-      {/* ---- TIMER ---- */}
-      {/* Timer Description */}
-      <Grid
-        item
-        xs={12}
-        sm={10}
-        className={classes.rowPadding}>
-        {t("params.timeDescription")}
-      </Grid>
-      {/* Timer toggle */}
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        className={props.isMobile ? null : classes.sectionPadding}
-      >
-        <FormControlLabel
-          className={classes.sliderRow}
-          control={
-            <Switch
-              color="primary"
-              checked={!!props.params.isTime}
-              onClick={() => {
-                updateParams("isTime", !props.params.isTime);
-              }}
-            />
-          }
-          label={t("params.timepickerToggle")}
-          labelPlacement="start"
-        />
-      </Grid>
-      {/* Timer with if  */}
-      <Collapse
-        in={props.params.isTime}
-        timeout={1000}
-        orientation={props.isMobile ? "vertical" : "horizontal"}
-        sx={{ width: props.isMobile ? "100%" : "50%" }}
-      >
-        <Grid
-          item
-          className={classes.rowTimerMobile}>
-          <Fade
-            in={props.params.isTime}
-            timeout={1000}>
-            <div>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <TimePicker
-                  ampm={false}
-                  views={["hours", "minutes", "seconds"]}
-                  inputFormat="HH:mm:ss"
-                  mask="__:__:__"
-                  label={t("params.timepickerLabel")}
-                  value={props.params.time}
-                  onChange={(newTime) => {
-                    updateParams("time", newTime);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </div>
-          </Fade>
-        </Grid>
-      </Collapse>
-
-      {/* ---- Number of operands ---- */}
-      <NumberParamComponent
-        description={t("params.operandsDescription")}
-        numberKey={"operands"}
-        value={props.params.operands}
+      {/* ---- Mode Toggle ---- */}
+      <YesNoParamComponent
+        description={t("params.tablesToggleDescription")}
+        value={props.params.isTables}
+        yesNoKey={"isTables"}
         updateParams={updateParams}
-        validateNumber={validateNumber}
-        min={validationMinMax.operandsMin}
-        max={validationMinMax.operandsMax}
+        label={t("params.tables.toggle")}
+        toggleTrue={yesTables}
+        setToggleTrue={setYesTables}
+        toggleFalse={noTables}
+        setToggleFalse={setNoTables}
+        yesLabel={t("params.tablesLabel")}
+        noLabel={t("params.mathLabel")}
         classes={classes}
       />
-      {/* ---- Operators ---- */}
-      {/* Operators description */}
-      <Grid
-        item
-        xs={12}
-        sm={10}
-        className={classes.rowPadding}>
-        {t("params.operators")}
-      </Grid>
-      {/* Addition */}
-      <OperatorParamComponent
-        value={props.params.addition}
-        label={"+"}
-        operatorKey="addition"
-        updateParams={updateParams}
+      {/* ---- Timer ---- */}
+      <TimerParamsComponent
+        params={props.params}
         classes={classes}
-      />
-      {/* Subsctraction */}
-      <OperatorParamComponent
-        value={props.params.substraction}
-        label={"-"}
-        operatorKey="substraction"
         updateParams={updateParams}
-        classes={classes}
-      />
-      {/* Multiplication */}
-      <OperatorParamComponent
-        value={props.params.multiplication}
-        label={"x"}
-        operatorKey="multiplication"
-        updateParams={updateParams}
-        classes={classes}
-      />
-      {/* Division */}
-      <OperatorParamComponent
-        value={props.params.division}
-        label={"÷"}
-        operatorKey="division"
-        updateParams={updateParams}
-        classes={classes}
       />
       {/* ---- Operation amount ---- */}
       <NumberParamComponent
@@ -293,59 +216,53 @@ export default function ParamsComponent(props) {
         max={validationMinMax.amountMax}
         classes={classes}
       />
-      {/* ---- Maximum number ---- */}
-      {/* maximum number description */}
-      <NumberParamComponent
-        description={t("params.maximumDescription")}
-        numberKey={"maximum"}
-        value={props.params.maximum}
-        updateParams={updateParams}
-        validateNumber={validateNumber}
-        min={validationMinMax.maximumMin}
-        max={validationMinMax.maximumMax}
-        classes={classes}
-      />
-      {/* ---- Negative numbers ---- */}
-      <YesNoParamComponent
-        description={t("params.negativeNumbersDescription")}
-        value={props.params.negativeNumbers}
-        yesNoKey={"negativeNumbers"}
-        updateParams={updateParams}
-        label={t("params.negativeNumbers")}
-        toggleTrue={yesNegativeNumbers}
-        setToggleTrue={setYesNegativeNumbers}
-        toggleFalse={noNegativeNumbers}
-        setToggleFalse={setNoNegativeNumbers}
-        classes={classes}
-      />
-      {/* ---- Mobile Negative Number Button---- */}
       <Collapse
-        in={props.isMobile && props.params.negativeNumbers}
-        timeout={1000}
-      >
+        in={props.params.isTables}
+        timeout={1000}>
         <Fade
-          in={props.isMobile && props.params.negativeNumbers}
-          timeout={1000}
-        >
-          <Box sx={{ paddingTop: "25px" }}>
-            <YesNoParamComponent
-              description={t("params.negativeButtonMobileDescription")}
-              value={props.params.negativeButtonMobile}
-              yesNoKey={"negativeButtonMobile"}
-              updateParams={updateParams}
-              label={t("params.negativeButtonMobile")}
-              toggleTrue={yesNegativeButton}
-              setToggleTrue={setYesNegativeButton}
-              toggleFalse={noNegativeButton}
-              setToggleFalse={setNoNegativeButton}
+          in={props.params.isTables}
+          timeout={1000}>
+          {/* ---- Tables ---- */}
+          <Box>
+            <TablesParamsComponent
+              params={props.params}
+              setParams={props.setParams}
               classes={classes}
+              updateParams={updateParams}
+              validationMinMax={validationMinMax}
             />
           </Box>
         </Fade>
       </Collapse>
+      <Collapse
+        in={!props.params.isTables}
+        timeout={1000}>
+        <Fade
+          in={!props.params.isTables}
+          timeout={1000}>
+          {/* ---- Math Params ---- */}
+          <Box>
+            <MathParamsComponent
+              params={props.params}
+              operandsMax={operandsMax}
+              updateParams={updateParams}
+              validateNumber={validateNumber}
+              classes={classes}
+              validationMinMax={validationMinMax}
+            />
+          </Box>
+        </Fade>
+      </Collapse>
+      {/* ---- Negative Numbers ---- */}
+      <NegativeParamsComponent
+        params={props.params}
+        isMobile={props.isMobile}
+        updateParams={updateParams}
+        classes={classes}
+      />
       <Grid
         item
-        xs={12}
+        xs={8}
         sx={{ paddingTop: 5 }}>
         <Button
           variant="contained"

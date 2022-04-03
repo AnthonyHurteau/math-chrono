@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import getTheme from "./theme";
-import { CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import Navbar from "./components/Navbar";
 import HomeComponent from "./components/HomeComponent";
 import CustomLinearProgress from "./components/SuspenseFallbackComponent";
@@ -46,15 +46,23 @@ function App() {
     setThemeMode((t) => (t === "light" ? "dark" : "light"));
   };
 
-  const breakpoints = { mobile: 600, large: 1200, xlarge: 1536 };
+  const breakpoints = { mobile: 600, mdPlus: 1000, large: 1200, xlarge: 1536 };
 
   const [width, setWidth] = useState(window.innerWidth);
   const [isMobile, setIsMobile] = useState(width <= breakpoints.mobile);
+  const [isMdPlus, setIsMdPlus] = useState(width >= breakpoints.mdPlus);
   const [isLarge, setIsLarge] = useState(width >= breakpoints.large);
   const [isXLarge, setIsXLarge] = useState(width >= breakpoints.xlarge);
 
+  const heightBreakpoints = { large: 800 };
+  const [height, setHeight] = useState(window.innerHeight);
+  const [isHeightLarge, setIsHeightLarge] = useState(
+    height >= heightBreakpoints.large
+  );
+
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
   }
   useEffect(() => {
     window.addEventListener("resize", handleWindowSizeChange);
@@ -67,16 +75,32 @@ function App() {
     if (window.screen.width <= breakpoints.mobile) {
       setIsMobile(width <= breakpoints.mobile);
     }
+    if (window.screen.width <= breakpoints.mdPlus) {
+      setIsMobile(width <= breakpoints.mobile);
+      setIsMdPlus(width >= breakpoints.mdPlus);
+    }
     if (window.screen.width >= breakpoints.large) {
       setIsMobile(width <= breakpoints.mobile);
+      setIsMdPlus(width >= breakpoints.mdPlus);
       setIsLarge(width >= breakpoints.large);
     }
     if (window.screen.width >= breakpoints.xlarge) {
       setIsMobile(width <= breakpoints.mobile);
+      setIsMdPlus(width >= breakpoints.mdPlus);
       setIsLarge(width >= breakpoints.large);
       setIsXLarge(width >= breakpoints.xlarge);
     }
-  }, [width, breakpoints.mobile, breakpoints.large, breakpoints.xlarge]);
+
+    setIsHeightLarge(height >= heightBreakpoints.large);
+  }, [
+    width,
+    height,
+    breakpoints.mobile,
+    breakpoints.mdPlus,
+    breakpoints.large,
+    breakpoints.xlarge,
+    heightBreakpoints.large,
+  ]);
 
   useEffect(() => {
     setStorageMode(themeMode);
@@ -97,7 +121,7 @@ function App() {
           themeMode={themeMode}
           handleThemeModeChange={handleThemeModeChange}
         />
-        <div
+        <Box
           className={`${transitionStage}`}
           onAnimationEnd={() => {
             if (transitionStage === "slideOut") {
@@ -109,15 +133,28 @@ function App() {
           <Routes location={displayLocation}>
             <Route
               path="*"
-              element={<HomeComponent isMobile={isMobile} />} />
+              element={
+                <HomeComponent
+                  isMobile={isMobile}
+                  isHeightLarge={isHeightLarge}
+                />
+              }
+            />
             <Route
               path="/"
-              element={<HomeComponent isMobile={isMobile} />} />
+              element={
+                <HomeComponent
+                  isMobile={isMobile}
+                  isHeightLarge={isHeightLarge}
+                />
+              }
+            />
             <Route
               path="params"
               element={
                 <Suspense fallback={<CustomLinearProgress />}>
                   <BaseComponent
+                    isMobile={isMobile}
                     isForm={true}
                     component={
                       <ParamsComponent
@@ -136,7 +173,9 @@ function App() {
                 <Suspense fallback={<CustomLinearProgress />}>
                   <MathWrapperComponent
                     isMobile={isMobile}
-                    params={params} />
+                    isMdPlus={isMdPlus}
+                    params={params}
+                  />
                 </Suspense>
               }
             />
@@ -145,6 +184,7 @@ function App() {
               element={
                 <Suspense fallback={<CustomLinearProgress />}>
                   <BaseComponent
+                    isMobile={isMobile}
                     component={
                       <HowTo
                         isMobile={isMobile}
@@ -157,7 +197,7 @@ function App() {
               }
             />
           </Routes>
-        </div>
+        </Box>
       </Suspense>
     </ThemeProvider>
   );

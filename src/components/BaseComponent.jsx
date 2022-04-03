@@ -11,8 +11,7 @@ const useStyles = makeStyles((theme) => ({
   baseContainer: (props) => ({
     padding: "2% calc(2% - 10px) 2% 2%",
     marginTop: "5%",
-    marginBottom: "2%",
-    height: props.vh ?? "85vh",
+    height: props.pxHeight ?? `calc(100vh - ${props.isMobile ? 90 : 140}px)`,
   }),
   chalkboardContainer: {
     background: theme.palette.chalkboard.background,

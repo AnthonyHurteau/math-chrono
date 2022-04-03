@@ -2,8 +2,16 @@ import { evaluate } from "mathjs";
 
 export function getOperations(params) {
   const operators = getOperators(params);
-
-  return generateOperations(params, operators);
+  let operations = [];
+  for (let i = 0; i < params.amount; i++) {
+    const operation = generateOperation(params, operators);
+    operations.push({
+      id: i + 1,
+      operation,
+      operationText: getWrittenOperation(operation),
+    });
+  }
+  return operations;
 }
 
 export function getCorrectAnswers(operations) {
@@ -17,28 +25,22 @@ export function getCorrectAnswers(operations) {
     }
     operation.rightAnswer = evaluate(operation.operation);
   }
-
-  return operations;
-}
-
-function generateOperations(params, operators) {
-  let operations = [];
-  for (let i = 0; i < params.amount; i++) {
-    const operation = generateOperation(params, operators);
-    operations.push({
-      id: i + 1,
-      operation,
-      operationText: getWrittenOperation(operation),
-    });
-  }
   return operations;
 }
 
 function generateOperation(params, operators) {
+  if (params.isTables) {
+    return tablesOperation(params, operators);
+  } else if (!params.isTables) {
+    return mathOperation(params, operators);
+  }
+}
+
+function mathOperation(params, operators) {
   let operation = "";
 
   for (let i = 0; i < params.operands; i++) {
-    let newOperand = getOperand(params);
+    let newOperand = getOperand(params.negativeNumbers, params.maximum);
 
     operation = operation + newOperand;
 
@@ -48,6 +50,25 @@ function generateOperation(params, operators) {
   }
 
   operation = validateOperation(params, operators, operation);
+
+  return operation;
+}
+
+function tablesOperation(params, operators) {
+  let operation = "";
+  const tables = params.tablesSelection.filter(
+    (t) => t.value && t.label <= params.tablesMaximum
+  );
+  const tableOperand = tables[getRandomInt(0, tables.length - 1)].label;
+  const operand = getOperand(params.negativeNumbers, params.tablesMaximum);
+  const operator = getRandomOperator(operators);
+
+  if (operator === "*") {
+    operation = tableOperand + operator + operand;
+  } else if (operator === "/") {
+    operation =
+      evaluate(tableOperand + "*" + operand) + operator + tableOperand;
+  }
 
   return operation;
 }
@@ -68,15 +89,15 @@ function validateOperation(params, operators, operation) {
   return validatedOperation;
 }
 
-function getOperand(params) {
+function getOperand(negativeNumbers, max) {
   let operand;
-  if (params.negativeNumbers) {
-    operand = getRandomInt(1, params.maximum).toString();
+  if (negativeNumbers) {
+    operand = getRandomInt(1, max).toString();
     if (getRandomInt(0, 2) === 1) {
       operand = "(-" + operand + ")";
     }
-  } else if (!params.negativeNumbers) {
-    operand = getRandomInt(1, params.maximum).toString();
+  } else if (!negativeNumbers) {
+    operand = getRandomInt(1, max).toString();
   }
   return operand;
 }
@@ -89,16 +110,22 @@ function getRandomOperator(operators) {
 
 function getOperators(params) {
   let operators = [];
-  if (params.addition) {
+  if (params.addition && !params.isTables) {
     operators.push("+");
   }
-  if (params.substraction) {
+  if (params.substraction && !params.isTables) {
     operators.push("-");
   }
-  if (params.multiplication) {
+  if (
+    (!params.isTables && params.multiplication) ||
+    (params.isTables && params.tablesMultiplication)
+  ) {
     operators.push("*");
   }
-  if (params.division) {
+  if (
+    (!params.isTables && params.division) ||
+    (params.isTables && params.tablesDivision)
+  ) {
     operators.push("/");
   }
   return operators;

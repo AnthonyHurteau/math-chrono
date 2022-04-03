@@ -1,4 +1,4 @@
-import { initParams } from "../ParamsComponent";
+import { paramsArray, initParams } from "../ParamsComponent";
 
 const mode = "mode";
 const params = "params";
@@ -27,7 +27,25 @@ export function getStorageParams() {
     set(params, JSON.stringify(initParams));
   }
 
-  return JSON.parse(get(params));
+  const parsedParams = JSON.parse(get(params));
+  // Add new properties for already installed apps
+  for (const key in initParams) {
+    if ((parsedParams[key] === null) | (parsedParams[key] === undefined)) {
+      parsedParams[key] = initParams[key];
+    }
+  }
+
+  // Add new arrays for already installed apps
+  for (const paramArray of paramsArray) {
+    if (parsedParams[paramArray.key]) {
+      parsedParams[paramArray.key] =
+        parsedParams[paramArray.key].length !== paramArray.array.length
+          ? paramArray.array
+          : parsedParams[paramArray.key];
+    }
+  }
+
+  return parsedParams;
 }
 
 export function setStorageParams(val) {
