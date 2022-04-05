@@ -7,15 +7,20 @@ import { useTranslation } from "react-i18next";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  menuItem: (props) => ({
-    width: props.isLarge ? "200px" : null,
+  menuItem: (isLarge) => ({
+    width: isLarge ? "200px" : null,
   }),
 }));
 
-export default function LanguageMenuComponent(props) {
+export default function LanguageMenuComponent({
+  isLarge,
+  handleTopMenuClose,
+  button,
+  icon,
+}) {
   const [t] = useTranslation();
   const { i18n } = useTranslation();
-  const classes = useStyles(props);
+  const classes = useStyles(isLarge);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState();
   const open = Boolean(anchorEl);
@@ -58,12 +63,12 @@ export default function LanguageMenuComponent(props) {
     <Fragment>
       <Button
         variant="contained"
-        className={props.button}
+        className={button}
         aria-label="language-button"
         color="secondary"
         onClick={handleClick}
       >
-        <LanguageIcon className={props.icon} />
+        <LanguageIcon className={icon} />
         <Typography>{t("navbar.locale")}</Typography>
       </Button>
       <Menu
@@ -72,12 +77,12 @@ export default function LanguageMenuComponent(props) {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: props.isLarge ? "bottom" : "top",
-          horizontal: props.isLarge ? "center" : "left",
+          vertical: isLarge ? "bottom" : "top",
+          horizontal: isLarge ? "center" : "left",
         }}
         transformOrigin={{
-          vertical: props.isLarge ? "top" : "top",
-          horizontal: props.isLarge ? "center" : "right",
+          vertical: isLarge ? "top" : "top",
+          horizontal: isLarge ? "center" : "right",
         }}
       >
         {languageItems.map((l, i) => (
@@ -89,7 +94,7 @@ export default function LanguageMenuComponent(props) {
             onClick={() => {
               i18n.changeLanguage(l.lang);
               handleClose();
-              props.handleTopMenuClose();
+              handleTopMenuClose();
             }}
           >
             {l.description}

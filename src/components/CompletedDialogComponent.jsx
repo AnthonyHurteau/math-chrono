@@ -29,17 +29,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CompletedDialogComponent(props) {
+export default function CompletedDialogComponent({
+  openCompletedDialog,
+  setOpenCompletedDialog,
+  operations,
+  totalTime,
+  isTime,
+}) {
   const classes = useStyles();
   const { i18n } = useTranslation();
   const [t] = useTranslation();
 
   const handleClose = () => {
-    props.setOpenCompletedDialog(false);
+    setOpenCompletedDialog(false);
   };
 
   const rightAnswersText = () => {
-    const rightAnswers = props.operations.filter((o) => o.isRightAnswer).length;
+    const rightAnswers = operations.filter((o) => o.isRightAnswer).length;
     const isSingular = (() => {
       if (i18n.language === "fr") {
         return rightAnswers <= 1;
@@ -59,7 +65,7 @@ export default function CompletedDialogComponent(props) {
   };
 
   const remainingTimeText = () => {
-    const timeObj = secondsToTime(props.totalTime);
+    const timeObj = secondsToTime(totalTime);
 
     const hours =
       timeObj.hours > 0
@@ -81,8 +87,8 @@ export default function CompletedDialogComponent(props) {
   };
 
   const completedText = () => {
-    const rightAnswers = props.operations.filter((o) => o.isRightAnswer).length;
-    const totalMultiplier = 100 / props.operations.length;
+    const rightAnswers = operations.filter((o) => o.isRightAnswer).length;
+    const totalMultiplier = 100 / operations.length;
     const rightAnswersPourcentage = rightAnswers * totalMultiplier;
 
     if (rightAnswersPourcentage === 100) {
@@ -101,7 +107,7 @@ export default function CompletedDialogComponent(props) {
   return (
     <div>
       <Dialog
-        open={props.openCompletedDialog}
+        open={openCompletedDialog}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
@@ -117,12 +123,10 @@ export default function CompletedDialogComponent(props) {
           <p>
             {t("completed.resultText1")} {rightAnswersText()}{" "}
             {t("completed.resultText3")}{" "}
-            <span className={classes.totalOperations}>
-              {props.operations.length}
-            </span>
-            {props.isTime ? null : "!"}
+            <span className={classes.totalOperations}>{operations.length}</span>
+            {isTime ? null : "!"}
           </p>
-          {props.isTime ? (
+          {isTime ? (
             <p>
               {t("completed.resultText4")}{" "}
               <span className={classes.rightAnswers}>

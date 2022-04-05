@@ -10,24 +10,24 @@ import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   tableOfContents: { textAlign: "center", padding: "2%" },
-  list: (props) => ({
+  list: (isMobile) => ({
     fontSize: "18px",
     padding: "2%",
-    width: props.isMobile ? "100vw" : "350px",
+    width: isMobile ? "100vw" : "350px",
     height: "100vh",
   }),
-  buttonContainer: (props) => ({
+  buttonContainer: (isMobile) => ({
     position: "fixed",
-    top: props.isMobile ? null : "100px",
-    left: props.isMobile ? null : "50px",
-    bottom: props.isMobile ? 0 : null,
-    right: props.isMobile ? "30px" : null,
+    top: isMobile ? null : "100px",
+    left: isMobile ? null : "50px",
+    bottom: isMobile ? 0 : null,
+    right: isMobile ? "30px" : null,
   }),
 }));
 
-export default function HowToMenu(props) {
+export default function HowToMenu({ menuItems, isMobile }) {
   const [t] = useTranslation();
-  const classes = useStyles(props);
+  const classes = useStyles(isMobile);
 
   const [state, setState] = React.useState(false);
 
@@ -53,7 +53,7 @@ export default function HowToMenu(props) {
       </Box>
       <Divider />
       <ol>
-        {props.menuItems.map((m, i) => (
+        {menuItems.map((m, i) => (
           <li key={`${m.key}Menu${i}`}>
             <HashLink
               to={`/howTo#${m.key}${i}`}

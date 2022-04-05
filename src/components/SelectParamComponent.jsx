@@ -1,33 +1,41 @@
 import React, { Fragment } from "react";
 import { Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-export default function SelectParamComponent(props) {
+export default function SelectParamComponent({
+  description,
+  selectKey,
+  label,
+  value,
+  options,
+  updateParams,
+  classes,
+}) {
   return (
     <Fragment>
       <Grid
         item
         xs={12}
         sm={10}
-        className={props.classes.rowPadding}>
-        {props.description}
+        className={classes.rowPadding}>
+        {description}
       </Grid>
       <Grid
         item
         xs={12}
         sm={10}
-        className={props.classes.sectionPadding}>
+        className={classes.sectionPadding}>
         <FormControl sx={{ width: "176.5px" }}>
-          <InputLabel id={`${props.selectKey}-label`}>{props.label}</InputLabel>
+          <InputLabel id={`${selectKey}-label`}>{label}</InputLabel>
           <Select
-            labelId={`${props.selectKey}-label`}
-            id={`${props.selectKey}-select`}
-            value={props.value}
-            label={props.label}
+            labelId={`${selectKey}-label`}
+            id={`${selectKey}-select`}
+            value={value}
+            label={label}
             onChange={(event) => {
-              props.updateParams(props.selectKey, event.target.value);
+              updateParams(selectKey, event.target.value);
             }}
           >
-            {props.options.map((o, i) => {
+            {options.map((o, i) => {
               return (
                 <MenuItem
                   key={"menuItem-" + i}

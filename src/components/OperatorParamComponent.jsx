@@ -3,35 +3,46 @@ import { Grid } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-export default function OperatorParamComponent(props) {
+export default function OperatorParamComponent({
+  value,
+  label,
+  operatorKey,
+  updateParams,
+  classes,
+  arrayName,
+  arrayKey,
+  arrayValueKey,
+  arrayKeyValue,
+  xs,
+}) {
   return (
     <Grid
       item
-      xs={props.xs ?? 6}
-      sm={4}>
+      xs={xs ?? 6}
+      sm={3}>
       <FormControlLabel
         control={
           <Checkbox
-            checked={!!props.value}
+            checked={!!value}
             color="primary"
             onClick={() => {
-              if (props.arrayName) {
-                props.updateParams(
-                  props.arrayKey,
-                  !props.value,
-                  props.arrayName,
-                  props.arrayValueKey,
-                  props.arrayKeyValue
+              if (arrayName) {
+                updateParams(
+                  arrayKey,
+                  !value,
+                  arrayName,
+                  arrayValueKey,
+                  arrayKeyValue
                 );
               } else {
-                props.updateParams(props.operatorKey, !props.value);
+                updateParams(operatorKey, !value);
               }
             }}
           />
         }
-        label={props.label}
+        label={label}
         labelPlacement="start"
-        className={props.classes.sectionPadding}
+        className={classes.sectionPadding}
       />
     </Grid>
   );

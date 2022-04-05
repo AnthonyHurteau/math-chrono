@@ -3,7 +3,16 @@ import { Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import TextField from "@mui/material/TextField";
 
-export default function NumberParamComponent(props) {
+export default function NumberParamComponent({
+  description,
+  numberKey,
+  value,
+  updateParams,
+  validateNumber,
+  min,
+  max,
+  classes,
+}) {
   const [t] = useTranslation();
 
   return (
@@ -12,25 +21,25 @@ export default function NumberParamComponent(props) {
         item
         xs={12}
         sm={10}
-        className={props.classes.rowPadding}>
-        {props.description}
+        className={classes.rowPadding}>
+        {description}
       </Grid>
       <Grid
         item
-        className={props.classes.sectionPadding}>
+        className={classes.sectionPadding}>
         <TextField
           label={t("params.numberLabel")}
           type="number"
           variant="outlined"
           color="primary"
-          value={props.value}
+          value={value}
           onChange={(event) => {
-            props.updateParams(props.numberKey, event.target.value);
+            updateParams(numberKey, event.target.value);
           }}
           onBlur={(event) => {
-            props.updateParams(
-              props.numberKey,
-              props.validateNumber(event.target.value, props.min, props.max)
+            updateParams(
+              numberKey,
+              validateNumber(event.target.value, min, max)
             );
           }}
         />

@@ -4,102 +4,104 @@ import OperatorParamComponent from "./OperatorParamComponent";
 import { useTranslation } from "react-i18next";
 import SelectParamComponent from "./SelectParamComponent";
 
-export default function TablesParamsComponent(props) {
+export default function TablesParamsComponent({
+  params,
+  setParams,
+  classes,
+  updateParams,
+  validationMinMax,
+}) {
   const [t] = useTranslation();
 
   const tablesMaximumOptions = [
     ...Array(
-      props.validationMinMax.tablesMaximumMax -
-        props.validationMinMax.tablesMaximumMin +
-        1
+      validationMinMax.tablesMaximumMax - validationMinMax.tablesMaximumMin + 1
     ),
   ].map((x, i) => {
     return {
-      value: i + props.validationMinMax.tablesMaximumMin,
-      label: i + props.validationMinMax.tablesMaximumMin,
+      value: i + validationMinMax.tablesMaximumMin,
+      label: i + validationMinMax.tablesMaximumMin,
     };
   });
 
   useEffect(() => {
-    let params = { ...props.params };
+    let paramsObj = { ...params };
 
-    if (!props.params.tablesMultiplication && !props.params.tablesDivision) {
-      params.tablesMultiplication = true;
-      props.setParams(params);
+    if (!params.tablesMultiplication && !params.tablesDivision) {
+      paramsObj.tablesMultiplication = true;
+      setParams(paramsObj);
     }
 
     if (
-      !props.params.tablesSelection.find(
-        (t) => t.value && t.label <= props.params.tablesMaximum
+      !params.tablesSelection.find(
+        (t) => t.value && t.label <= params.tablesMaximum
       )
     ) {
-      props.params.tablesSelection.find((t) => t.label === 1).value = true;
-      props.setParams(params);
+      paramsObj.tablesSelection.find((t) => t.label === 1).value = true;
+      setParams(paramsObj);
     }
-  }, [props]);
+  }, [params, setParams]);
 
   return (
     <Grid
       container
       justifyContent="center"
       alignItems="center"
-      className={props.classes.rowPadding}
+      className={classes.rowPadding}
     >
       {/* Tables Operator Description */}
       <Grid
         item
         xs={12}
         sm={10}
-        className={props.classes.rowPadding}>
+        className={classes.rowPadding}>
         {t("params.tables.operators")}
       </Grid>
       {/* Multiplication */}
       <OperatorParamComponent
-        value={props.params.tablesMultiplication}
+        value={params.tablesMultiplication}
         label={"x"}
         operatorKey="tablesMultiplication"
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* Division */}
       <OperatorParamComponent
-        value={props.params.tablesDivision}
+        value={params.tablesDivision}
         label={"÷"}
         operatorKey="tablesDivision"
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* ---- Tables Maximum ---- */}
       <SelectParamComponent
         description={t("params.tables.tablesMaximum")}
         selectKey={"tablesMaximum"}
         label={t("params.numberLabel")}
-        value={props.params.tablesMaximum}
+        value={params.tablesMaximum}
         options={tablesMaximumOptions}
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* Tables Selection Description */}
       <Grid
         item
         xs={12}
         sm={10}
-        className={props.classes.sectionPadding}>
+        className={classes.sectionPadding}>
         {t("params.tables.selectionDescription")}
       </Grid>
-      {[...Array(props.params.tablesMaximum)].map((x, i) => (
+      {[...Array(params.tablesMaximum)].map((x, i) => (
         <OperatorParamComponent
           key={`tables-${i + 1}`}
-          value={
-            props.params.tablesSelection.find((t) => t.label === i + 1).value
-          }
+          value={params.tablesSelection.find((t) => t.label === i + 1).value}
           label={i + 1}
           arrayKey={"label"}
           arrayKeyValue={i + 1}
           arrayValueKey={"value"}
           arrayName={"tablesSelection"}
-          updateParams={props.updateParams}
-          classes={props.classes}
+          updateParams={updateParams}
+          classes={classes}
           xs={4}
         />
       ))}

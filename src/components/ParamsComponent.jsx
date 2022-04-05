@@ -64,15 +64,15 @@ const useStyles = makeStyles((theme) => ({
   sectionPadding: { paddingBottom: 25 },
   rowPadding: { paddingBottom: 10 },
   rowTimerMobile: { paddingTop: 5, paddingBottom: 20 },
-  sliderRow: (props) => ({ height: props.isMobile ? "40px" : "60px" }),
+  sliderRow: (isMobile) => ({ height: isMobile ? "40px" : "60px" }),
 }));
 
-export default function ParamsComponent(props) {
+export default function ParamsComponent({ isMobile, params, setParams }) {
   const [t] = useTranslation();
-  const classes = useStyles(props);
+  const classes = useStyles(isMobile);
   const [operandsMax, setOperandsMax] = useState(operandsMaxInit);
-  const [noTables, setNoTables] = useState(!props.params.isTables);
-  const [yesTables, setYesTables] = useState(props.params.isTables);
+  const [noTables, setNoTables] = useState(!params.isTables);
+  const [yesTables, setYesTables] = useState(params.isTables);
 
   const updateParams = (
     key1,
@@ -81,41 +81,41 @@ export default function ParamsComponent(props) {
     key3 = null,
     key1Value = null
   ) => {
-    let params = { ...props.params };
+    let paramsObj = { ...params };
     if (key2) {
-      params[key2].find((x) => x[key1] === key1Value)[key3] = value;
+      paramsObj[key2].find((x) => x[key1] === key1Value)[key3] = value;
     } else {
-      params[key1] = value;
+      paramsObj[key1] = value;
     }
-    props.setParams(params);
+    setParams(paramsObj);
   };
 
   const validateAll = () => {
-    let params = { ...props.params };
+    let paramsObj = { ...params };
 
     const operands = validateNumber(
-      props.params.operands,
+      params.operands,
       validationMinMax.operandsMin,
       validationMinMax.operandsMax
     );
 
     const amount = validateNumber(
-      props.params.amount,
+      params.amount,
       validationMinMax.amountMin,
       validationMinMax.amountMax
     );
 
     const maximum = validateNumber(
-      props.params.maximum,
+      params.maximum,
       validationMinMax.maximumMin,
       validationMinMax.maximumMax
     );
 
-    params.operands = operands;
-    params.amount = amount;
-    params.maximum = maximum;
+    paramsObj.operands = operands;
+    paramsObj.amount = amount;
+    paramsObj.maximum = maximum;
 
-    props.setParams(params);
+    setParams(paramsObj);
   };
 
   function validateNumber(value, min, max) {
@@ -130,48 +130,50 @@ export default function ParamsComponent(props) {
   }
 
   useEffect(() => {
-    if (
-      !props.params.addition &&
-      !props.params.substraction &&
-      !props.params.multiplication &&
-      !props.params.division
-    ) {
-      let params = { ...props.params };
-      params.addition = true;
+    let paramsObj = { ...params };
 
-      props.setParams(params);
+    if (
+      !params.addition &&
+      !params.substraction &&
+      !params.multiplication &&
+      !params.division
+    ) {
+      paramsObj.addition = true;
+
+      setParams(paramsObj);
     }
-  }, [props]);
+  }, [params, setParams]);
 
   useEffect(() => {
-    if (props.params.isTables) {
+    if (params.isTables) {
       setNoTables(false);
     }
-    if (!props.params.isTables) {
+    if (!params.isTables) {
       setYesTables(false);
     }
-  }, [props.params.isTables]);
+  }, [params.isTables]);
 
   useEffect(() => {
-    if (props.params.division) {
+    if (params.division) {
       validationMinMax.maximumMax = divisionMaximumMax;
       validationMinMax.operandsMax = divisionOperandsMax;
-    } else if (!props.params.division) {
+    } else if (!params.division) {
       validationMinMax.maximumMax = maximumMax;
       validationMinMax.operandsMax = operandsMaxInit;
     }
 
     setOperandsMax(validationMinMax.operandsMax);
-  }, [props.params.division, props.params.operands]);
+  }, [params.division, params.operands]);
 
   useEffect(() => {
-    if (props.params.operands > operandsMax) {
-      let params = { ...props.params };
-      params.operands = operandsMax;
+    let paramsObj = { ...params };
 
-      props.setParams(params);
+    if (params.operands > operandsMax) {
+      paramsObj.operands = operandsMax;
+
+      setParams(paramsObj);
     }
-  }, [operandsMax, props]);
+  }, [params, setParams, operandsMax]);
 
   return (
     <Fragment>
@@ -187,7 +189,7 @@ export default function ParamsComponent(props) {
       {/* ---- Mode Toggle ---- */}
       <YesNoParamComponent
         description={t("params.tablesToggleDescription")}
-        value={props.params.isTables}
+        value={params.isTables}
         yesNoKey={"isTables"}
         updateParams={updateParams}
         label={t("params.tables.toggle")}
@@ -201,7 +203,8 @@ export default function ParamsComponent(props) {
       />
       {/* ---- Timer ---- */}
       <TimerParamsComponent
-        params={props.params}
+        isMobile={isMobile}
+        params={params}
         classes={classes}
         updateParams={updateParams}
       />
@@ -209,7 +212,7 @@ export default function ParamsComponent(props) {
       <NumberParamComponent
         description={t("params.operationAmount")}
         numberKey={"amount"}
-        value={props.params.amount}
+        value={params.amount}
         updateParams={updateParams}
         validateNumber={validateNumber}
         min={validationMinMax.amountMin}
@@ -217,16 +220,16 @@ export default function ParamsComponent(props) {
         classes={classes}
       />
       <Collapse
-        in={props.params.isTables}
+        in={params.isTables}
         timeout={1000}>
         <Fade
-          in={props.params.isTables}
+          in={params.isTables}
           timeout={1000}>
           {/* ---- Tables ---- */}
           <Box>
             <TablesParamsComponent
-              params={props.params}
-              setParams={props.setParams}
+              params={params}
+              setParams={setParams}
               classes={classes}
               updateParams={updateParams}
               validationMinMax={validationMinMax}
@@ -235,15 +238,15 @@ export default function ParamsComponent(props) {
         </Fade>
       </Collapse>
       <Collapse
-        in={!props.params.isTables}
+        in={!params.isTables}
         timeout={1000}>
         <Fade
-          in={!props.params.isTables}
+          in={!params.isTables}
           timeout={1000}>
           {/* ---- Math Params ---- */}
           <Box>
             <MathParamsComponent
-              params={props.params}
+              params={params}
               operandsMax={operandsMax}
               updateParams={updateParams}
               validateNumber={validateNumber}
@@ -255,8 +258,8 @@ export default function ParamsComponent(props) {
       </Collapse>
       {/* ---- Negative Numbers ---- */}
       <NegativeParamsComponent
-        params={props.params}
-        isMobile={props.isMobile}
+        params={params}
+        isMobile={isMobile}
         updateParams={updateParams}
         classes={classes}
       />

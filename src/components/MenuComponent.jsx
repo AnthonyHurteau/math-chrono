@@ -13,9 +13,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
-  menuItems: (props) => ({
+  menuItems: (isLarge) => ({
     textAlign: "center",
-    marginRight: props.isLarge ? "10px" : null,
+    marginRight: isLarge ? "10px" : null,
   }),
   button: {
     width: "200px",
@@ -23,9 +23,14 @@ const useStyles = makeStyles((theme) => ({
   icon: { marginRight: "10px" },
 }));
 
-export default function MenuComponent(props) {
+export default function MenuComponent({
+  isLarge,
+  setOpenAboutDialog,
+  themeMode,
+  handleThemeModeChange,
+}) {
   const [t] = useTranslation();
-  const classes = useStyles(props);
+  const classes = useStyles(isLarge);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -46,9 +51,9 @@ export default function MenuComponent(props) {
         aria-label="dark-light-button"
         key={"themeModeToggle"}
         color="secondary"
-        onClick={() => props.handleThemeModeChange()}
+        onClick={() => handleThemeModeChange()}
       >
-        {props.themeMode === "dark" ? (
+        {themeMode === "dark" ? (
           <Brightness7Icon className={classes.icon} />
         ) : (
           <Brightness4Icon className={classes.icon} />
@@ -84,7 +89,7 @@ export default function MenuComponent(props) {
         key={"aboutToggle"}
         color="secondary"
         onClick={() => {
-          props.setOpenAboutDialog(true);
+          setOpenAboutDialog(true);
         }}
       >
         <InfoOutlinedIcon className={classes.icon} />
@@ -96,7 +101,7 @@ export default function MenuComponent(props) {
   function menuItems() {
     const menuItems = [
       <LanguageMenuComponent
-        isLarge={props.isLarge}
+        isLarge={isLarge}
         handleTopMenuClose={handleClose}
         button={classes.button}
         icon={classes.icon}
@@ -117,7 +122,7 @@ export default function MenuComponent(props) {
 
   return (
     <Fragment>
-      {!props.isLarge ? (
+      {!isLarge ? (
         <Box>
           <IconButton
             aria-label="menu-button"

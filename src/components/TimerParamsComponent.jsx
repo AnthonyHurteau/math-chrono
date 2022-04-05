@@ -12,7 +12,12 @@ import { useTranslation } from "react-i18next";
 import { LocalizationProvider, TimePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
-export default function TimerParamsComponent(props) {
+export default function TimerParamsComponent({
+  isMobile,
+  params,
+  classes,
+  updateParams,
+}) {
   const [t] = useTranslation();
 
   return (
@@ -22,7 +27,7 @@ export default function TimerParamsComponent(props) {
         item
         xs={12}
         sm={10}
-        className={props.classes.rowPadding}>
+        className={classes.rowPadding}>
         {t("params.timer.description")}
       </Grid>
       {/* Timer toggle */}
@@ -30,16 +35,16 @@ export default function TimerParamsComponent(props) {
         item
         xs={12}
         sm={6}
-        className={props.isMobile ? null : props.classes.sectionPadding}
+        className={isMobile ? null : classes.sectionPadding}
       >
         <FormControlLabel
-          className={props.classes.sliderRow}
+          className={classes.sliderRow}
           control={
             <Switch
               color="primary"
-              checked={!!props.params.isTime}
+              checked={!!params.isTime}
               onClick={() => {
-                props.updateParams("isTime", !props.params.isTime);
+                updateParams("isTime", !params.isTime);
               }}
             />
           }
@@ -49,16 +54,16 @@ export default function TimerParamsComponent(props) {
       </Grid>
       {/* Timer with if  */}
       <Collapse
-        in={props.params.isTime}
+        in={params.isTime}
         timeout={1000}
-        orientation={props.isMobile ? "vertical" : "horizontal"}
-        sx={{ width: props.isMobile ? "100%" : "50%" }}
+        orientation={isMobile ? "vertical" : "horizontal"}
+        sx={{ width: isMobile ? "100%" : "50%" }}
       >
         <Grid
           item
-          className={props.classes.rowTimerMobile}>
+          className={classes.rowTimerMobile}>
           <Fade
-            in={props.params.isTime}
+            in={params.isTime}
             timeout={1000}>
             <Box>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -68,9 +73,9 @@ export default function TimerParamsComponent(props) {
                   inputFormat="HH:mm:ss"
                   mask="__:__:__"
                   label={t("params.timer.label")}
-                  value={props.params.time}
+                  value={params.time}
                   onChange={(newTime) => {
-                    props.updateParams("time", newTime);
+                    updateParams("time", newTime);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />

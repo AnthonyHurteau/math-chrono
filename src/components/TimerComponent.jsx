@@ -12,10 +12,10 @@ const timerSizeMobile = "50px";
 const strokeWidth = "7px";
 
 const useStyles = makeStyles((theme) => ({
-  root: (props) => ({
+  root: (isMdPlus) => ({
     position: "relative",
-    height: !props.isMdPlus ? timerSizeMobile : timerSize,
-    width: !props.isMdPlus ? timerSizeMobile : timerSize,
+    height: !isMdPlus ? timerSizeMobile : timerSize,
+    width: !isMdPlus ? timerSizeMobile : timerSize,
   }),
   rootCircle: {
     fill: "none",
@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
     strokeWidth,
     stroke: theme.palette.primary.main,
   },
-  rootLabel: (props) => ({
+  rootLabel: (isMdPlus) => ({
     position: "absolute",
-    height: !props.isMdPlus ? timerSizeMobile : timerSize,
-    width: !props.isMdPlus ? timerSizeMobile : timerSize,
+    height: !isMdPlus ? timerSizeMobile : timerSize,
+    width: !isMdPlus ? timerSizeMobile : timerSize,
     top: 0,
     display: "flex",
     alignItems: "center",
@@ -53,12 +53,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TimerComponent(props) {
-  const classes = useStyles(props);
+export default function TimerComponent({
+  start,
+  end,
+  timeLimit,
+  timeLeft,
+  setTimeLeft,
+  isMdPlus,
+}) {
+  const classes = useStyles(isMdPlus);
 
   const fullDashArray = 283;
-  const warningThreshold = Math.floor(props.timeLimit / 3);
-  const alertThreshold = Math.floor(props.timeLimit / 6);
+  const warningThreshold = Math.floor(timeLimit / 3);
+  const alertThreshold = Math.floor(timeLimit / 6);
 
   const colorCodes = useMemo(() => {
     return {
@@ -88,9 +95,9 @@ export default function TimerComponent(props) {
 
   // Divides time left by the defined time limit.
   const calculateTimeFraction = useCallback(() => {
-    const rawTimeFraction = props.timeLeft / props.timeLimit;
-    return rawTimeFraction - (1 / props.timeLimit) * (1 - rawTimeFraction);
-  }, [props.timeLeft, props.timeLimit]);
+    const rawTimeFraction = timeLeft / timeLimit;
+    return rawTimeFraction - (1 / timeLimit) * (1 - rawTimeFraction);
+  }, [timeLeft, timeLimit]);
 
   // Update the dasharray value as time passes, starting with 283
   const setCircleDasharray = useCallback(() => {
@@ -104,12 +111,12 @@ export default function TimerComponent(props) {
   const setRemainingPathColor = useCallback(() => {
     const { alert, warning } = colorCodes;
 
-    if (props.timeLeft <= alert.threshold) {
+    if (timeLeft <= alert.threshold) {
       setRemainingPathColorState(alert.color);
-    } else if (props.timeLeft <= warning.threshold) {
+    } else if (timeLeft <= warning.threshold) {
       setRemainingPathColorState(warning.color);
     }
-  }, [props.timeLeft, colorCodes]);
+  }, [timeLeft, colorCodes]);
 
   const startTimer = useCallback(() => {
     timerRunning.current = true;
@@ -117,30 +124,25 @@ export default function TimerComponent(props) {
     timerInterval.current = setInterval(() => {
       // The amount of time passed increments by one
       timePassed.current++;
-      props.setTimeLeft(props.timeLeft - timePassed.current);
+      setTimeLeft(timeLeft - timePassed.current);
     }, 1000);
-  }, [props]);
+  }, [setTimeLeft, timeLeft]);
 
   useEffect(() => {
     setCircleDasharray();
-    setRemainingPathColor(props.timeLeft);
+    setRemainingPathColor(timeLeft);
 
-    if ((props.timeLeft === 0 && timerRunning.current) || props.end) {
+    if ((timeLeft === 0 && timerRunning.current) || end) {
       clearInterval(timerInterval.current);
       timerRunning.current = false;
     }
-  }, [props.timeLeft, props.end, setCircleDasharray, setRemainingPathColor]);
+  }, [timeLeft, end, setCircleDasharray, setRemainingPathColor]);
 
   useEffect(() => {
-    if (
-      props.start &&
-      !timerRunning.current &&
-      props.timeLeft > 0 &&
-      !props.end
-    ) {
+    if (start && !timerRunning.current && timeLeft > 0 && !end) {
       startTimer();
     }
-  }, [props.start, props.timeLeft, props.end, startTimer]);
+  }, [start, timeLeft, end, startTimer]);
 
   function formatTime(time) {
     // The largest round integer less than or equal to the result of time divided being by 60.
@@ -160,7 +162,7 @@ export default function TimerComponent(props) {
 
   return (
     <div className={classes.root}>
-      {props.isMdPlus ? (
+      {isMdPlus ? (
         <svg
           className={classes.rootSvg}
           viewBox="0 0 100 100"
@@ -190,7 +192,7 @@ export default function TimerComponent(props) {
       <span
         id="base-timer-label"
         className={classes.rootLabel}>
-        {formatTime(props.timeLeft)}
+        {formatTime(timeLeft)}
       </span>
     </div>
   );

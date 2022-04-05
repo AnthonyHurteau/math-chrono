@@ -19,23 +19,28 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const useStyles = makeStyles((theme) => ({
-  email: (props) => ({
-    fontSize: props.isMobile ? "5vw" : null,
+  email: (isMobile) => ({
+    fontSize: isMobile ? "5vw" : null,
   }),
 }));
 
-export default function AboutDialogComponent(props) {
-  const classes = useStyles(props);
+export default function AboutDialogComponent({
+  isMobile,
+  themeMode,
+  openAboutDialog,
+  setOpenAboutDialog,
+}) {
+  const classes = useStyles(isMobile);
   const [t] = useTranslation();
 
   const handleClose = () => {
-    props.setOpenAboutDialog(false);
+    setOpenAboutDialog(false);
   };
 
   return (
     <div>
       <Dialog
-        open={props.openAboutDialog}
+        open={openAboutDialog}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
@@ -43,15 +48,13 @@ export default function AboutDialogComponent(props) {
       >
         <DialogContent>
           <Typography
-            color={props.themeMode === "dark" ? "primary" : "secondary"}
+            color={themeMode === "dark" ? "primary" : "secondary"}
             sx={{ fontSize: "36px" }}
           >
             {t("aboutDialog.title")}
           </Typography>
           <br />
-          <Typography
-            color={props.themeMode === "dark" ? "primary" : "secondary"}
-          >
+          <Typography color={themeMode === "dark" ? "primary" : "secondary"}>
             Version {AppSettings.version}
           </Typography>
           <br />

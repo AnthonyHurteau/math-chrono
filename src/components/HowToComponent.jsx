@@ -12,11 +12,11 @@ import {
 import HowToMenu from "./HowToMenu";
 
 const useStyles = makeStyles((theme) => ({
-  title: (props) => ({
-    fontSize: props.isMobile ? "36px" : "56px",
+  title: (isMobile) => ({
+    fontSize: isMobile ? "36px" : "56px",
   }),
-  titles: (props) => ({
-    fontSize: props.isMobile ? "28px" : "36px",
+  titles: (isMobile) => ({
+    fontSize: isMobile ? "28px" : "36px",
   }),
   scrollMargin: { scrollMarginTop: "65px" },
   sectionPadding: { paddingBottom: 25 },
@@ -35,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
   iconImgContainer: { textAlign: "center", display: "block" },
 }));
 
-export default function HowTo(props) {
+export default function HowToComponent({ isMobile, isXLarge, themeMode }) {
   const [t] = useTranslation();
   const { i18n } = useTranslation();
-  const classes = useStyles(props);
+  const classes = useStyles(isMobile);
 
   const wikipediaLink = {
     en: "Progressive_web_application",
@@ -208,7 +208,7 @@ export default function HowTo(props) {
               <br />
               <img
                 width={"100%"}
-                src={`${process.env.PUBLIC_URL}/install-${props.themeMode}.png`}
+                src={`${process.env.PUBLIC_URL}/install-${themeMode}.png`}
                 alt="Computer installation button"
               />
               <span className={classes.imageCaption}>
@@ -235,9 +235,12 @@ export default function HowTo(props) {
               <br />
               <img
                 width={"100%"}
-                src={`${process.env.PUBLIC_URL}/mobile-install-${
-                  props.themeMode
-                }-${i18n.language.substring(0, 2)}.png`}
+                src={`${
+                  process.env.PUBLIC_URL
+                }/mobile-install-${themeMode}-${i18n.language.substring(
+                  0,
+                  2
+                )}.png`}
                 alt="Mobile nstallation notification"
               />
               <span className={classes.imageCaption}>
@@ -278,10 +281,8 @@ export default function HowTo(props) {
       <Box>
         <HowToMenu
           menuItems={menuItems}
-          isMobile={props.isMobile}
-          isXLarge={props.isXLarge}
-        ></HowToMenu>
-        <ol className={props.isMobile ? classes.mobileList : classes.largeList}>
+          isMobile={isMobile}></HowToMenu>
+        <ol className={isMobile ? classes.mobileList : classes.largeList}>
           {listItems.map((l, i) => (
             <Fragment key={l.key + i}>
               <li
@@ -296,7 +297,7 @@ export default function HowTo(props) {
                   <br />
                   <ul
                     className={`${classes.bullets} ${
-                      props.isMobile ? classes.mobileList : null
+                      isMobile ? classes.mobileList : null
                     }`}
                   >
                     {l.list.map((li, i) => (

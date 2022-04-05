@@ -5,25 +5,25 @@ import DashboardComponent from "./DashboardComponent";
 import BaseComponent, { dashboard } from "./BaseComponent";
 import MathComponent from "./MathComponent";
 
-export default function MathWrapperComponent(props) {
-  const [operations] = useState(() => getOperations(props.params));
+export default function MathWrapperComponent({ isMobile, isMdPlus, params }) {
+  const [operations] = useState(() => getOperations(params));
   const [correctedOperations, setCorrectedOperations] = useState([]);
   const [progress, setProgress] = useState(0);
   const [start, setStart] = useState(false);
   const [countdonwnStart, setCountdownStart] = useState(false);
   const [countdownEnded, setCountdownEnded] = useState(false);
-  const timeLimit = getSeconds(props.params.time);
+  const timeLimit = getSeconds(params.time);
   const [timeLeft, setTimeLeft] = useState(timeLimit);
   const [openCompletedDialog, setOpenCompletedDialog] = useState(false);
   const [end, setEnd] = useState(false);
+  const progressMultiplier = 100 / operations.length;
 
-  function operationAnswer(value, id) {
-    operations.find((o) => o.id === id).answer = value;
+  function operationAnswer(value, index) {
+    operations[index].answer = value;
     setNewProgress();
   }
 
   function setNewProgress() {
-    const progressMultiplier = 100 / operations.length;
     const currentProgress = operations.filter((o) => o.answer).length;
     setProgress(currentProgress * progressMultiplier);
   }
@@ -44,10 +44,10 @@ export default function MathWrapperComponent(props) {
     <Fragment>
       <BaseComponent
         componentType={dashboard}
-        pxHeight={`${props.isMobile ? 140 : 190}px`}
+        pxHeight={`${isMobile ? 140 : 190}px`}
         component={
           <DashboardComponent
-            params={props.params}
+            params={params}
             operations={operations}
             start={start}
             countdonwnStart={countdonwnStart}
@@ -60,17 +60,17 @@ export default function MathWrapperComponent(props) {
             end={end}
             setEnd={setEnd}
             progress={progress}
-            isMobile={props.isMobile}
-            isMdPlus={props.isMdPlus}
+            isMobile={isMobile}
+            isMdPlus={isMdPlus}
           />
         }
       />
       <BaseComponent
-        pxHeight={`calc(100vh - ${props.isMobile ? 240 : 330}px)`}
+        pxHeight={`calc(100vh - ${isMobile ? 240 : 330}px)`}
         component={
           <MathComponent
-            isMobile={props.isMobile}
-            params={props.params}
+            isMobile={isMobile}
+            params={params}
             operations={operations}
             operationAnswer={operationAnswer}
             countdonwnStart={countdonwnStart}

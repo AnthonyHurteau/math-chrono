@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 import * as serviceWorker from "../serviceWorkerRegistration";
 
-export default function UpdatePwaComponent(props) {
+export default function UpdatePwaComponent() {
   const [t] = useTranslation();
   const [showReload, setShowReload] = useState(false);
   const [waitingWorker, setWaitingWorker] = useState(null);

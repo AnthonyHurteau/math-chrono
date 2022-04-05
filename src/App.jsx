@@ -22,7 +22,7 @@ const ParamsComponent = lazy(() => import("./components/ParamsComponent"));
 const MathWrapperComponent = lazy(() =>
   import("./components/MathWrapperComponent")
 );
-const HowTo = lazy(() => import("./components/HowTo"));
+const HowToComponent = lazy(() => import("./components/HowToComponent"));
 
 function App() {
   const [themeMode, setThemeMode] = useState(getStorageMode());
@@ -186,7 +186,7 @@ function App() {
                   <BaseComponent
                     isMobile={isMobile}
                     component={
-                      <HowTo
+                      <HowToComponent
                         isMobile={isMobile}
                         isXLarge={isXLarge}
                         themeMode={themeMode}

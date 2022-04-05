@@ -5,7 +5,20 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Fade from "@mui/material/Fade";
 
-export default function YesNoParamComponent(props) {
+export default function YesNoParamComponent({
+  description,
+  value,
+  yesNoKey,
+  updateParams,
+  label,
+  toggleTrue,
+  setToggleTrue,
+  toggleFalse,
+  setToggleFalse,
+  yesLabel,
+  noLabel,
+  classes,
+}) {
   const [t] = useTranslation();
   const transitionTime = 500;
 
@@ -15,25 +28,25 @@ export default function YesNoParamComponent(props) {
         item
         xs={12}
         sm={10}
-        className={props.classes.rowPadding}>
-        {props.description}
+        className={classes.rowPadding}>
+        {description}
       </Grid>
       <Grid
         item
         xs={12}
         sm={6}
-        className={props.classes.sliderRow}>
+        className={classes.sliderRow}>
         <FormControlLabel
           control={
             <Switch
               color="primary"
-              checked={!!props.value}
+              checked={!!value}
               onClick={() => {
-                props.updateParams(props.yesNoKey, !props.value);
+                updateParams(yesNoKey, !value);
               }}
             />
           }
-          label={props.label}
+          label={label}
           labelPlacement="start"
         />
       </Grid>
@@ -41,30 +54,26 @@ export default function YesNoParamComponent(props) {
         item
         xs={12}
         sm={6}
-        className={props.classes.sliderRow}
+        className={classes.sliderRow}
         sx={{
           paddingTop: "6px",
         }}
       >
         <Fade
-          in={props.toggleTrue}
+          in={toggleTrue}
           timeout={transitionTime}
-          onExited={() =>
-            props.value ? props.setToggleTrue(true) : props.setToggleFalse(true)
-          }
+          onExited={() => (value ? setToggleTrue(true) : setToggleFalse(true))}
           unmountOnExit
         >
-          <div>{props.yesLabel ?? t("params.yes")}</div>
+          <div>{yesLabel ?? t("params.yes")}</div>
         </Fade>
         <Fade
-          in={props.toggleFalse}
+          in={toggleFalse}
           timeout={transitionTime}
-          onExited={() =>
-            props.value ? props.setToggleTrue(true) : props.setToggleFalse(true)
-          }
+          onExited={() => (value ? setToggleTrue(true) : setToggleFalse(true))}
           unmountOnExit
         >
-          <div>{props.noLabel ?? t("params.no")}</div>
+          <div>{noLabel ?? t("params.no")}</div>
         </Fade>
       </Grid>
     </Fragment>

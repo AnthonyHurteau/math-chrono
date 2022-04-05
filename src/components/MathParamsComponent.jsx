@@ -5,14 +5,21 @@ import { useTranslation } from "react-i18next";
 import NumberParamComponent from "./NumberParamComponent";
 import SelectParamComponent from "./SelectParamComponent";
 
-export default function MathParamsComponent(props) {
+export default function MathParamsComponent({
+  params,
+  operandsMax,
+  updateParams,
+  validateNumber,
+  classes,
+  validationMinMax,
+}) {
   const [t] = useTranslation();
 
   const getOperandsOptions = useCallback(() => {
-    return [...Array(props.operandsMax - 1)].map((x, i) => {
+    return [...Array(operandsMax - 1)].map((x, i) => {
       return { value: i + 2, label: i + 2 };
     });
-  }, [props.operandsMax]);
+  }, [operandsMax]);
 
   const [operandsOptions, setOperandsOptions] = useState(getOperandsOptions());
 
@@ -25,17 +32,17 @@ export default function MathParamsComponent(props) {
       container
       justifyContent="center"
       alignItems="center"
-      className={props.classes.rowPadding}
+      className={classes.rowPadding}
     >
       {/* ---- Number of operands ---- */}
       <SelectParamComponent
         description={t("params.math.operandsDescription")}
         selectKey={"operands"}
         label={t("params.numberLabel")}
-        value={props.params.operands}
+        value={params.operands}
         options={operandsOptions}
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* ---- Operators ---- */}
       {/* Operators description */}
@@ -43,52 +50,52 @@ export default function MathParamsComponent(props) {
         item
         xs={12}
         sm={10}
-        className={props.classes.rowPadding}>
+        className={classes.rowPadding}>
         {t("params.math.operators")}
       </Grid>
       {/* Addition */}
       <OperatorParamComponent
-        value={props.params.addition}
+        value={params.addition}
         label={"+"}
         operatorKey="addition"
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* Subsctraction */}
       <OperatorParamComponent
-        value={props.params.substraction}
+        value={params.substraction}
         label={"-"}
         operatorKey="substraction"
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* Multiplication */}
       <OperatorParamComponent
-        value={props.params.multiplication}
+        value={params.multiplication}
         label={"x"}
         operatorKey="multiplication"
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* Division */}
       <OperatorParamComponent
-        value={props.params.division}
+        value={params.division}
         label={"÷"}
         operatorKey="division"
-        updateParams={props.updateParams}
-        classes={props.classes}
+        updateParams={updateParams}
+        classes={classes}
       />
       {/* ---- Maximum number ---- */}
       {/* maximum number description */}
       <NumberParamComponent
         description={t("params.math.maximumDescription")}
         numberKey={"maximum"}
-        value={props.params.maximum}
-        updateParams={props.updateParams}
-        validateNumber={props.validateNumber}
-        min={props.validationMinMax.maximumMin}
-        max={props.validationMinMax.maximumMax}
-        classes={props.classes}
+        value={params.maximum}
+        updateParams={updateParams}
+        validateNumber={validateNumber}
+        min={validationMinMax.maximumMin}
+        max={validationMinMax.maximumMax}
+        classes={classes}
       />
     </Grid>
   );

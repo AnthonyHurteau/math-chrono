@@ -39,7 +39,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function OperationsComponent(props) {
+export default function OperationsComponent({
+  operations,
+  operationAnswer,
+  timeLeft,
+  end,
+  params,
+  isMobile,
+  openCompletedDialog,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const [t] = useTranslation();
@@ -69,14 +77,14 @@ export default function OperationsComponent(props) {
         spacing={2}
         className={classes.rowPadding}
       >
-        {props.operations.map((o, i) => (
+        {operations.map((o, i) => (
           <Grid
             item
             key={"operation-" + i}
             className={classes.operation}>
             <Box
               className={
-                !props.openCompletedDialog && props.end
+                !openCompletedDialog && end
                   ? o.isRightAnswer
                     ? classes.answerBox + " " + classes.rightAnswer
                     : classes.answerBox + " " + classes.wrongAnswer
@@ -89,7 +97,7 @@ export default function OperationsComponent(props) {
                 <TextField
                   id={"input-" + i}
                   label={t("params.numberLabel")}
-                  disabled={props.timeLeft === 0 || props.end}
+                  disabled={timeLeft === 0 || end}
                   type="number"
                   variant="outlined"
                   color="primary"
@@ -104,15 +112,15 @@ export default function OperationsComponent(props) {
                   }}
                   onFocus={(event) => {
                     setFocusIndex(i);
-                    props.operationAnswer(event.target.value, o.id);
+                    operationAnswer(event.target.value, i);
                   }}
                   onChange={(event) => {
-                    props.operationAnswer(event.target.value, o.id);
+                    operationAnswer(event.target.value, i);
                   }}
                 />
               </Box>
               <Fade
-                in={!props.openCompletedDialog && props.end && !o.isRightAnswer}
+                in={!openCompletedDialog && end && !o.isRightAnswer}
                 timeout={1000}
               >
                 <Box className={classes.answerFabContainer}>
@@ -131,10 +139,10 @@ export default function OperationsComponent(props) {
         ))}
         <Fade
           in={
-            props.params.negativeNumbers &&
-            props.params.negativeButtonMobile &&
-            props.isMobile &&
-            !(props.timeLeft === 0 || props.end)
+            params.negativeNumbers &&
+            params.negativeButtonMobile &&
+            isMobile &&
+            !(timeLeft === 0 || end)
           }
           timeout={1000}
         >

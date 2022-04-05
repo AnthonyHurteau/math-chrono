@@ -12,7 +12,12 @@ const useStyles = makeStyles((theme) => ({
   text: { fontSize: "22px" },
 }));
 
-export default function Navbar(props) {
+export default function Navbar({
+  isMobile,
+  isLarge,
+  themeMode,
+  handleThemeModeChange,
+}) {
   const classes = useStyles();
   const [openAboutDialog, setOpenAboutDialog] = useState(false);
   const isXSmall = window.screen.width <= 330;
@@ -40,16 +45,16 @@ export default function Navbar(props) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <MenuComponent
-            isLarge={props.isLarge}
+            isLarge={isLarge}
             setOpenAboutDialog={setOpenAboutDialog}
-            themeMode={props.themeMode}
-            handleThemeModeChange={props.handleThemeModeChange}
+            themeMode={themeMode}
+            handleThemeModeChange={handleThemeModeChange}
           />
         </Toolbar>
       </AppBar>
       <AboutDialogComponent
-        isMobile={props.isMobile}
-        themeMode={props.themeMode}
+        isMobile={isMobile}
+        themeMode={themeMode}
         openAboutDialog={openAboutDialog}
         setOpenAboutDialog={setOpenAboutDialog}
       />

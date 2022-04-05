@@ -8,10 +8,10 @@ export const chalkboard = "chalkboard";
 export const dashboard = "dashboard";
 
 const useStyles = makeStyles((theme) => ({
-  baseContainer: (props) => ({
+  baseContainer: ({ isMobile, pxHeight }) => ({
     padding: "2% calc(2% - 10px) 2% 2%",
     marginTop: "5%",
-    height: props.pxHeight ?? `calc(100vh - ${props.isMobile ? 90 : 140}px)`,
+    height: pxHeight ?? `calc(100vh - ${isMobile ? 90 : 140}px)`,
   }),
   chalkboardContainer: {
     background: theme.palette.chalkboard.background,
@@ -38,9 +38,14 @@ const useStyles = makeStyles((theme) => ({
   dashboardContainer: { marginTop: "0 !important" },
 }));
 
-export default function BaseComponent(props) {
-  const classes = useStyles(props);
-  const isForm = props.isForm;
+export default function BaseComponent({
+  isMobile,
+  isForm,
+  component,
+  componentType,
+  pxHeight,
+}) {
+  const classes = useStyles({ isMobile, pxHeight });
   const appliedTheme = createTheme(getTheme("dark"));
 
   const FormWrapper = useCallback(
@@ -72,12 +77,12 @@ export default function BaseComponent(props) {
                 justifyContent="center"
                 alignItems="center"
                 className={`${classes.baseContainer} ${
-                  props.componentType === dashboard
+                  componentType === dashboard
                     ? classes.dashboardContainer
                     : classes.chalkboardContainer
                 }`}
               >
-                {props.component}
+                {component}
               </Grid>
             </FormWrapper>
           </Grid>

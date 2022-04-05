@@ -8,27 +8,42 @@ import { useTranslation } from "react-i18next";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  text: (props) => ({ fontSize: props.isMobile ? "32px" : "56px" }),
-  start: (props) => ({
-    fontSize: props.isMobile ? "42px" : "64px",
+  text: (isMobile) => ({ fontSize: isMobile ? "32px" : "56px" }),
+  start: (isMobile) => ({
+    fontSize: isMobile ? "42px" : "64px",
     transform: "rotate(-5deg)",
     paddingTop: "20px",
   }),
 }));
 
-export default function MathComponent(props) {
-  const classes = useStyles(props);
+export default function MathComponent({
+  isMobile,
+  params,
+  operations,
+  operationAnswer,
+  countdonwnStart,
+  countdownEnded,
+  setCountdownEnded,
+  start,
+  end,
+  timeLimit,
+  timeLeft,
+  openCompletedDialog,
+  setOpenCompletedDialog,
+  correctedOperations,
+}) {
+  const classes = useStyles(isMobile);
   const [t] = useTranslation();
 
   return (
     <Fragment>
       <CountdownComponent
-        countdonwnStart={props.countdonwnStart}
-        setCountdownEnded={props.setCountdownEnded}
+        countdonwnStart={countdonwnStart}
+        setCountdownEnded={setCountdownEnded}
       />
       <Fade
-        in={!props.start && !props.countdonwnStart}
-        timeout={props.isMobile ? 1500 : 700}
+        in={!start && !countdonwnStart}
+        timeout={isMobile ? 1500 : 700}
         unmountOnExit={true}
       >
         <Box>
@@ -42,25 +57,24 @@ export default function MathComponent(props) {
         </Box>
       </Fade>
       <Collapse
-        in={props.start && props.countdownEnded}
-        timeout={props.isMobile ? 1500 : 700}
-      >
+        in={start && countdownEnded}
+        timeout={isMobile ? 1500 : 700}>
         <OperationsComponent
-          operations={props.operations}
-          operationAnswer={props.operationAnswer}
-          timeLeft={props.timeLeft}
-          end={props.end}
-          params={props.params}
-          isMobile={props.isMobile}
-          openCompletedDialog={props.openCompletedDialog}
+          operations={operations}
+          operationAnswer={operationAnswer}
+          timeLeft={timeLeft}
+          end={end}
+          params={params}
+          isMobile={isMobile}
+          openCompletedDialog={openCompletedDialog}
         />
       </Collapse>
       <CompletedDialogComponent
-        openCompletedDialog={props.openCompletedDialog}
-        setOpenCompletedDialog={props.setOpenCompletedDialog}
-        operations={props.correctedOperations}
-        totalTime={props.timeLimit - props.timeLeft}
-        isTime={props.params.isTime}
+        openCompletedDialog={openCompletedDialog}
+        setOpenCompletedDialog={setOpenCompletedDialog}
+        operations={correctedOperations}
+        totalTime={timeLimit - timeLeft}
+        isTime={params.isTime}
       />
     </Fragment>
   );

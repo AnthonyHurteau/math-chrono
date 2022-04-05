@@ -13,15 +13,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CountdownComponent(props) {
+export default function CountdownComponent({
+  countdonwnStart,
+  setCountdownEnded,
+}) {
   const classes = useStyles();
   const [countdown, setCountdown] = useState();
 
   useEffect(() => {
-    if (props.countdonwnStart) {
+    if (countdonwnStart) {
       setCountdown(0);
     }
-  }, [props.countdonwnStart]);
+  }, [countdonwnStart]);
 
   return (
     <div className={classes.root}>
@@ -72,7 +75,7 @@ export default function CountdownComponent(props) {
             setCountdown(null);
           }, 1000);
         }}
-        onExited={() => props.setCountdownEnded(true)}
+        onExited={() => setCountdownEnded(true)}
         unmountOnExit
       >
         <div>GO!</div>

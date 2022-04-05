@@ -20,7 +20,23 @@ const useStyles = makeStyles((theme) => ({
   progressIndicator: { fontSize: "36px" },
 }));
 
-export default function DashboardComponent(props) {
+export default function DashboardComponent({
+  params,
+  operations,
+  start,
+  countdonwnStart,
+  setCountdownStart,
+  countdownEnded,
+  timeLimit,
+  timeLeft,
+  setTimeLeft,
+  setOpenCompletedDialog,
+  end,
+  setEnd,
+  progress,
+  isMobile,
+  isMdPlus,
+}) {
   const classes = useStyles();
   const [t] = useTranslation();
 
@@ -37,19 +53,18 @@ export default function DashboardComponent(props) {
           order={{ xs: 2, sm: 1 }}
           className={classes.stickyPadding}
         >
-          {!props.isMobile || !props.params.isTime ? (
+          {!isMobile || !params.isTime ? (
             <span className={classes.progressIndicator}>
-              {props.operations.filter((o) => o.answer).length}/
-              {props.operations.length}
+              {operations.filter((o) => o.answer).length}/{operations.length}
             </span>
           ) : null}
           <LinearProgress
             color="primary"
             variant="determinate"
-            value={props.progress}
+            value={progress}
           />
         </Grid>
-        {props.params.isTime ? (
+        {params.isTime ? (
           <Grid
             item
             xs={12}
@@ -58,12 +73,12 @@ export default function DashboardComponent(props) {
             className={classes.flexCenter + " " + classes.stickyPadding}
           >
             <TimerComponent
-              start={props.start}
-              end={props.end}
-              timeLimit={props.timeLimit}
-              timeLeft={props.timeLeft}
-              setTimeLeft={props.setTimeLeft}
-              isMdPlus={props.isMdPlus}
+              start={start}
+              end={end}
+              timeLimit={timeLimit}
+              timeLeft={timeLeft}
+              setTimeLeft={setTimeLeft}
+              isMdPlus={isMdPlus}
             />
           </Grid>
         ) : null}
@@ -73,12 +88,10 @@ export default function DashboardComponent(props) {
           md={4}
           order={{ xs: 3, sm: 2 }}
           className={
-            (props.isMobile ? classes.rowPadding : "") +
-            " " +
-            classes.stickyPadding
+            (isMobile ? classes.rowPadding : "") + " " + classes.stickyPadding
           }
         >
-          {props.end ? (
+          {end ? (
             <Fragment>
               <Button
                 variant="contained"
@@ -89,13 +102,13 @@ export default function DashboardComponent(props) {
                 <Typography>{t("math.back")}</Typography>
               </Button>
             </Fragment>
-          ) : props.start && props.countdownEnded && !props.end ? (
+          ) : start && countdownEnded && !end ? (
             <Button
               variant="contained"
               color="error"
               onClick={() => {
-                props.setEnd(true);
-                props.setOpenCompletedDialog(true);
+                setEnd(true);
+                setOpenCompletedDialog(true);
               }}
             >
               <Typography color="black">{t("math.done")}</Typography>
@@ -105,8 +118,8 @@ export default function DashboardComponent(props) {
               variant="contained"
               color="success"
               onClick={() => {
-                if (!props.countdonwnStart) {
-                  props.setCountdownStart(true);
+                if (!countdonwnStart) {
+                  setCountdownStart(true);
                 }
               }}
             >
