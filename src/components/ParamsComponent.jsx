@@ -12,7 +12,8 @@ import TimerParamsComponent from "./TimerParamsComponent";
 import MathParamsComponent from "./MathParamsComponent";
 import NegativeParamsComponent from "./NegativeParamsComponent";
 
-const tablesMaximumMax = 20;
+export const tablesMaximumMax = 20;
+export const tablesMaximumMin = 10;
 
 // Add array keys in this array for initialization of already existing storages
 const tablesSelectionArray = [...Array(tablesMaximumMax).keys()].map(
@@ -56,7 +57,7 @@ export let validationMinMax = {
   amountMax: 100,
   maximumMin: 1,
   maximumMax,
-  tablesMaximumMin: 10,
+  tablesMaximumMin,
   tablesMaximumMax,
 };
 

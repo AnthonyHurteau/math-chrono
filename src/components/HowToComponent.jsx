@@ -7,6 +7,8 @@ import {
   divisionOperandsMax,
   maximumMax,
   operandsMaxInit,
+  tablesMaximumMax,
+  tablesMaximumMin,
   validationMinMax,
 } from "./ParamsComponent";
 import HowToMenu from "./HowToMenu";
@@ -81,40 +83,14 @@ export default function HowToComponent({ isMobile, isXLarge, themeMode }) {
       key: howToKey,
       list: [
         {
+          title: t("howTo.params.tablesTitle"),
+          key: paramsKey,
+          content: <p>{t("howTo.params.tablesText1")}</p>,
+        },
+        {
           title: t("howTo.params.timerTitle"),
           key: paramsKey,
           content: <p>{t("howTo.params.timerText")}</p>,
-        },
-        {
-          title: t("howTo.params.numberOperandsTitle"),
-          key: paramsKey,
-          content: (
-            <p>
-              {t("howTo.params.numberOperandsText1")}
-              <br />
-              {t("howTo.params.genericMinimum")}
-              {validationMinMax.operandsMin}
-              {t("howTo.params.genericMaximum")}
-              {operandsMaxInit}
-              {t("howTo.params.numberOperandsText2")}
-              <br />
-              {t("howTo.params.numberOperandsText3")}
-              {divisionOperandsMax}
-            </p>
-          ),
-        },
-        {
-          title: t("howTo.params.operatorsTitle"),
-          key: paramsKey,
-          content: (
-            <p>
-              {t("howTo.params.operatorsText1")}
-              <br />
-              {t("howTo.params.operatorsText2")}
-              <br />
-              {t("howTo.params.operatorsText3")}
-            </p>
-          ),
         },
         {
           title: t("howTo.params.numberOperationsTitle"),
@@ -132,6 +108,71 @@ export default function HowToComponent({ isMobile, isXLarge, themeMode }) {
           ),
         },
         {
+          title: t("howTo.params.numberOperandsTitle"),
+          key: paramsKey,
+          content: (
+            <p>
+              {t("howTo.params.numberOperandsText1")}
+              <br />
+              {t("howTo.params.genericMinimum")}
+              {validationMinMax.operandsMin}
+              {t("howTo.params.genericMaximum")}
+              {operandsMaxInit}
+              {t("howTo.params.numberOperandsText2")}
+              <br />
+              {t("howTo.params.numberOperandsText3")}
+              {divisionOperandsMax}
+              <br />
+              {t("howTo.params.numberOperandsText4")}
+            </p>
+          ),
+        },
+        {
+          title: t("howTo.params.operatorsTitle"),
+          key: paramsKey,
+          content: (
+            <p>
+              {t("howTo.params.operatorsText1")}
+              <br />
+              {t("howTo.params.operatorsText2")}
+              <br />
+              {t("howTo.params.operatorsText3")}
+              <br />
+              {t("howTo.params.operatorsText4")}
+            </p>
+          ),
+        },
+        {
+          title: t("howTo.params.tablesRangeTitle"),
+          key: paramsKey,
+          content: (
+            <p>
+              {t("howTo.params.tablesRangeText1")}
+              <br />
+              {t("howTo.params.tablesRangeText2")}
+              <br />
+              {t("howTo.params.tablesRangeText3")}
+              {tablesMaximumMin}
+              {t("howTo.params.tablesRangeText4")}
+              {tablesMaximumMax}
+              {t("howTo.params.tablesRangeText5")}
+              <br />
+              {t("howTo.params.tablesRangeText6")}
+            </p>
+          ),
+        },
+        {
+          title: t("howTo.params.tablesSelectionTitle"),
+          key: paramsKey,
+          content: (
+            <p>
+              {t("howTo.params.tablesSelectionText1")}
+              <br />
+              {t("howTo.params.tablesSelectionText2")}
+            </p>
+          ),
+        },
+        {
           title: t("howTo.params.maximumValueTitle"),
           key: paramsKey,
           content: (
@@ -143,6 +184,8 @@ export default function HowToComponent({ isMobile, isXLarge, themeMode }) {
               <br />
               {t("howTo.params.maximumValueText3")}
               {divisionMaximumMax}
+              <br />
+              {t("howTo.params.maximumValueText4")}
             </p>
           ),
         },
