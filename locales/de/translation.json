@@ -18,21 +18,27 @@
   "params": {
     "title": "Parameter",
     "description": "Passe die folgenden Optionen an, um die Schwierigkeit deiner Math-Chrono-Session einzustellen.",
-    "timeDescription": "Möchtest du einen Timer einstellen?",
-    "timepickerToggle": "Timer",
-    "timepickerLabel": "Minuten und Sekunden",
-    "operandsDescription": "Wie viele Operanden (Zahlen) möchtest du in deinen Rechnungen?",
-    "operators": "Welche Rechenarten möchtest du ausführen?",
     "operationAmount": "Wie viele Rechnungen möchtest du ausführen?",
     "numberLabel": "Zahl",
-    "maximumDescription": "Was soll die höchste Zahl in deinen Rechnungen sein?",
-    "negativeNumbersDescription": "Möchtest du, dass die Operanden (Zahlen) oder die Ergebnisse der Rechnungen negative Zahlen sind?",
-    "negativeNumbers": "Negative Zahlen",
-    "negativeButtonMobileDescription": "Manche Smartphones erlauben das Schreiben von negativen Zahlen nicht, falls dies der Fall ist, kannst du einen Knopf in der Oberfläche aktivieren um eine Zahl negativ zu machen.",
-    "negativeButtonMobile": "Knopf für negative Zahlen",
     "yes": "Ja",
     "no": "Nein",
-    "submit": "Übung starten!"
+    "submit": "Übung starten!",
+    "timer": {
+      "description": "Möchtest du einen Timer einstellen?",
+      "toggle": "Timer",
+      "label": "Minuten und Sekunden"
+    },
+    "math": {
+      "operandsDescription": "Wie viele Operanden (Zahlen) möchtest du in deinen Rechnungen?",
+      "operators": "Welche Rechenarten möchtest du ausführen?",
+      "maximumDescription": "Was soll die höchste Zahl in deinen Rechnungen sein?"
+    },
+    "negativeNumbers": {
+      "description": "Möchtest du, dass die Operanden (Zahlen) oder die Ergebnisse der Rechnungen negative Zahlen sind?",
+      "label": "Negative Zahlen",
+      "mobileButtonDescription": "Manche Smartphones erlauben das Schreiben von negativen Zahlen nicht, falls dies der Fall ist, kannst du einen Knopf in der Oberfläche aktivieren um eine Zahl negativ zu machen.",
+      "mobileButtonLabel": "Knopf für negative Zahlen"
+    }
   },
   "math": {
     "title": "Math Chrono!",
