@@ -18,6 +18,9 @@
   "params": {
     "title": "Parameter",
     "description": "Passe die folgenden Optionen an, um die Schwierigkeit deiner Math-Chrono-Session einzustellen.",
+    "tablesToggleDescription": "Möchtest du Multiplikations-/Divisionstabellen oder Kopfrechnen üben?",
+    "tablesLabel": "Tabellen",
+    "mathLabel": "Kopfrechnen",
     "operationAmount": "Wie viele Rechnungen möchtest du ausführen?",
     "numberLabel": "Zahl",
     "yes": "Ja",
@@ -38,11 +41,19 @@
       "label": "Negative Zahlen",
       "mobileButtonDescription": "Manche Smartphones erlauben das Schreiben von negativen Zahlen nicht, falls dies der Fall ist, kannst du einen Knopf in der Oberfläche aktivieren um eine Zahl negativ zu machen.",
       "mobileButtonLabel": "Knopf für negative Zahlen"
+    },
+    "tables": {
+      "toggle": "Tabellen",
+      "tablesMaximum": "Bis zu welcher Tabelle möchtest du üben?",
+      "operators": "Möchtest du Multiplikations- oder Divisionstabellen üben?",
+      "selectionDescription": "Welche Tabellen würdest du gerne üben?"
     }
   },
   "math": {
     "title": "Math Chrono!",
     "start": "Start!",
+    "text1": "Klicke auf ",
+    "text2": " wenn du bereit bist!",
     "done": "Fertig!",
     "back": "Zurück",
     "restart": "Neu starten?"
@@ -89,10 +100,24 @@
       "numberOperandsText1": "Die Anzahl an Operanden (Zahlen) in jeder Rechnung. Als Beispiel, hier findest du eine Rechnung mit 3 Operanden: 1 + 2 + 3.",
       "numberOperandsText2": " Operanden pro Rechnung geben",
       "numberOperandsText3": "Falls der Divisions-Operator ausgewählt ist, liegt die maximale Anzahl an Operanden pro Rechnung bei ",
+      "numberOperandsText4": "Falls der \"Tabellen\"-Modus ausgewählt ist, beträgt die maximale Anzahl an Operanden pro Rechnung 2",
+      "tablesTitle": "Multiplikations-/Divisionstabellen",
+      "tablesText1": "Diese Option erlaubt die Auswahl des \"Tabellen\"-Modus, um Multiplikations- oder Divisionstabellen zu üben. Die Tabellen-Rechnungen werden in zufälliger Reihenfolge generiert.",
       "operatorsTitle": "Operatoren",
       "operatorsText1": "Bestimmt, welche Operatoren (Addition, Substraktion, Multiplikation, Divison) in den Rechnungen verwendet werden.",
       "operatorsText2": "Die Reihenfolge der Operatoren ist zufällig. Mindestens ein Operator muss ausgewählt werden.",
       "operatorsText3": "Falls der Divisions-Operator ausgewählt ist, kann das Ergebnis von Rechnungen, die Division enthalten, nur eine ganze Zahl sein.",
+      "operatorsText4": "Falls der \"Tabellen\"-Modus ausgewählt ist, sind nur die Multiplikations- und Divisionsoperatoren verfügbar.",
+      "tablesRangeTitle": "Tabellenumfang",
+      "tablesRangeText1": "Diese Option erlaubt die Erweiterung der Auswahlliste von Multiplikations- oder Divisionstabellen. Der gewählte Wert ist der maximale Multiplikationsfaktor oder der maximale Divisionsfaktor der Tabelle.",
+      "tablesRangeText2": "Zum Beispiel, wenn der gewählte Wert für den Tabellenumfang 12 für die Tabelle von 5 ist, können die Multiplikationen maximal 5 x 12 oder die Divisionen maximal 60 ÷ 5 sein.",
+      "tablesRangeText3": "Der gewählte Wert kann zwischen ",
+      "tablesRangeText4": " und (inklusive) ",
+      "tablesRangeText5": " liegen.",
+      "tablesRangeText6": "Diese Option ist nur im \"Tabellen\"-Modus verfügbar.",
+      "tablesSelectionTitle": "Tabellenauswahl",
+      "tablesSelectionText1": "Erlaubt die Auswahl der Tabellen, die du üben möchtest. Die Reihenfolge der Rechnungen und Tabellen ist zufällig. Es muss mindestens eine Tabelle ausgewählt werden.",
+      "tablesSelectionText2": "Diese Option ist nur im \"Tabellen\"-Modus verfügbar.",
       "numberOperationsTitle": "Anzahl an Rechnungen",
       "numberOperationsText1": "Die Anzahl an Rechnungen, die die Übung enthalten wird.",
       "numberOperationsText2": " Rechnungen pro Übung geben",
@@ -100,6 +125,7 @@
       "maximumValueText1": "Der Höchst- (oder Mindestwert im Fall von negativen Zahlen) von einzelnen Operanden in einer Rechnung. Wenn zum Beispiel der Höchstwert für Operanden 15 ist, ist hier ein Beispiel für eine Rechnung: 5 - 2 + 15 - 13.",
       "maximumValueText2": "Der Höchstwert muss 1 oder größer sein und darf nicht größer sein als ",
       "maximumValueText3": "Falls der Divisions-Operator ausgewählt ist, kann der Höchstwert für Operanden nicht größer sein als ",
+      "maximumValueText4": "Falls der \"Tabellen\"-Modus ausgewählt ist, ist dieser Parameter nicht verfügbar.",
       "negativeNumbersTitle": "Negative Zahlen",
       "negativeNumberstext1": "Bestimmt, ob die Operanden (Zahlen) oder die Rechnungsergebnisse negativ sein können.",
       "negativeNumberstext2": "Wenn diese App auf einem Smartphone oder Tablet (vor allem auf Samsung-Geräten) verwendet wird, ist es möglich, dass die Tastatur keine Taste für ein Minus enthält. Eine Option für einen Knopf, der die eingegebene Zahl in eine negative Zahl umwandelt, kann aktiviert werden."
