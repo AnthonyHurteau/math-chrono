@@ -32,11 +32,7 @@ export default function OperatorParamComponent(props: OperatorParamProps) {
                   arrayValueKey,
                   arrayKeyValue
                 );
-              } else if (
-                operatorKey &&
-                (operatorKey === "tablesDivision" ||
-                  operatorKey === "tablesMultiplication")
-              ) {
+              } else if (operatorKey) {
                 updateParams(operatorKey, !value);
               }
             }}
