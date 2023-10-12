@@ -80,7 +80,9 @@
   },
   "update": {
     "message": "A new version of Math-Chrono is available!",
-    "reload": "Reload"
+    "offline": "App is ready to work offline.",
+    "reload": "Reload",
+    "close": "Close"
   },
   "howTo": {
     "title": "How does this work?",
