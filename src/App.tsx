@@ -1,6 +1,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import "./app.css";
+import "@/app.css";
 import { CssBaseline } from "@mui/material";
 import Navbar from "@/layout/Navbar";
 import SW from "@/layout/SW";

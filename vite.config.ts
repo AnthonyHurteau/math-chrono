@@ -21,7 +21,7 @@ export default defineConfig({
         enabled: false,
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html}", "**/*.{svg,png,jpg,gif}"],
+        globPatterns: ["**/*.{js,css,html}", "**/*.{svg,png,jpg,gif}", "**/translation.json"],
       },
     }),
   ],
