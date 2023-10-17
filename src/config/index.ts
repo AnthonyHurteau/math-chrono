@@ -4,7 +4,7 @@ import type { Notifications } from "./types";
 
 const title = "Math Chrono";
 
-const email = "hurteau.anthony123@gmail.com";
+const email = "info@math-chrono.app";
 
 const repository = "https://https://github.com/AnthonyHurteau/math-chrono";
 

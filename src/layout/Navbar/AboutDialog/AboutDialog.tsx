@@ -65,12 +65,12 @@ export default function AboutDialogComponent(props: AboutDialogProps) {
           <p>{t("aboutDialog.text2")}</p>
           <p>
             <Link
-              href="mailto:hurteau.anthony123@gmail.com"
+              href="mailto:info@math-chrono.app"
               target="_blank"
               rel="noopener noreferrer"
               sx={classes.email}
             >
-              hurteau.anthony123@gmail.com
+              info@math-chrono.app
             </Link>
           </p>
         </DialogContent>
